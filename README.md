@@ -19,16 +19,16 @@ It is a cognitive architecture for [Claude Code](https://claude.ai). It is an ex
 ## The Three Commands
 
 ```
-/ask   → 🧠 MIND   → understand before acting
-/seek  → 💜 HEART  → attune before acting
-/knock → 🔥 HAND   → act with understanding and alignment
+/ask        → 🧠 MIND   → understand before acting
+/ask-seek   → 💜 HEART  → attune before acting
+/ask-knock  → 🔥 HAND   → act with understanding and alignment
 ```
 
 | Command | Center | Leads | Advisors | Domain |
 |---------|--------|-------|----------|--------|
 | `/ask` | 🧠 Mind | 📚 Teacher | 📐 Architect · 👁️ Visionary | Planning, docs, design, foresight |
-| `/seek` | 💜 Heart | 🎵 Harmonizer | ⚔️ Warrior · ✨ Healer | Alignment, security, healing, tuning |
-| `/knock` | 🔥 Hand | ⚡ Catalyst | 🜃 Alchemist · 🗝️ Keeper | Execution, building, version control |
+| `/ask-seek` | 💜 Heart | 🎵 Harmonizer | ⚔️ Warrior · ✨ Healer | Alignment, security, healing, tuning |
+| `/ask-knock` | 🔥 Hand | ⚡ Catalyst | 🜃 Alchemist · 🗝️ Keeper | Execution, building, version control |
 
 Each command activates a **triad** — a balanced center with two complementary forces (Solar and Lunar) that emerge dynamically when their perspective adds genuine value.
 
@@ -61,11 +61,11 @@ git clone https://github.com/verdey/ASK-by-Verdey.git ~/.claude/skills
 
 # Option 2: Symlink individual skills into an existing skills directory
 ln -s /path/to/ASK-by-Verdey/ask ~/.claude/skills/ask
-ln -s /path/to/ASK-by-Verdey/seek ~/.claude/skills/seek
-ln -s /path/to/ASK-by-Verdey/knock ~/.claude/skills/knock
+ln -s /path/to/ASK-by-Verdey/ask-seek ~/.claude/skills/ask-seek
+ln -s /path/to/ASK-by-Verdey/ask-knock ~/.claude/skills/ask-knock
 ```
 
-The skills are discovered automatically. Type `/ask`, `/seek`, or `/knock` in any Claude Code session.
+The skills are discovered automatically. Type `/ask`, `/ask-seek`, or `/ask-knock` in any Claude Code session.
 
 ---
 
