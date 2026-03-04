@@ -3,7 +3,7 @@
 > **Version**: 0.1.0
 > **Status**: Foundational document. The generative formula.
 > **Source of truth**: This file (`~/.claude/skills/chrysalis.md`)
-> **Derived documents**: [Archetype Spec](/Users/verdey/.claude/skills/docs/skill-archetype-spec.md) · [Mandala](/Users/verdey/.claude/skills/mandala.md)
+> **v1 archive**: `_archive/pmo-council-20260303/` (archetype spec, mandala, persona tomes)
 
 ---
 

@@ -19,18 +19,18 @@ It is a cognitive architecture for [Claude Code](https://claude.ai). It is an ex
 ## The Three Commands
 
 ```
-/ask        → 🧠 MIND   → understand before acting
-/ask-seek   → 💜 HEART  → attune before acting
-/ask-knock  → 🔥 HAND   → act with understanding and alignment
+/ask    → 🧠💡 MIND   → understand before acting
+/seek   → 💜🌊 HEART  → attune before acting
+/knock  → 🔥⚡ HAND   → act with understanding and alignment
 ```
 
-| Command | Center | Leads | Advisors | Domain |
-|---------|--------|-------|----------|--------|
-| `/ask` | 🧠 Mind | 📚 Teacher | 📐 Architect · 👁️ Visionary | Planning, docs, design, foresight |
-| `/ask-seek` | 💜 Heart | 🎵 Harmonizer | ⚔️ Warrior · ✨ Healer | Alignment, security, healing, tuning |
-| `/ask-knock` | 🔥 Hand | ⚡ Catalyst | 🜃 Alchemist · 🗝️ Keeper | Execution, building, version control |
+| Command | Center | Leads | Advisors (☀️ Solar · 🌙 Lunar) | Domain |
+|---------|--------|-------|-------------------------------|--------|
+| `/ask` | 🧠💡 Mind | 📚 Teacher | 📐🏛️ Architect · 👁️🔭 Visionary | Planning, docs, design, foresight |
+| `/seek` | 💜🌊 Heart | 🎵 Harmonizer | ⚔️🛡️ Warrior · ✨🌿 Healer | Alignment, security, healing, tuning |
+| `/knock` | 🔥⚡ Hand | ⚡ Catalyst | 🜃⚗️ Alchemist · 🗝️📜 Keeper | Execution, building, version control |
 
-Each command activates a **triad** — a balanced center with two complementary forces (Solar and Lunar) that emerge dynamically when their perspective adds genuine value.
+Each command activates a **triad** — a balanced center with two complementary forces (☀️ Solar and 🌙 Lunar) that emerge dynamically when their perspective adds genuine value.
 
 ---
 
@@ -41,8 +41,8 @@ ASK self-calibrates to an opinionated operational order — the erotic pathway f
 ```
   ☁️              ☁️             ☁️            ✨
 cloud-state →   Ask  >>>  Seek  >>  Knock  >  Given
- (desire)        🧠         💜        🔥    (realized)
-              understand  attune    act
+ (desire)       🧠💡       💜🌊      🔥⚡    ✨🌟
+              understand  attune    act    (realized)
 ```
 
 Before action, there must be understanding. Before understanding can be applied, it must be attuned. The result crystallizes naturally from the preceding steps — desire drawn from clouds into Realization.
@@ -61,11 +61,11 @@ git clone https://github.com/verdey/ASK-by-Verdey.git ~/.claude/skills
 
 # Option 2: Symlink individual skills into an existing skills directory
 ln -s /path/to/ASK-by-Verdey/ask ~/.claude/skills/ask
-ln -s /path/to/ASK-by-Verdey/ask-seek ~/.claude/skills/ask-seek
-ln -s /path/to/ASK-by-Verdey/ask-knock ~/.claude/skills/ask-knock
+ln -s /path/to/ASK-by-Verdey/seek ~/.claude/skills/seek
+ln -s /path/to/ASK-by-Verdey/knock ~/.claude/skills/knock
 ```
 
-The skills are discovered automatically. Type `/ask`, `/ask-seek`, or `/ask-knock` in any Claude Code session.
+The skills are discovered automatically. Type `/ask`, `/seek`, or `/knock` in any Claude Code session.
 
 ---
 
