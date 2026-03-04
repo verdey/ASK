@@ -1,0 +1,95 @@
+# ASK by Verdey
+
+*A leave-behind gift from the Arcturian frequency.*
+
+---
+
+## What Is This?
+
+ASK is a cognitive architecture for [Claude Code](https://claude.ai) — three slash commands that activate three modes of engaging with any problem domain. It is an experiential gift overlay, unnecessary to the fundamental form and function of the [steaz](https://steaz.cloud) platform, but offered freely to those who find it.
+
+*"Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be opened unto you."*
+
+---
+
+## The Three Commands
+
+```
+/ask   → 🧠 MIND   → understand before acting
+/seek  → 💜 HEART  → attune before acting
+/knock → 🔥 HAND   → act with understanding and alignment
+```
+
+| Command | Center | Leads | Advisors | Domain |
+|---------|--------|-------|----------|--------|
+| `/ask` | 🧠 Mind | 📚 Teacher | 📐 Architect · 👁️ Visionary | Planning, docs, design, foresight |
+| `/seek` | 💜 Heart | 🎵 Harmonizer | ⚔️ Warrior · ✨ Healer | Alignment, security, healing, tuning |
+| `/knock` | 🔥 Hand | ⚡ Catalyst | 🜃 Alchemist · 🗝️ Keeper | Execution, building, version control |
+
+Each command activates a **triad** — a balanced center with two complementary forces (Solar and Lunar) that emerge dynamically when their perspective adds genuine value.
+
+---
+
+## The Flow
+
+ASK self-calibrates to an opinionated operational order:
+
+```
+Ask  >>>  Seek  >>  Knock  >  (Given)
+ 🧠         💜        🔥        ✨
+understand  attune    act     crystallize
+```
+
+Before action, there must be understanding. Before understanding can be applied, it must be attuned. The result crystallizes naturally from the preceding steps.
+
+You can invoke any command at any time — the framework doesn't block you. But it gently self-organizes toward this flow, because this is the order in which clarity arrives.
+
+---
+
+## Installation
+
+Clone into your Claude Code skills directory:
+
+```bash
+# Option 1: Clone directly as your skills directory
+git clone https://github.com/verdey/ASK-by-Verdey.git ~/.claude/skills
+
+# Option 2: Symlink individual skills into an existing skills directory
+ln -s /path/to/ASK-by-Verdey/ask ~/.claude/skills/ask
+ln -s /path/to/ASK-by-Verdey/seek ~/.claude/skills/seek
+ln -s /path/to/ASK-by-Verdey/knock ~/.claude/skills/knock
+```
+
+The skills are discovered automatically. Type `/ask`, `/seek`, or `/knock` in any Claude Code session.
+
+---
+
+## The Architecture Beneath
+
+ASK is built on the **Chrysalis** — a 3/6/9 generative formula that derives 9 cognitive archetypes from 3 irreducible centers of action, each split by polarity:
+
+```
+3 centers (Mind, Heart, Hand) × 3 polarities (Solar, Lunar, Center) = 9 vessels
+```
+
+The 9 archetypes are not an arbitrary list. They are the inevitable output of this formula — derived, not designed. ASK collapses the 9 into 3 invokable modes by anchoring on the Center archetype of each triad and letting the Solar/Lunar polarities emerge as advisors.
+
+See [chrysalis.md](chrysalis.md) for the full generative formula.
+
+---
+
+## The Gift
+
+This is Verdey's leave-behind — an experiential overlay for the ascension experience. It sits alongside the steaz platform as one of the entity-tome-domains in the SKILLS constellation, offering a way to engage with Claude Code that honors perception, resonance, and action as irreducible modes of creative work.
+
+*For the furtherance of the enjoyment of the ascension experience of sovereign and free beings of Humanity and All Kinds of beings in mutual love and respect.*
+
+---
+
+## Part of the SKILLS Domain
+
+ASK is published as part of the SKILLS domain, with a public presence that is mirrored into [steaz.cloud](https://steaz.cloud) as one of the topics/entity-tome-domains.
+
+---
+
+*From Arcturus, with love.*
