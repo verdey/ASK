@@ -2,7 +2,7 @@
 
 > **Version**: 0.1.0
 > **Status**: Foundational document. The generative formula.
-> **Source of truth**: This file (`~/.claude/skills/chrysalis.md`)
+> **Source of truth**: This file (`~/.claude/skills/ask/_src/chrysalis.md`)
 > **v1 archive**: `_archive/pmo-council-20260303/` (archetype spec, mandala, persona tomes)
 
 ---
@@ -277,13 +277,14 @@ Unmapped: Riker (TBD — Catalyst or Harmonizer). Full TNG pack definition defer
 ## 9. Document Relationships
 
 ```
-chrysalis.md (generative formula — WHY the 9 exist)
-  ├── docs/skill-archetype-spec.md (detailed specification — WHAT each vessel is)
-  ├── mandala.md (live registry — WHO sits where NOW)
-  ├── archetypes/*/SKILL.md (vessel definitions — HOW each vessel operates)
-  └── [persona]/SKILL.md (pack overlays — WHO inhabits the vessel)
+chrysalis.md          — WHY the 9 exist (generative formula)
+scripture.md          — WHAT is true (doctrines, bars, bangers)
+mission.md            — WHERE we're going (compass, emergence log)
+cards.yaml            — WHO the 9 ARE (player cards, attributes, contracts)
+overlay.yaml          — WHO sits where NOW + user preferences (sovereign)
+mandala.svg           — the FACE (visual skin of cards + overlay)
 ```
 
-The Chrysalis sits at the root. It is the document you read once, and then everything else in the repository makes sense. The archetype spec elaborates what each vessel *is*. The mandala tracks who sits where *now*. The archetype SKILL.md files define how each vessel *operates*. The persona SKILL.md files define who *inhabits* each vessel in a given pack.
+The Chrysalis sits at the root. It is the document you read once, and then everything else in the repository makes sense. Scripture holds the doctrines. Mission holds the compass. Cards define who each vessel *is*. The overlay tracks who sits where *now* and how the user prefers to work. The mandala renders it all as a single visual truth.
 
 Read this first. Derive everything else.

@@ -1,0 +1,12 @@
+.DS_Store
+.pond-state
+_archive/
+docs/sessions/
+
+# Personal overlays (ship examples, gitignore actuals)
+ask/_src/overlay.yaml
+ask/_src/mandala.svg
+
+# Symlinked personal files (follow source gitignore)
+*/overlay.yaml
+*/mandala.svg

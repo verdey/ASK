@@ -1,0 +1,39 @@
+# ASK by Verdey — User Overlay
+# Copy this file: cp overlay.example.yaml overlay.yaml
+# Then customize to taste. The system works immediately with these defaults.
+
+user:
+  name: ""                    # your name (optional)
+  frequency: "general"        # your vibe (optional, freeform)
+
+preferences:
+  emoji_density: moderate     # minimal | moderate | expressive
+  diagram_format: mermaid     # mermaid | ascii | none
+  verbosity: balanced         # terse | balanced | thorough
+  code_languages: []          # e.g. [typescript, python]
+  frameworks: []              # e.g. [next.js, fastapi]
+
+pack: naked                   # naked = bare archetypes, no persona overlay
+# pack: pmo-crew              # Dan's PMO crew
+# pack: st-tng                # Star Trek TNG cast
+
+# Per-vessel tuning overrides (±20 guardrails)
+# Uncomment and adjust any vessel to shift its energy for your workflow
+overrides: {}
+# overrides:
+#   architect:
+#     economy: +2             # make slightly more terse
+#   harmonizer:
+#     speed: -3               # take more time with attunement
+
+# Specialized skills (non-programming capabilities you want the council to know about)
+skills: []
+# skills:
+#   - "technical writing for regulatory compliance"
+#   - "Figma design review"
+
+# Machine context (helps council calibrate recommendations)
+machine:
+  os: ""                      # e.g. macOS Tahoe 26.3
+  chip: ""                    # e.g. Apple M2
+  editor: ""                  # e.g. VS Code + Claude Code extension
