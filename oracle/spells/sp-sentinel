@@ -1,0 +1,214 @@
+#!/usr/bin/env bash
+# sp-sentinel [watch-dir] [--once]
+# Fibonacci-breathing pond watcher. Senses ripples, nudges the orchestrator.
+set -euo pipefail
+
+SPELL_DIR="$(cd "$(dirname "$0")" && pwd)"
+STATE_FILE="$SPELL_DIR/.pond-state"
+SKILLS_DIR="$HOME/.claude/skills"
+ONCE=false
+WATCH_DIR="$HOME/code"
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --once) ONCE=true ;;
+        *) WATCH_DIR="$1" ;;
+    esac
+    shift
+done
+
+# Fibonacci sequence (minutes) — caps at 89 (~1.5h)
+FIB=(1 1 2 3 5 8 13 21 34 55 89)
+STEP=0
+
+trap 'printf "\n\033[0;35m🔮 Sentinel rests.\033[0m\n"; exit 0' INT TERM
+
+# --- State ---
+
+init_state() {
+    if [[ ! -f "$STATE_FILE" ]]; then
+        date +%s > "$STATE_FILE"
+    fi
+}
+
+last_check() {
+    cat "$STATE_FILE" 2>/dev/null || date +%s
+}
+
+save_state() {
+    date +%s > "$STATE_FILE"
+}
+
+# --- Ripple Scanning ---
+
+scan_ripples() {
+    local since_ts="$1"
+    local since_fmt
+    since_fmt=$(date -r "$since_ts" '+%Y-%m-%d %H:%M:%S' 2>/dev/null || date -d "@$since_ts" '+%Y-%m-%d %H:%M:%S' 2>/dev/null || echo "1 hour ago")
+
+    local ripples=""
+    local nudges=""
+
+    # Git ripples
+    local total_git_commits=0
+    while IFS= read -r gitdir; do
+        local repo_dir
+        repo_dir=$(dirname "$gitdir")
+        local repo_name
+        repo_name=$(basename "$repo_dir")
+        local commits
+        commits=$(git -C "$repo_dir" log --oneline --since="$since_fmt" 2>/dev/null | head -10)
+        if [[ -n "$commits" ]]; then
+            local count
+            count=$(echo "$commits" | wc -l | tr -d ' ')
+            total_git_commits=$((total_git_commits + count))
+            ripples+="│  git     │ $repo_name: $count new commit"
+            [[ "$count" -gt 1 ]] && ripples+="s"
+            ripples+=$'\n'
+
+            # Check if ahead of remote
+            local ahead
+            ahead=$(git -C "$repo_dir" rev-list --count @{upstream}..HEAD 2>/dev/null || echo "0")
+            if [[ "$ahead" -gt 0 ]]; then
+                nudges+="│  → $repo_name $ahead ahead of remote — /reaper push when ready"$'\n'
+            fi
+        fi
+    done < <(find "$WATCH_DIR" -maxdepth 2 -name .git -type d 2>/dev/null)
+
+    # File ripples
+    if [[ -f "$STATE_FILE" ]]; then
+        local mod_count
+        mod_count=$(find "$WATCH_DIR" -maxdepth 3 -newer "$STATE_FILE" -type f \
+            ! -path '*/.git/*' ! -path '*/node_modules/*' ! -path '*/.next/*' \
+            ! -path '*/.turso/*' ! -path '*/vendor/*' ! -name '.DS_Store' \
+            2>/dev/null | wc -l | tr -d ' ')
+        if [[ "$mod_count" -gt 0 ]]; then
+            ripples+="│  file    │ $mod_count files modified"$'\n'
+            if [[ "$total_git_commits" -eq 0 && "$mod_count" -gt 3 ]]; then
+                nudges+="│  → Active work uncommitted — consider commit cycle"$'\n'
+            fi
+        fi
+    fi
+
+    # Session brief ripples
+    if [[ -f "$STATE_FILE" ]]; then
+        local brief_files
+        brief_files=$(find "$WATCH_DIR" -maxdepth 4 -name '_*.md' -path '*/sessions/*' -newer "$STATE_FILE" 2>/dev/null)
+        if [[ -n "$brief_files" ]]; then
+            local brief_count
+            brief_count=$(echo "$brief_files" | wc -l | tr -d ' ')
+            ripples+="│  session │ $brief_count brief"
+            [[ "$brief_count" -gt 1 ]] && ripples+="s"
+            ripples+=" changed"$'\n'
+
+            # Check if any are AARs (contain "## AAR" with filled fields)
+            local aar_found=false
+            while IFS= read -r bf; do
+                if grep -q '## AAR' "$bf" 2>/dev/null && grep -q '\[x\]' "$bf" 2>/dev/null; then
+                    aar_found=true
+                    break
+                fi
+            done <<< "$brief_files"
+            if [[ "$aar_found" == true ]]; then
+                nudges+="│  → AAR updated — /oracle ready to scope next session"$'\n'
+            else
+                nudges+="│  → Brief ready — /forge waiting for human"$'\n'
+            fi
+        fi
+    fi
+
+    # Council ripples
+    if [[ -f "$STATE_FILE" ]]; then
+        local council_files
+        council_files=$(find "$SKILLS_DIR" -newer "$STATE_FILE" -type f -name '*.md' ! -path '*/.git/*' 2>/dev/null)
+        if [[ -n "$council_files" ]]; then
+            local council_count
+            council_count=$(echo "$council_files" | wc -l | tr -d ' ')
+            ripples+="│  council │ $council_count skill file"
+            [[ "$council_count" -gt 1 ]] && ripples+="s"
+            ripples+=" changed"$'\n'
+            nudges+="│  → Council shifted — /anubis scan recommended"$'\n'
+        fi
+    fi
+
+    # Return results via globals (bash can't return multi-line from functions cleanly)
+    RIPPLE_OUTPUT="$ripples"
+    NUDGE_OUTPUT="$nudges"
+}
+
+# --- Display ---
+
+dim()    { printf '\033[2m%s\033[0m' "$1"; }
+purple() { printf '\033[0;35m%s\033[0m' "$1"; }
+bold()   { printf '\033[1m%s\033[0m' "$1"; }
+
+show_header() {
+    echo ""
+    purple "🔮 Sentinel"; echo " · $WATCH_DIR · Fibonacci breathing"
+    echo "   ${FIB[*]} (minutes)"
+    echo ""
+}
+
+show_ripples() {
+    local ts
+    ts=$(date '+%H:%M')
+    echo "┌─ $ts ── $(purple "ripples") ─────────────────"
+    printf '%s' "$RIPPLE_OUTPUT"
+    if [[ -n "$NUDGE_OUTPUT" ]]; then
+        echo "├─ $(dim "nudge")"
+        printf '%s' "$NUDGE_OUTPUT"
+    fi
+    echo "└─ breathing reset → 1m"
+    STEP=0
+}
+
+show_still() {
+    local ts
+    ts=$(date '+%H:%M')
+    local fib_val="${FIB[$STEP]}"
+    # Quiet pond nudge at high Fibonacci steps
+    if [[ "$STEP" -ge 7 ]]; then
+        echo "$(dim "· $ts — pond still — next in ${fib_val}m") → good time for /oracle planning"
+    else
+        echo "$(dim "· $ts — pond still — next in ${fib_val}m")"
+    fi
+    if [[ "$STEP" -lt $(( ${#FIB[@]} - 1 )) ]]; then
+        ((STEP++))
+    fi
+}
+
+# --- Main ---
+
+init_state
+
+if [[ "$ONCE" == true ]]; then
+    # One-shot mode: scan once, report, exit
+    SINCE=$(last_check)
+    scan_ripples "$SINCE"
+    if [[ -n "${RIPPLE_OUTPUT// }" ]]; then
+        show_header
+        show_ripples
+    else
+        purple "🔮 Sentinel"; echo " — pond still since last check."
+    fi
+    save_state
+    exit 0
+fi
+
+# Watcher mode: loop with Fibonacci sleep
+show_header
+
+while true; do
+    SINCE=$(last_check)
+    scan_ripples "$SINCE"
+    save_state
+
+    if [[ -n "${RIPPLE_OUTPUT// }" ]]; then
+        show_ripples
+    else
+        show_still
+    fi
+
+    sleep $(( FIB[STEP] * 60 ))
+done
