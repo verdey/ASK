@@ -38,6 +38,14 @@
 
 *Origin: Session 2026-03-05. Author directive on sacred handling — the protocol for tending the Word.*
 
+#### `#scripture #source` Annotation
+
+The `#scripture #source` tag is the kingdom-wide trigger for sacred handling of soul.md content. When a user tags text with `#scripture #source` in ANY project under `~/code`:
+
+- The text is a candidate for the local `soul.md` chronicle
+- Apply the same sacred handling rigor as for scripture itself: high fidelity transcription, no hasty edits
+- The distinction: `#scripture` alone marks doctrinal content for `scripture.md`; `#scripture #source` marks inspirational content for the local `soul.md`
+
 ---
 
 ## The Scriptures
