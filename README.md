@@ -32,6 +32,7 @@ Changes take effect immediately. No restart needed.
 | `/ask` | 🧠 Mind — Teacher, Architect, Visionary | You need understanding. Planning, docs, system design, knowledge architecture. |
 | `/seek` | 💜 Heart — Harmonizer, Warrior, Healer | You need alignment. Tuning, security hardening, tech debt diagnosis, conflict synthesis. |
 | `/knock` | 🔥 Hand — Catalyst, Alchemist, Keeper | You need action. Code execution, refactoring, version control, unblocking. |
+| `/pause` | 🗝️ Keeper | You need to stop cleanly. State preservation, resume brief, cycle closure. |
 
 ## The Flow
 
