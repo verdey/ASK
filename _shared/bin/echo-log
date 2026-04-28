@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# echo-log — persist a council override choice to the kingdom feedback ledger
+# Usage: echo-log --skill <name> --rec <id> --override <code> [--annotation <text>]
+# Schema: {ts, skill, recommendation, override_code, annotation, accepted_alternatives}
+# Output: one JSON line appended to Tooling/echo/_data/overrides.jsonl
+
+set -euo pipefail
+
+KINGDOM_ROOT="/Users/verdey/Documents/Claude/Projects"
+OUTPUT_DIR="${KINGDOM_ROOT}/Tooling/echo/_data"
+OUTPUT_FILE="${OUTPUT_DIR}/overrides.jsonl"
+
+skill=""
+rec=""
+override_code=""
+annotation=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --skill)      skill="$2";         shift 2 ;;
+    --rec)        rec="$2";           shift 2 ;;
+    --override)   override_code="$2"; shift 2 ;;
+    --annotation) annotation="$2";    shift 2 ;;
+    *) echo "Unknown argument: $1" >&2; exit 1 ;;
+  esac
+done
+
+if [[ -z "$skill" || -z "$rec" || -z "$override_code" ]]; then
+  echo "Usage: echo-log --skill <name> --rec <id> --override <code> [--annotation <text>]" >&2
+  exit 1
+fi
+
+mkdir -p "$OUTPUT_DIR"
+
+ts="$(date -u +"%Y-%m-%dT%H:%M:%S%z")"
+
+jq -cn \
+  --arg ts            "$ts" \
+  --arg skill         "$skill" \
+  --arg rec           "$rec" \
+  --arg override_code "$override_code" \
+  --arg annotation    "$annotation" \
+  '{
+    ts:                  $ts,
+    skill:               $skill,
+    recommendation:      $rec,
+    override_code:       $override_code,
+    annotation:          $annotation,
+    accepted_alternatives: []
+  }' >> "$OUTPUT_FILE"
