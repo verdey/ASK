@@ -108,6 +108,40 @@ This is the seam the new `_meta-flow/` attaches to: stage 0200 (judge-quality) e
 
 ---
 
+## 2026-04-28 — Absorption recipe: prose-doc→flow conversion as doctrine-first modality (session-id: K-EA2-wave-2-aquila / K-EA3-wave-3-aries)
+
+**Absorption is the motion of converting an oversized static prose document into a catalog flow.** Source: aquila's absorption of `tome-of-geometry/16-prototype-patterns.md` (753 lines) → `flows/prototype-patterns/` (25 independent catalog entries). The recipe is now doctrine: a new recognized modality alongside audit/streamline/scaffold/realize.
+
+**What works in the recipe:**
+- The step.md shape landed naturally — source-document structure (concept, techniques, cold-start spec, inspired-by) mapped cleanly to step.md sections without heavy rewriting
+- 2-digit zero-padded numbering (`01-`, `02-`, …, `25-`) preserves source ordering while keeping `ls` output scannable for small catalogs
+- Self-contained steps without cross-references — each catalog entry is standalone; you read step 10 (Voronoi) without needing step 9
+- Prose→prompt conversion kept the elegance thesis inline (not as a separate field), maintaining skimmability while staying faithful
+
+**What was awkward (frictions to document as shape-decisions):**
+- The blueprint's sequential pipeline model (stage 0100 → 0200 → graduation gates) assumes linear dependencies. Catalogs have none — any entry is entry. Deviation: no `_graduation.md` files; `init.md` documents the selection-flow variant explicitly
+- Numbering convention: 4-digit prefixes (`0100-`, `0200-`) are overkill for fixed-count catalogs; 2-digit is more natural. Named for doctrine to evaluate formalizing
+- Elegance thesis absorbed into concept paragraph, not as its own field; trade-off is that future grep-based filtering can't target it directly (minor, not blocker)
+
+**Doctrine implication:** two recognized flow shapes now exist — pipeline (sequential stages with graduation gates) and catalog (N independent entries, selection-based entry, no gates). The blueprint template needs a catalog init.md variant and explicit numbering guidance. New modality: absorption is the act of converting a static prose document (oversized, >500 lines, with internal structure) into one of these flows.
+
+**Absorption trigger conditions:** Source document exhibits (a) consistent repeated structure across sections, (b) content map-ability to flow sections, (c) independent unit-of-work that doesn't require reading the whole document first.
+
+**Absorption as a recognized `/flow` modality (doctrine amendment to follow):** The absorption motion is:
+1. Identify the repeated unit in source prose (e.g., H3 per blueprint in tome-of-geometry)
+2. Decide: pipeline or catalog? (ask: are units sequential/dependent?)
+3. Map source fields → step.md sections faithfully (don't sand off structure for aesthetics)
+4. Re-voice cold-start specs into imperative "Build This" (don't just paste)
+5. Write init.md with selection-flow or pipeline-flow variant as appropriate
+6. Leave a pointer stub at source location; archive the original
+7. Write the recipe — learnings → future waves
+
+**How to apply:** When `/flow realize` sees a Shape 2 (Oversized Prose) document that's dense but internally consistent (readable prerequisites, no ordering required), test for absorb-ability before recommending decomposition into `docs/`. If structural mapping works, absorb into a catalog flow. Absorb surfaces documentation as executable processes, not decision artifacts.
+
+**Status:** captured-2026-04-28 → promoting to doctrine.md as new modality + showcase candidacy entry + tools-register note on absorption detection
+
+---
+
 ## 2026-04-28 — Filesystem-Truth violation: `_core/model-aliases.yaml` exists but isn't read (session-id: 2026-04-28-flow-runner-llm-recon)
 
 The runner has `_core/model-aliases.yaml` on disk, but `bin/run-flow` lines 28–40 hardcode the same aliases as a Python dict — the YAML file is never opened. This is a textbook Filesystem-Truth axiom violation per `Income/docs/flow.md` §1.2: a file present in the tree that doesn't agree with the code that would consume it.
