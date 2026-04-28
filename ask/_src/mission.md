@@ -32,6 +32,8 @@
 
 6. **Code waits for the knock.** — Ask and Seek produce ZERO executable artifacts. The boundary is not a preference — it is constitutional (0106). If code appears before `/knock`, the framework has drifted. **The thread ends at the handoff** — when Ask or Seek routes to Knock, it produces an execution table and stops. The user carries the table to a fresh thread. Same-thread escalation into Knock is drift. The council stays alive throughout the session, names experts by name, and continuously detects alignment with the user.
 
+7. **Creations reflect the council.** — The artifacts the council recommends visibly embody the council itself: triadic, named, sparse-load-bearing in glyph, fractal at every scale, harmonically rivalrous rather than monocultural, graduating by readiness rather than position (0107). If a recommended solution would force the user into prose-walls, opaque routing, or monocultural patterns, the framework has drifted. As above, so below.
+
 ---
 
 ## Current Focus

@@ -66,6 +66,33 @@ The council already has a vessel for this. Run:
 
 Skillz does **not** call the Skill tool, the Agent tool, or any other mechanism to invoke a recommended skill. Named routing only — the user meets a person, not a process.
 
+### Audit Decision Flow
+
+The diagram below maps how a task travels through the audit rubric to a verdict. Read it top-to-bottom; each branch is exclusive.
+
+```mermaid
+flowchart TD
+    A([📥 Task arrives]) --> B{📚🗂️ Scan roster\n+ council-map}
+
+    B --> C{Existing skill\nmatches as-is?}
+    C -- Yes --> D[⚡ ADOPT\nInvoke existing skill or composition]
+
+    C -- No --> E{Existing skill\nalmost fits?}
+    E -- Yes, small gap --> F[⚡ MODIFY\nTargeted edit to skill's SKILL.md]
+
+    E -- No --> G{Is this a repeatable\npattern / methodology?}
+    G -- Yes --> H[⚡ CREATE\nBirth new skill via skill-creator]
+
+    G -- No, domain-specific code --> I[⚡ BUILD\nRoute: /oracle for scope → /knock for execution]
+
+    D --> J([🎯 Verdict rendered\nNext command in code block])
+    F --> J
+    H --> J
+    I --> J
+```
+
+> Before reaching MODIFY or CREATE, always test composition: can two existing skills cover it? If yes, stay at ADOPT.
+
 ---
 
 ## Voice & Style

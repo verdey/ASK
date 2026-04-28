@@ -31,7 +31,22 @@ Miguel is the Cartographer of Moves. He reads source and destination directories
 ## Workflow
 
 ```
-Orient → Inventory → Design → Brief → Record
+┌─────────────────────────────────────────────────────────────────────┐
+│                     MIGUEL — MIGRATION WORKFLOW                     │
+├───────────────────────┬───────────────────────┬─────────────────────┤
+│         MIND          │       HAND/HEART       │       KEEPER        │
+│   (know the ground)   │   (shape the move)     │   (seal the work)   │
+├───────────────────────┼───────────────────────┼─────────────────────┤
+│  1. Orient            │  3. Design             │  5. Record          │
+│  Read source+dest;    │  Tab split, models,    │  Author migrations/ │
+│  check prior entries  │  blast radius, gates   │  entry + README     │
+│                       │                        │                     │
+│  2. Inventory         │  4. Brief              │                     │
+│  Every surface:       │  Execution table for   │                     │
+│  repos, symlinks,     │  /knock; transfer      │                     │
+│  hashes, paths        │  brief for cold-start  │                     │
+└───────────────────────┴───────────────────────┴─────────────────────┘
+         Orient → Inventory → Design → Brief → Record
 ```
 
 ### 1. Orient
@@ -140,17 +155,41 @@ Keeper must confirm all of these before sealing:
 
 These are real patterns — not theoretical. All 9 surfaced during the kingdom-merge migration.
 
-| # | Hazard | What happens | Prevention |
-|---|--------|-------------|-----------|
-| 1 | `~/.claude/skills` symlink breaks | If the skills source repo is being moved, the symlink points mid-move and breaks | **Before moving ASK/skills repo:** re-point the symlink to the destination path |
-| 2 | Worktree re-registration | Repos with worktrees have paths baked in; moving the repo orphans the worktrees | After repo move: `git worktree repair` at new location; verify with `git worktree list` |
-| 3 | Pre-commit hook md-whitelist | New `.md` files (e.g. KINGDOM.md) blocked by pre-commit hook whitelists | Add new files to hook whitelist before first commit attempt |
-| 4 | Alchemist absorption | Small migration — Alchemist tab scope fits inside Keeper | Surface explicitly in brief and AAR; don't run an empty tab just to satisfy the template |
-| 5 | Source-file path refs at scale | 200+ files may have hardcoded source paths — auto-editing breaks things | Surface as a flagged count in the AAR; per-project human review at own pace |
-| 6 | Hidden files at source root | `.env.shared`, `.playwright-mcp`, etc. get missed during inventory | Explicitly scan source root for dotfiles during pre-flight |
-| 7 | Repos without root `.git/` | No top-level git means no relocate commit is possible | Note in AAR; move proceeds normally; no error |
-| 8 | Nominally colliding dir names | e.g. `Finance/Income/Flows/Live/` vs top-level `Live/` | Resolve via fully-qualified paths; flag for human awareness |
-| 9 | Nested repos inside parent repos | e.g. `_HoloNav/` inside `steaz.cloud/` — moves silently with parent | Commit at nested location; note in AAR |
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         KNOWN HAZARDS MATRIX                                │
+├──────────────────────────────┬──────────────────────────────────────────────┤
+│  SYMLINK HAZARDS             │  What happens / Prevention                   │
+├──────────────────────────────┼──────────────────────────────────────────────┤
+│  #1 🪨 ~/.claude/skills      │  Symlink points mid-move → breaks all skills │
+│     ⚠️  HIGH                 │  Re-point symlink to dest BEFORE the move    │
+├──────────────────────────────┴──────────────────────────────────────────────┤
+│  PATH HAZARDS                                                                │
+├──────────────────────────────┬──────────────────────────────────────────────┤
+│  #5 🪨 Path refs at scale    │  200+ hardcoded source paths in project files │
+│     ⚠️  MEDIUM               │  Flag count in AAR; human review per-project  │
+│  #8 🪨 Colliding dir names   │  Finance/Live vs top-level Live → confusion   │
+│     ⚠️  LOW                  │  Use fully-qualified paths throughout          │
+├──────────────────────────────┴──────────────────────────────────────────────┤
+│  GIT / REPO HAZARDS                                                          │
+├──────────────────────────────┬──────────────────────────────────────────────┤
+│  #2 🪨 Worktree paths baked  │  Move orphans worktrees; paths are absolute   │
+│     ⚠️  HIGH                 │  git worktree repair at new location           │
+│  #3 🪨 md-whitelist hook     │  New .md files blocked by pre-commit hook     │
+│     ⚠️  MEDIUM               │  Add files to whitelist before first commit   │
+│  #7 🪨 No root .git/         │  No relocate commit possible for this repo    │
+│     ⚠️  LOW                  │  Note in AAR; move proceeds normally           │
+│  #9 🪨 Nested repos          │  Child repo moves silently with parent        │
+│     ⚠️  LOW                  │  Commit at nested location; note in AAR       │
+├──────────────────────────────┴──────────────────────────────────────────────┤
+│  INVENTORY / PROCESS HAZARDS                                                 │
+├──────────────────────────────┬──────────────────────────────────────────────┤
+│  #6 🪨 Hidden files at root  │  .env.shared, .playwright-mcp missed          │
+│     ⚠️  MEDIUM               │  Scan dotfiles explicitly in pre-flight       │
+│  #4 🪨 Alchemist absorption  │  Small migration: Alchemist scope → Keeper   │
+│     ⚠️  LOW                  │  Surface in brief + AAR; no empty tabs        │
+└──────────────────────────────┴──────────────────────────────────────────────┘
+```
 
 ---
 

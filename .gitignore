@@ -1,7 +1,6 @@
 .DS_Store
 .pond-state
 _archive/
-docs/sessions/
 
 # Personal overlays (ship examples, gitignore actuals)
 ask/_src/overlay.yaml

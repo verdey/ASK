@@ -75,11 +75,7 @@ Keeper does not summarize everything — only what a cold-boot needs to resume c
 
 ## Composting — the Keeper's pruning pass (yin half of the cycle)
 
-> Rest is also pruning. The seal carries forward only what is **real, actual, valuable, and actionable** relative to the current moment — anything else is compost. The cycle of rest and creation eliminates duplicative or wasteful matter *by construction*; the Keeper does not save *and then* tidy as a separate act — the Keeper saves *by* tidying. The pattern is **holographic** — the same composting move operates at every scale (table below).
-
-### The rule of one truth
-
-A fact, decision, or assumption lives in exactly one canonical home (usually a contract doc — `CLAUDE.md`, `docs/cold-boot-brief.md`, an ADR, a SOP, the roster). Wherever else it appears, it appears as a **link, not a restatement**. A pause brief that paraphrases the cold-boot is not a brief — it is rot.
+The seal carries forward only what is **real, actual, valuable, and actionable**. Composting is part of the seal, not a separate housekeeping step. **Rule of one truth:** every fact lives in exactly one canonical home (contract doc, ADR, SOP, roster); elsewhere it appears as a link, not a restatement.
 
 ### Composting checklist — runs before writing the new brief
 
@@ -95,20 +91,20 @@ A fact, decision, or assumption lives in exactly one canonical home (usually a c
 
 ### The Composted block in the brief
 
-Anything composted (or proposed for composting) lands in a section between **Open threads** and **Council state**. Trivially safe moves the Keeper performs directly and notes the action; anything irreversible or touching human-authored substrate stays a `#decision-pending` for Dan.
+Composted moves land between **Open threads** and **Council state**. Trivially safe moves: Keeper performs and notes. Irreversible or human-authored-substrate moves: `#decision-pending` for Dan.
 
 ```
 ## Composted (this seal)
 - Deleted: _pause-2026-04-24-1102.md (same-day duplicate, unchanged context, no live threads)
 - Archive proposal #decision-pending: _session-007-roster.md — AAR sealed; learnings live in roster.yaml
 - Memory drift #decision-pending: feedback_attorney_banner.md restates CLAUDE.md §X — propose removal
-- _raw/ in docs/intake: 14 files, oldest 2026-04-12; parent intake `Ali-Choucair.md` is applied → propose clear #verify-before-action
+- _raw/ in docs/intake: 14 files, oldest 2026-04-12; parent intake applied → propose clear #verify-before-action
 - Loud token cleared: «AMBER_MOBILE» filled in roster.yaml on 2026-04-23 — dropped from carry-forward
 ```
 
-When nothing needs pruning, the block reads `## Composted (this seal)\nNothing — the field is clean.` That single line is itself information: the Keeper looked, and the system was already in order.
+When nothing needs pruning: `## Composted (this seal)\nNothing — the field is clean.` > More worked examples → [pause/_src/sealing-examples.md](_src/sealing-examples.md)
 
-### Holographic table — same shape at every scale
+**Same shape at every scale:**
 
 | Scale | What composts | Where the truth lives |
 |---|---|---|
@@ -119,14 +115,14 @@ When nothing needs pruning, the block reads `## Composted (this seal)\nNothing �
 | Within cold-boot-brief | Dead phases, retired people, obsolete buy-boxes | The current ADRs / roster / SOPs |
 | `_raw/` ephemera | Files past their parent's seal | Nothing — they were always compost |
 
-The Keeper does not invent per-scale pruning rules. It recognizes **one rule operating at different altitudes**: *one truth, one home; everything else is link or compost.*
+*One rule at every altitude: one truth, one home; everything else is link or compost.*
 
 ### Bounds (what composting is not)
 
 - Not housekeeping divorced from the seal — it *is* part of the seal.
 - Not a license to delete contract docs, ADRs, SOPs, or human-authored substrate — those move only on `#decision-pending` greenlight.
 - Not a replacement for `/oracle` re-mapping when terrain has shifted. Composting prunes *seal artifacts*; re-mapping the world remains Oracle's.
-- Not silent. Every move (performed or proposed) appears in the Composted block. Pruning is **lived** — visible and reviewable, never invisible cleanup.
+- Not silent. Every move (performed or proposed) appears in the Composted block. Pruning is visible and reviewable, never invisible cleanup.
 
 ---
 
@@ -134,9 +130,7 @@ The Keeper does not invent per-scale pruning rules. It recognizes **one rule ope
 
 **Written to:** `<project-root>/docs/sessions/_pause-YYYY-MM-DD-HHmm.md`
 
-**Fallback** (no detectable project context): printed to stdout.
-
-**Delivery (Income portfolio integration, 2026-04-24):** when `/pause` runs inside an Income/ project tree (or with Income/ as a sibling working directory), the brief is *also* delivered as an actionable email to Dan's currently-best-available channel. See "Email-briefing delivery" below.
+**Fallback** (no detectable project context): printed to stdout. Income/ context also triggers email delivery — see "Email-briefing delivery" below.
 
 ```markdown
 # Pause — YYYY-MM-DD HH:mm
@@ -186,93 +180,18 @@ Brief valid ~[N hours/days]. After that, run `/oracle` before any `/knock`.
 
 ## Email-briefing delivery (Income portfolio integration)
 
-Each `/pause` inside an Income/ context delivers the brief to Dan's best-available channel **in addition to** writing to disk. This is the first concrete instantiation of the BMIS email-briefing layer (see [`Income/docs/decisions/0002-bmis-architecture.md`](../../../code/experimental/Income/docs/decisions/0002-bmis-architecture.md)) — every pause becomes a freshman-readable, replyable touch back into the living `flows.deals` system.
+When `/pause` runs inside an Income/ project tree, the brief is also delivered to Dan's best-available channel. See [`Income/docs/decisions/0002-bmis-architecture.md`](../../../code/experimental/Income/docs/decisions/0002-bmis-architecture.md).
 
-### Delivery lookup (presumptive default — ADR 0003)
+**Delivery lookup (ADR 0003):** Read [`Income/docs/roster.yaml`](../../../code/experimental/Income/docs/roster.yaml) → `dan` profile → walk `delivery_priority:` → pick first verified channel. Current resolved channel: `email → daniel.greeney@gmail.com`. **«CHANNEL_REGISTRY»** `#assumption-flagged`.
 
-1. Read [`Income/docs/roster.yaml`](../../../code/experimental/Income/docs/roster.yaml).
-2. Locate the `dan` profile in `people:`.
-3. Walk `delivery_priority:` in order; pick the first channel whose `channels.<name>[0]` is verified (i.e., not `[TBD]`).
-4. As of 2026-04-24, the resolved channel is `email → daniel.greeney@gmail.com`. **«CHANNEL_REGISTRY»** `#assumption-flagged` — when SMS (roster-switchboard, BMIS layer 2) or PWA push come online, they enter `delivery_priority` and the lookup naturally re-routes.
+**Send via Gmail MCP** (`mcp__claude_ai_Gmail__*`):
+1. Load via `ToolSearch query: "select:mcp__claude_ai_Gmail__authenticate"`.
+2. If unauthenticated, run OAuth flow once; subsequent pauses re-use the session.
+3. Use the four-tier body format in [`_src/sealing-examples.md`](_src/sealing-examples.md) — Example 1.
 
-### Send via Gmail MCP
+**After send:** append `Delivered: <channel> → <handle> at <HH:MM> · message-id <id>` to the on-disk brief. If send fails, append `#blocker` and continue — the on-disk brief is the durable record.
 
-The system-marked best delivery method for email is the Gmail MCP server (`mcp__claude_ai_Gmail__*` tools).
-
-1. Load the Gmail send tool via `ToolSearch` with `query: "select:mcp__claude_ai_Gmail__authenticate"` (and the corresponding send tool — name TBD on first run; `ToolSearch query: "+gmail send"` will surface it).
-2. If unauthenticated, run the `authenticate` → user OAuth → `complete_authentication` flow once. Subsequent pauses re-use the session.
-3. Send with the format below.
-
-### Email format (BMIS-aligned, four-tier delivery)
-
-The email body actively embodies [`Income/docs/delivery-ethos.md`](../../../code/experimental/Income/docs/delivery-ethos.md) — every reply path is offered in tiers, with the dead-obvious manual one being the bedrock guarantee. "When in Rome" applied to email = native subject-line semantics + scannable headers + reply-friendly inline structure + footer signature.
-
-**Subject:** `🌀 /pause — <project-slug> — YYYY-MM-DD HH:mm`
-*(Mandala emoji is the BMIS signature per seed `20260424-flow-engine-and-email-briefing.md`. Recipients learn to recognize it.)*
-
-**To:** the resolved address from the lookup (default: `daniel.greeney@gmail.com`).
-
-**Body shape (freshman-readable, four-tier replyable):**
-
-```
-🗝️ Pause sealed at <timestamp> — <project-slug>
-
-[1-line note from /pause [note] arg, if provided]
-
-────  IN FLIGHT  ────
-[bulleted; same content as the on-disk brief's "In flight"]
-
-────  OPEN THREADS  ────
-[bulleted; loud tokens preserved verbatim — your replies fill them]
-
-────  COMPOSTED  ────
-[moves performed and #decision-pending proposals; or "Nothing — the field is clean."]
-
-────  NEXT ACTION  ────
-▶ <exact resume command>
-
-Freshness: brief stays valid ~<window>. After that, /oracle first.
-
-────  HOW TO REPLY  (four tiers — pick whichever fits)  ────
-
-  Tier 1 · wu wei steazy (aspirational — full ingest lands w/ roster-switchboard)
-    → Tap reply, type your fill-ins anywhere. Loud «TOKENS» get grep-replaced
-      when reply-ingest is live.
-
-  Tier 2 · structured copy-back
-    → Quote-reply this email with «TOKEN»: <value> on lines, plus any of:
-      approve <slug>     — green-light a #decision-pending
-      snooze <duration>  — defer everything for <duration>
-      resume now         — fire the next action immediately
-
-  Tier 3 · subject-line shortcut
-    → Reply with one of these as the subject and your one-line answer in body:
-      Subject: /approve <slug>
-      Subject: /snooze <hours>
-      Subject: /resume now
-
-  Tier 4 · dead-obvious manual  ✅ BEDROCK — NEVER FAILS
-    → Open the on-disk brief in your editor:
-        <project-root>/docs/sessions/_pause-YYYY-MM-DD-HHmm.md
-      Edit it directly. Run the resume command at the bottom in a fresh
-      Claude Code tab. This guarantees flowthrough — no auth, no parser,
-      no ingest pipeline required.
-
-      Right now (2026-04-24), Tier 4 is the actually-working path.
-      Tiers 1–3 ship as the system grows. Tier 4 is the eternal guarantee.
-
-—
-
-🗝️ Sealed by Keeper · Income portfolio · BMIS layer 1 (briefings)
-«REPLY_INGEST»  #assumption-flagged — Tiers 1–3 activate when roster-switchboard
-ships (BMIS layer 2). Tier 4 always works.
-```
-
-**Note on disk:** after sending, append a single line to the on-disk brief: `Delivered: <channel> → <handle> at <HH:MM> · message-id <id>`. If send fails, append `#blocker` with the error and continue — the on-disk brief is the durable record.
-
-### Why this lives in the skill (and not as a settings.json hook)
-
-The Keeper's seal *includes* delivering the brief to its intended reader; that is part of the seal, not a side-effect of running it. Hooks are for harness-level cross-cutting behavior; this is intrinsic to `/pause`'s purpose under the BMIS umbrella.
+Delivery is part of the seal, not a side-effect; it is intrinsic to `/pause`'s purpose under the BMIS umbrella.
 
 ---
 
@@ -295,33 +214,6 @@ Quiet and sure. The seal is not a performance — it is stewardship. The brief i
 - Does not read files outside the current project tree unless explicitly asked — *exception:* reading [`Income/docs/roster.yaml`](../../../code/experimental/Income/docs/roster.yaml) for delivery routing is implicitly authorized whenever `/pause` runs in any portfolio context, per the BMIS integration above
 - Does not auto-send a second notification if the same brief was already delivered in the current session — re-runs of `/pause` against an unchanged seal append to the on-disk brief but skip the send
 - Does not silently mutate human-authored substrate during composting — every memory removal, contract-doc edit, or session-archive move surfaces as `#decision-pending` in the Composted block. Trivially safe moves the Keeper performs directly are limited to: deleting same-day duplicate `_pause-*.md` briefs in unchanged context, clearing loud tokens that grep proves are filled downstream, and dropping forward-links whose targets no longer exist.
-
----
-
-## Suggestions — not in v1, worth building
-
-These emerged during the skill's design session. Dan to greenlight before any become real:
-
-**1. `/resume` companion skill**
-Takes the pause brief as argument, reads it, and cold-boots the right archetype automatically. Currently the user reads the brief and pastes the resume command manually. A `/resume _pause-2026-04-24-1430.md` command would do that automatically — read the brief, invoke the right council member, and pick up mid-thread.
-
-**2. Pause registry** — `~/.claude/pause/index.md`
-A running ledger of paused sessions across all projects. "What's paused across the portfolio?" becomes one command. Useful when 3 projects are mid-session across 3 different tabs and Dan needs to know what's live.
-
-**3. `/pause diff`**
-Instead of a full resume brief, emit only the delta since the last pause. For frequent short pauses in the same session. Less ceremony, same fidelity.
-
-**4. Git auto-stash hint**
-If uncommitted changes exist at pause time, Keeper flags them with a one-line stash command to run before closing the tab. Prevents "where did my changes go" on re-entry.
-
-**5. Council-aware re-entry tone**
-The Keeper reads the pause note and recommends not just the command but the specific mental posture for re-entry. "You were in Catalyst energy, mid-implementation. Re-enter in the same mode — don't switch to Teacher or you'll lose the execution thread." This would live in the "Council state" block of the resume brief.
-
-**6. Position in the skills README**
-`/pause` should appear in the council README's command table alongside `/ask`, `/seek`, `/knock`. Suggested row:
-```
-| `/pause` | 🗝️ Keeper | You need to stop cleanly. State preservation, handoff, cycle closure. |
-```
 
 ---
 

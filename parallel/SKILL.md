@@ -60,6 +60,7 @@ Check `crontab -l` for the dispatcher entry. If missing, offer to install:
 
 ## Notes
 
+- 🎨 Sketch dispatches its prototype galleries through this script bank. Sister utilities — `/sketch` is the trigger, `/parallel` is the engine.
 - Scripts require `ANTHROPIC_API_KEY` for live (non-dry-run) execution. The `.env` file at `~/code/experimental/parallelism/.env` is sourced by the dispatcher automatically.
 - The admin dashboard at `code.test/?view=admin` provides a browser-based interface for the same operations.
 - All scripts follow the convention: line 2 = `# name — description`, line 3 = `# Usage: ...`
