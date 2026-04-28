@@ -200,6 +200,60 @@ The audit invocation that produced this batch worked unusually well. The shape:
 
 ---
 
+## 2026-04-28 — Python build script is the canonical Pico-inlining method for Claude Code Hands sessions (session-id: 2026-04-28-catalina-arc)
+
+**Source:** `catalina.beryl` (Wave 2 dogfood regen, 2026-04-28) → `_flow-blueprint/processes/0600-render-index-html/_eval.md`.
+
+**Verbatim observation:** "Python build script approach (read Pico + init.md + template → substitute → write) avoids 71KB CSS in a single tool-call; worth retaining as the canonical regen method for Claude Code Hands sessions."
+
+When Phase C of the 0600-render step runs in a Claude Code Hands session (VS Code multi-file build context), reading the full Pico CSS inline and emitting it as a single LLM-authored tool-call competes with context limits and slows execution. The Python build script — a small `build.py` (or equivalent inline invocation) — reads `pico.classless.min.css` + `init.md` + `template.html` from disk, injects the LLM-authored `FLOW_REPORT_SECTIONS` and `EMBEDDED_MD`, substitutes all six `{{PLACEHOLDERS}}`, and writes `index.html` in one Python call. This avoids the 71KB CSS appearing in the LLM's output stream and produces the same result.
+
+**How to apply:** When executing 0600-render from a Claude Code Hands session, prefer the Python build script over pure LLM substitution. The LLM authors the variable sections (Phase B output + EMBEDDED_MD); Python handles the file I/O and string substitution. See `_flow-blueprint/processes/0600-render-index-html/instructions.md` Phase C for the recommended script note.
+
+**Status:** proposes-instructions-edit → promoted-2026-04-28 to `instructions.md` Phase C.
+
+---
+
+## 2026-04-28 — Pico CSS copyright comment + SVG data-URI are known false positives in grep verification (session-id: 2026-04-28-catalina-arc)
+
+**Source:** `catalina.beryl` (Wave 2 dogfood regen, 2026-04-28) → `_flow-blueprint/processes/0600-render-index-html/_eval.md`.
+
+**Verbatim observation:** "Grep returned 2 hits: Pico CSS copyright comment (`https://picocss.com`) and SVG data-URI inside Pico — both inert CSS-chrome, not real external fetches. Network-fetch grep passes; note in instructions that Pico's CSS comment will always produce these false positives but is safe to ignore."
+
+When Phase C3 runs the network-fetch grep against an `index.html` that inlines Pico v2.1.1 classless CSS, the grep will always return at least two hits:
+1. The Pico copyright comment: `/* picocss.com */` — contains `picocss.com` (matches `https?://` if it appears in a comment containing the URL)
+2. An SVG data-URI embedded in Pico's CSS — may contain `http` as part of the URI string
+
+Both are inert — CSS string literals and comments, not real network fetches or external `<link>` tags. The verification passes when all remaining hits are also inert CSS-chrome. Real failures are `<link href="https://...">`, `<script src="https://...">`, or `@import url(...)` outside of CSS string literals.
+
+**How to apply:** In C3 verification, after running the grep, confirm whether all hits are within the inline CSS block (between Pico's `<style>` delimiters). If yes, the check passes. Document as "Pico false positives: expected, safe to ignore" in `_eval.md`. Flag only genuine external resource references — `<link>`, `<script src>`, or stylesheet `@import` hits — as failures.
+
+**Status:** proposes-instructions-edit → promoted-2026-04-28 to `instructions.md` Phase C3 verification checklist.
+
+---
+
+## 2026-04-28 — `Finance/Income/flow-navigator.html` is the canonical richness donor for omega render waves (session-id: 2026-04-28-catalina-arc)
+
+**Source:** `catalina.amethyst` (Wave 1 audit, 2026-04-28) → `Finance/Income/docs/intake/2026-04-28-flow-audit.md`.
+
+**Verbatim observation:** "`Finance/Income/flow-navigator.html` far exceeds spec: Next 3 Moves hero, Brief from Claude voice block, 7-day cadence heartbeat, Bark conditions panel (2 active), Holographic LOB grid (N/S/E/W/Z spatial navigation), Decisions Queue."
+
+`flow-navigator.html` is not just a functional artifact — it is the richest realized example of what the 0600-render omega step can produce when all five living-report sections are developed beyond the minimum spec. Future scaffold/regen waves should treat it as a **donor pattern**: open it alongside the 0600 instructions and ask "which of these enrichments would serve this flow's audience?"
+
+**Key features available to borrow:**
+- **Next 3 Moves hero** — above-the-fold priority surface with explicit next actions
+- **Brief from Claude voice block** — inline editorial section authored at render time
+- **7-day cadence heartbeat** — activity timeline rendered from `_audit/runs.jsonl`
+- **Bark conditions panel** — active conditions from `init.md` rendered as a visual checklist
+- **Holographic LOB grid** — N/S/E/W/Z spatial navigation across portfolio axes
+- **Decisions Queue** — surfacing `docs/decisions/` backlog items inline
+
+Not every enrichment fits every flow. Read the flow's audience and purpose before borrowing.
+
+**Status:** proposes-showcase-edit → promoted-2026-04-28 to `showcase.md` entry 5 (`Income-Flow-Navigator/`) as richness donor note.
+
+---
+
 ## 2026-04-28 — `realize` must respect existing realm taxonomy before recommending `docs/` tree (session-id: 2026-04-28-patillo-realize)
 
 When `/flow realize` runs on a realm that already has rich internal taxonomy (numeric-prefix folders like `00_EXEC_README.md`, `01_intake/`, `02_rubric/`, `03_scenarios/`; structured ledgers like `02_rubric/ASSUMPTIONS.md` carrying ranked-alternatives A-NNN entries; canonical conventions doc), the default `Shape 1 → Tier 1` recommendation in `shapes.md` (decompose into `docs/decisions/A-NNN.md` + `docs/scenarios/`) is **wrong** for this realm. Imposing a parallel `docs/` tree would duplicate existing scaffolding and violate Filesystem-Truth.

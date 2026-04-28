@@ -82,6 +82,8 @@
 
 **What *not* to copy.** The single-artifact shape works because the deliverable is genuinely *one thing* (a portfolio holograph). Don't force it on flows whose deliverables are inherently multi-file (deal lists, lead pipelines, HUD card sets).
 
+**Richness donor.** The artifact `Finance/Income/flow-navigator.html` far exceeds the minimum 0600-render omega spec and is the canonical pattern to draw from when enriching a flow's render. Features available to borrow: Next 3 Moves hero (above-the-fold priority surface), Brief from Claude voice block (editorial authored at render time), 7-day cadence heartbeat (activity timeline from `_audit/runs.jsonl`), Bark conditions panel (active conditions as a visual checklist), Holographic LOB grid (N/S/E/W/Z spatial navigation), Decisions Queue (surfacing `docs/decisions/` items inline). Read the flow's audience before borrowing — not every enrichment fits every flow. (Canonized: `catalina.amethyst` Wave 1, 2026-04-28.)
+
 ---
 
 ## 6. (Candidacy) `Library/tome-of-geometry/flows/prototype-patterns/` — catalog flow (NEW archetype)
