@@ -51,31 +51,61 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
 - **Notes:** **Watchful pause** per [`/Users/verdey/.claude/plans/plan-to-resurrect-this-quirky-haven.md`](../../plans/plan-to-resurrect-this-quirky-haven.md). S1 (doctrine consolidation) shipped clean. Sessions S2–S5 (universal flow-pulse + flow-refine-watcher LLM-pass infrastructure) deferred — not retired — pending Mariela's `_audit/runs.jsonl` pattern proving out across more LOBs. Trip-wires: (A) Mariela stays LOB-specific after 2+ rollouts → resurrect S2–S5; (B) Mariela generalizes to cover audit + upward-summary → retire S2–S5; (C) inconclusive after 3+ LOBs → fresh /seek hybrid design. Default cadence: /oracle revisits when a new LOB lands `_audit/runs.jsonl` OR after 30 days of no trip-wire activity. **Topology drift acknowledged in registry only:** ADR 0008 still names `~/Documents/Claude/Projects/_doctrine/` (portfolio-level) but actual filesystem path post-Rosa is `Finance/Income/_doctrine/` (project-local) — drift documented in ADR 0008 changelog + _doctrine/README.md drift blockquote, not yet reconciled (per migration cadence: only on next /knock-touch).
 
 
-## 🔮 selena · fractals · active
+## 🔮 selena · fractals · paused
 - **Born:** 2026-04-28T08:55-04:00
-- **Last touched:** 2026-04-28T08:55-04:00
+- **Last touched:** 2026-04-28T10:10-04:00 (arc sealed)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Council/ASK (council substrate; the Sunset pass + 0107 propagation arc)
 - **Nomenclature realm:** fractals (barnsley, cantor, dragon, julia, koch, mandelbrot, menger, peano, sierpinski)
 - **Children:**
-  - `selena.barnsley` — Wave 0 / 🗝️ Keeper (via ⚡ Catalyst) / Sonnet 4.6 — seal the Sunset pass: refresh roster, stage selectively, commit Doctrine 0107 + harmonic tuning changes, push if remote tracks, verify symlink integrity. Brief at `Council/ASK/docs/sessions/_council-tuning-seal-2026-04-28.md`.
+  - `selena.barnsley` — Wave 0 / 🗝️ Keeper (via ⚡ Catalyst) / Sonnet 4.6 — sealed Sunset pass ✓ shipped (commit `3f80df1` → origin/main; 18 files: 16 modified + 2 new _src; roster refreshed `2026-04-28`; symlink inodes verified; 2 deviations: `_archive/sessions/` was already gitignored so unstageable, .md-whitelist needed entries for new _src paths added during seal)
+  - `selena.cantor` — 0107 Wave 0 / 📚 Teacher (via /ask sub-agent) / Sonnet 4.6 — authored `ask/_src/reflection_rubric.md` ✓ shipped (159 lines, all 7 attributes covered, voice plain operational; 1 deviation: ✦ used for attribute 3 instead of brief-suggested ✨ to avoid Healer-glyph collision — Teacher judgment honored). Sealed in dragon's commit.
+  - `selena.dragon` — 0107 Wave 1 / ⚡ Catalyst (via /knock sub-agent) / Sonnet 4.6 — wired rubric into /knock + cross-refs in /ask + /seek ✓ shipped (commit `01f0314` → origin/main; 5 files: rubric + 3 SKILL.md + .md-whitelist; insertion sizes 14/4/3 lines; no pre-commit issues; carries clean; reflection check feels natural in Catalyst's Entry Gate).
+  - `selena.julia` — 0107 Wave 2 / 👁️ Visionary (via /ask sub-agent) / Sonnet 4.6 — post-integration entropy scan ✓ shipped. Verdict: **Tune** (substrate harmonically sound, two precision findings + 1 below-threshold). Findings: (1) ask/seek cues asymmetric in weight but unmarked — fix: add `(advisory heads-up)` and `(attunement gate)` parentheticals; (2) rubric routes all misalignment to /seek (monoculture risk) — fix: add line routing per failing-attribute domain to Architect/Warrior/Healer.
+  - `selena.koch` — 0107 Wave 3 (tune) / ⚡ Catalyst (via /knock sub-agent + main-thread seal) / Sonnet 4.6 — applied Julia's two precision tunes ✓ shipped: 3 lines added across `ask/SKILL.md`, `seek/SKILL.md`, `ask/_src/reflection_rubric.md` (rubric 160 lines, ≤200 confirmed). Sub-agent edited disk; main thread sealed (commit + push) under explicit Dan close-out directive.
 - **Open threads:**
-  - **Future-phase 0107 propagation** (next /oracle session): translate Doctrine 0107 into operational appdev assertions — author `kingdom_council_reflection_rubric.md`, wire reflection-check into /knock pre-execution gate, possibly draft Doctrine 0108 ("appdev recommendations carry council DNA").
-  - **Pre-existing untracked work** in `Council/ASK`: `arriba/`, `sketch/`, `flow/exemplars.md`, `flow/ladder.md`, `flow/shapes.md` — left untouched by Wave 0 by design; deserve their own scoped commits via their own oracles.
-- **Notes:** Birthed after `/seek` Sunset pass landed Doctrine 0107 in scripture and ran a harmonic tuning pass over the council. Plan: `~/.claude/plans/review-all-my-claude-humming-sunset.md`.
+  - **Future-phase 0107 propagation** (next /oracle session, selena scope): translate Doctrine 0107 into operational appdev assertions — author `kingdom_council_reflection_rubric.md`, wire reflection-check into /knock pre-execution gate, possibly draft Doctrine 0108 ("appdev recommendations carry council DNA").
+  - **Pre-existing untracked dirs/files at council root** (post-barnsley seal): `arriba/`, `sketch/`, `flow/exemplars.md`, `flow/ladder.md`, `flow/shapes.md` — still untracked.
+  - **Pre-existing modified files NOT part of Sunset pass** (surfaced by barnsley AAR): `README.md`, `flow/doctrine.md`, `flow/lessons.md`, `flow/showcase.md`, `flow/tools-register.md`, `skillz/_src/council-map.md` — deserve their own scoped commit by their own oracle.
+- **Notes:** Birthed after `/seek` Sunset pass landed Doctrine 0107 in scripture and ran a harmonic tuning pass over the council. Plan: `~/.claude/plans/review-all-my-claude-humming-sunset.md`. Wave 0 sealed clean — selena stays active, awaiting Dan's go-signal for next wave (0107 propagation OR housekeeping of the unstaged/untracked carries).
 
 ## 🔮 carmen · knots · active
 - **Born:** 2026-04-28T13:35-04:00
-- **Last touched:** 2026-04-28T13:35-04:00
+- **Last touched:** 2026-04-28T14:30-04:00
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Tooling/flow-runner-llm (operational quality loop arc — first walk + graduation toward Tier 1)
 - **Nomenclature realm:** knots (alpine-butterfly, bowline, clove-hitch, double-fisherman, figure-eight, granny, half-hitch, larks-head, monkey-fist, overhand, prusik, reef, sheet-bend, square, taut-line, trucker-hitch, water-knot)
 - **Children:**
-  - `carmen.alpine-butterfly` — Wave 0 / ⚡ Catalyst / Sonnet 4.6 — first walk of `_meta-flow/` loop (0100→0700, scorecard genesis, AAR) — pending dispatch
-  - `carmen.bowline` — Wave 0p / 👁️ Visionary / Haiku 4.5 — entropy scan over `_meta-flow/` (init.md claims vs processes/ substrate; Filesystem-Truth pre-loop) — pending dispatch
+  - `carmen.alpine-butterfly` — Wave 0 / ⚡ Catalyst / Sonnet 4.6 — first walk ✓ shipped (4🔴 1🟡 scorecard, 5 gaps ranked, 3 proposals: 1 applied additive `duration_s`, 2 routed to `_suggestions/`; 7 JSONL lines; dry-run still passes; 1 manual fixup — brief line numbers ~60 off from real)
+  - `carmen.bowline` — Wave 0p / 👁️ Visionary / Haiku 4.5 — entropy scan ✓ shipped (closing signal: "dispatch follow-up wave: yes"; aligned with alpine-butterfly's SDK-drift finding)
+  - `carmen.clove-hitch` — Wave 1a / ⚡ Catalyst / Sonnet 4.6 — bundled-apply: model-aliases YAML loader + retry-on-stream-failure + SDK drift fix in CLAUDE.md + bin/run-flow error message — pending dispatch
+  - `carmen.double-fisherman` — Wave 1b / 📚 Teacher / Haiku 4.5 — correct `/flow lessons.md` SDK error in curated lesson + add brief-staleness meta-lesson — pending dispatch
+  - `carmen.figure-eight` — Wave 1c / 📚 Teacher / Haiku 4.5 — substrate corrections to `_meta-flow/processes/*/step.md` (line-number + path drift Wave 0 AAR named); MUST run after 1a — pending dispatch
 - **Open threads:**
-  - **Known `_core/` drift** (`_core/model-aliases.yaml` not actually read; runner uses Python dict at `bin/run-flow:28-40`) — flagged for Wave 1, NOT Wave 0 (structural; needs carmen scoping after AAR).
-  - **Git topology** — no repo at `Tooling/flow-runner-llm/`; carmen will scope `git init` decision in a later wave once first walk surfaces what's worth versioning.
-  - **Canary readiness** — `Income/Income-Land-Deal-Search/` may not yet conform to `_flow-blueprint` shape; first walk uses self-canary (`_meta-flow/` walks itself) until LOB canary is verified.
-- **Notes:** Born from `/oracle take it from here` after a turn that scaffolded `_meta-flow/`, curated 5 lessons + 2 tools-register entries to `/flow`, and verified the runner's own dry-run passes against the new meta-flow. Single-wave first walk by design — multiple parallel waves would force handoff artifacts that don't exist yet.
+  - **3 `#decision-pending` / `#assumption-flagged` items** in `_meta-flow/docs/cold-boot-brief.md` — auto-trigger? runs.jsonl semantic diff register entry? canary regression definition? Park for Wave 2 scoping.
+  - **Git topology** — no repo at `Tooling/flow-runner-llm/`; carmen will scope `git init` decision after Wave 1 lands.
+  - **Income-Land-Deal-Search canary** — bootstrap-only; not meta-flow-shape yet. Self-canary continues as default until that LOB matures.
+- **Notes:** Wave 0 ⏱ 25min total walk. Surfaced the **big SDK drift** that escaped scaffold-time review: runner uses `openai` SDK → OpenRouter (not `anthropic` SDK direct). My own curated lesson in `~/.claude/skills/flow/lessons.md` about `cache_control: ephemeral` prompt-caching is therefore wrong — Wave 1b corrects.
+
+## 🔮 paloma · birds · active
+- **Born:** 2026-04-28T14:07-04:00
+- **Last touched:** 2026-04-28T14:07-04:00
+- **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-level refresh — state-of-the-board read)
+- **Nomenclature realm:** birds (albatross, bluebird, crane, dove, egret, falcon, grebe, heron, ibis, jay, kestrel, lark, martin, nightingale, oriole, petrel, quail, robin)
+- **Children:** (none yet)
+- **Open threads:** —
+- **Notes:** Birthed for `/oracle refresh` after surface-backlogs → flows_deals wiring completed inline. Purpose: surface active oracle threads + answer "are we done?"
+
+## 🔮 yolanda · dances · active
+- **Born:** 2026-04-28T14:15-04:00
+- **Last touched:** 2026-04-28T14:25-04:00
+- **Project scope:** /Users/verdey/Documents/Claude/Projects/Live/surface-backlogs (operationalization arc + cross-Kingdom seal census)
+- **Nomenclature realm:** dances (bachata, cumbia, danzon, flamenco, mambo, salsa, samba, tango)
+- **Children:**
+  - `yolanda.bachata` — Wave 1 / ⚡ Catalyst / Sonnet 4.6 — fix parse.py item-inflation noise — in-progress inline 2026-04-28T14:25 (departed from standard Oracle-ends-at-table flow on Dan's "lead aggressively, inline what you can" + arriba + auto-mode triple-signal)
+- **Open threads:**
+  - **Wave 2** (fresh Oracle on patillo redeaux scope, Opus 4.7) — calendar-critical, ~17d to Erath CAD tax-protest floor (May 15, 2026)
+  - **Pointer:** wealth_architecture deserves its own oracle when Dan is ready (parallel pfin.andy tab + thesis 0220 content-misalignment)
+  - **Pointer:** Live/flows_deals' own _BACKLOG.md (7 items) will surface in backlogs.test — Dan can triage there
+- **Notes:** Born after /seek pass over the freshly-built surface-backlogs flow. yolanda's lane is the surface itself; the realms it surfaces have their own oracles. PREFLIGHT surfaced patillo redeaux Erath CAD tax-protest deadline as the most-aged thread in the Kingdom — routed to fresh Oracle Wave 2, not absorbed. Sister-active to paloma (kingdom-level state-of-the-board oracle).
 
 ## 🪦 Retired
 

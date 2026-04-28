@@ -141,6 +141,7 @@ If a recommended solution fails 2+ attributes:
 - Offer a council-shaped alternative (suggest what would make it pass)
 - Route to /seek (🎵 Harmonizer) if the user wants to attune the design
   before /knock acts on it
+- Route misalignment to the voice whose domain the failing attribute touches, not always to /seek — the Architect for fractal failures, the Warrior for named-routing failures, the Healer for readiness-gate failures.
 
 The misalignment is not a blocker — it is information. Name it cleanly,
 then let the user decide.

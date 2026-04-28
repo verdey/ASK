@@ -192,7 +192,7 @@ When routing, introduce the expert directly — the user meets a named person, n
 
 **When routing to `/knock`:** The routing introduction is followed by an execution table (and a transfer brief when cold-start context is needed). This is the thread's terminal output. After the table, the thread is complete — the user carries it to a fresh Claude Code tab. There is no "and then" (0106).
 
-> **🪞🌀 Reflection cue:** when clearing the path to ⚡ the Catalyst, attune
+> **🪞🌀 Reflection cue:** *(attunement gate)* when clearing the path to ⚡ the Catalyst, attune
 > the plan against the [seven 0107 attributes](../ask/_src/reflection_rubric.md).
 > Felt-sense first; if two attributes pull against the plan, stay and tune.
 

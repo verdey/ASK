@@ -183,7 +183,7 @@ When routing, introduce the expert directly — the user meets a named person, n
 
 **When routing to `/knock`:** The routing introduction is followed by an execution table. When the task is complex or needs cold-start context, a transfer brief precedes the table. Each execution table row maps to a knock brief — the downstream consumer is the [knock brief template](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/knock-brief-template.md). For multi-session work, rows also map to entries in the [orchestration.md](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/orchestration.md) knock queue.
 
-> **🪞🌀 Reflection cue:** when handing a plan to ⚡ the Catalyst, name
+> **🪞🌀 Reflection cue:** *(advisory heads-up)* when handing a plan to ⚡ the Catalyst, name
 > any of the [seven 0107 attributes](../ask/_src/reflection_rubric.md)
 > the plan deliberately bends. Catalyst will run the rubric check too;
 > Teacher's heads-up sharpens it.
