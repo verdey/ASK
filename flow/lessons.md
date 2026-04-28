@@ -4,4 +4,163 @@
 
 ---
 
-*(no entries yet)*
+## 2026-04-27 — `/flow audit` should detect documented variants before flagging "orphan" steps (session-id: 2026-04-27-flows-audit)
+
+When auditing a flow, "step exists but doesn't fit my mental model of the archetype" is **not** the same as orphan. Before flagging a step as orphan or recommending deletion, audit must:
+
+1. Read the step's `step.md` for its declared purpose.
+2. Check `docs/decisions/` for an ADR that introduced or justifies the step.
+3. Cross-reference parent flow's archetype declaration in its own `init.md` / `CLAUDE.md` — flows can declare themselves as archetype-with-variant.
+
+**Source flow:** `Income/Flows/_flow-navigator/` — audit flagged steps `05-harvest-inbox` and `06-notify` as orphan tail imported from workflow archetype. They are intentional: 05 is the Phase 3 co-creation write-back surface (see `docs/decisions/0002-co-creation-write-back.md`); 06 honors the Workflow LOB convention's notify slot and reserves design space for future push channels. Both are documented in step.md.
+
+**Why:** Audit recommendations are load-bearing — Dan greenlights "auto-accept genius defaults" expecting the audit to be right. A wrong recommendation that gets executed destroys real work (the Phase 3 harvest run had 7 stanzas, 5 applied).
+
+**How to apply:** When `/flow audit` is about to recommend subtract/merge for a step, the recommendation must include the evidence it's actually orphan: (a) step.md absent or contradicts the goal, (b) no ADR justifies it, (c) artifact dirs are empty or single-line stubs. If any of those checks fail, downgrade from "subtract" to "verify intent in step.md" and let Dan call it.
+
+**Status:** promoted-2026-04-27 → `doctrine.md` "Audit corollary — documented intent over shape inference" (added under the two axioms section).
+
+---
+
+## 2026-04-27 — Flows can validly choose "main-pipeline-as-flowchart + processes/-as-SubFlow-sidecar" (session-id: 2026-04-27-flows-audit)
+
+A workflow LOB does **not** have to materialize its main pipeline as numbered step folders. A blessed variant: declare the canonical operational flow as a Mermaid flowchart in `init.md` + SOPs that codify each stage, while reserving `processes/` for **out-of-band SubFlows** that read from / write to the LOB but don't gate it.
+
+**Source flow:** `Income/Flows/LOBs/wholesaling/` — main pipeline (lead-capture → qualify → walk → offer → close) lives in init.md flowchart + SOPs (`docs/sop/qualified-lead.md`). `processes/` holds `intake-funnel/` and `amber-top-of-mind/` SubFlows that emit fragments for roster digest pages (per documented convention `processes/<roster-user>-<purpose>/`).
+
+**Why:** The acid-test rule ("`ls processes/` IS the order of the Flow") presumes one shape. But for LOBs where the main pipeline is **operational doctrine** (humans-and-SOPs) rather than **automated chain** (Claude-walks-the-tree), folder-shaping the main pipeline adds ceremony without leverage. The SubFlow pattern (`processes/<roster-user>-<purpose>/`) is the Flow-mechanism that *does* benefit from folder-shape.
+
+**How to apply:** Audit should recognize this variant when it sees: (a) init.md flowchart for the canonical flow, (b) `processes/` containing only SubFlow-shaped directories (not 0NNN-numbered), (c) `docs/sop/` codifying each main-pipeline stage. When detected, classify as "Workflow LOB / SubFlow-sidecar variant," not as "main pipeline missing."
+
+**Status:** promoted-2026-04-27 → `doctrine.md` "Workflow flow" archetype now carries two variants: (a) main-pipeline-as-flowchart + SubFlow-sidecar (this lesson), and (b) workflow with co-creation write-back tail (drawn from the navigator audit course-correction in the lesson above). Audit modality update to detect these variants is a separate SKILL.md edit, captured here for follow-up.
+
+---
+
+## 2026-04-28 — `flow-runner-llm` is yin-yang to `/flow` (curate vs execute) (session-id: 2026-04-28-flow-runner-llm-recon)
+
+The `flow-runner-llm` Python CLI at `~/Documents/Claude/Projects/Tooling/flow-runner-llm/bin/run-flow` walks any `_flow-blueprint`-shaped flow step-by-step via the Claude API. It is the **machine interface** to the flow system — `/flow` reads, audits, and curates flows; `run-flow` executes them. Both share the same DNA (the `_core/system-prompt.md` carries `/flow` skill semantics).
+
+**Why this matters for `/flow`:**
+- `/flow audit <path>` and `run-flow <path>` operate on the same substrate. When auditing reveals a malformed flow, the runner's `validate_flow_format()` (lines 154–197) will halt noisily on the same conditions — they're aligned.
+- The runner emits `_audit/runs.jsonl` per the doctrine self-logging contract (`doctrine.md` lines 54–76). `/flow audit`'s "step self-logging present?" check is satisfied automatically when a flow has been executed by the runner.
+
+**How to apply:** When `/flow` recommends "walk this flow" as a verification step, the canonical command is `~/Documents/Claude/Projects/Tooling/flow-runner-llm/bin/run-flow <path> --dry-run` (smoke) then without `--dry-run` (real). The new entry in `tools-register.md` under "Flow execution" canonizes this.
+
+**Source:** Reconnaissance dispatched 2026-04-28 to inventory the runner before scaffolding `Tooling/flow-runner-llm/_meta-flow/` (the runner's own state→quality→improvement loop).
+
+**Status:** captured
+
+---
+
+## 2026-04-28 — `_core/` lockout is doctrinal, not incidental (session-id: 2026-04-28-flow-runner-llm-recon)
+
+The runner has a hard rule that nothing in its self-improvement scan ever modifies `_core/system-prompt.md` or `_core/model-aliases.yaml`. Suggestions targeting `_core/` are written to `_suggestions/YYYY-MM-DD-<slug>.md` instead, where Dan reviews and either greenlights (manually edits `_core/`) or declines.
+
+This is the same shape as `/flow` skill's mutation-only-via-skill rule for `doctrine.md`/`showcase.md`/`tools-register.md`. The pattern: **separate the LLM-suggesting surface from the human-greenlit application**, so the system can self-improve without self-corrupting.
+
+**How to apply:** When designing meta-flows that operate on substrate that includes any "locked" knowledge file (system prompts, doctrine docs, canonical schemas), the loop's apply-stage must enforce the lockout — write to a suggestions sink instead of editing directly. The new `_meta-flow/processes/0500-apply-or-route/step.md` codifies this for the runner-quality-loop.
+
+**Status:** captured
+
+---
+
+## 2026-04-28 — Brief line numbers go stale within hours; grep, don't cite (session-id: 2026-04-28-flow-runner-llm-recon)
+
+When `/oracle` writes a session brief that cites `bin/run-flow:154-197` or any other line range, those line numbers are accurate at brief-write time but degrade as soon as anyone touches the file. Wave 0 (`carmen.alpine-butterfly`) found brief line numbers ~60 off from reality after a few hours of co-evolution.
+
+**How to apply:**
+1. **`/oracle` brief authors** — describe what to grep for, not where it is. *"grep for `def validate_flow_format(`"* survives any refactor; *"line 154"* doesn't.
+2. **`/knock` agents executing briefs** — when a brief cites line numbers, treat them as approximate. Always grep for the function/symbol name first to find the actual site, THEN edit. Wave 0 named this as a `manual_fixup` signal in its JSONL.
+3. **`/flow audit` and `/flow streamline`** — when a session note or `step.md` cites line numbers in its body, that's a streamlining target. Replace with grep targets.
+
+**Source flow:** Wave 0 `_meta-flow/` first walk; brief at [`_wave-0-first-walk.md`](/Users/verdey/Documents/Claude/Projects/Tooling/flow-runner-llm/_meta-flow/docs/sessions/_wave-0-first-walk.md) cited line numbers from a brief written hours earlier; alpine-butterfly found ~60-line drift across multiple sites.
+
+**Status:** captured
+
+---
+
+## 2026-04-28 — `init.md` as stable cache anchor across multi-step flows (session-id: 2026-04-28-flow-runner-llm-recon)
+
+The runner builds every step's LLM call with `init.md` as a stable prefix and the current step's content as the variable suffix. This is *the* reason `/flow` doctrine insists on every flow having a loud `init.md` — it's not just walk-test legibility, it's also the cache anchor that makes multi-step LLM walks economical.
+
+The exact cache mechanism is provider-specific:
+- Anthropic SDK supports explicit `cache_control: ephemeral` markers
+- OpenAI / OpenRouter rely on implicit content-prefix caching where supported
+- Other providers may have no caching at all
+
+The runner currently uses `openai` SDK → OpenRouter (not the Anthropic SDK; corrected from prior version of this lesson). It does NOT use `cache_control` markers because that's an Anthropic-specific primitive. It still benefits from prefix caching where the provider supports it, because `init.md` is structurally stable across steps in a single run.
+
+**How to apply:** `/flow streamline` should preserve `init.md` as a stable prefix across all step prompts. Drift in `init.md` per-run is a streamlining target — extract volatile parts into per-step `step.md`, restore `init.md` to stable doctrine. The provider-specific cache mechanism is downstream; the upstream invariant is "init.md doesn't change between steps in a run."
+
+**Status:** corrected-2026-04-28 — Wave 1b carmen.double-fisherman replaced erroneous "Anthropic SDK + cache_control: ephemeral" claim with provider-agnostic stable-context reasoning. Source: Wave 0 alpine-butterfly stage 0100 SDK-drift finding.
+
+---
+
+## 2026-04-28 — The runner's post-run scan is structural, not semantic — known seam for the meta-flow (session-id: 2026-04-28-flow-runner-llm-recon)
+
+`scan_for_improvements()` (`bin/run-flow` lines 306–344) does basic string searches for: missing "Produces" sections, missing `_graduation.md`, missing `_audit/`. Capped at 2 suggestions per run unless ≥4 issues found. It cannot judge whether a stage's prompt actually delivered on its declared purpose, whether the LLM's response addressed inputs/outputs/loopback correctly, or whether the model performance per flow drifts over time.
+
+This is the seam the new `_meta-flow/` attaches to: stage 0200 (judge-quality) explicitly scores axes the runner's own scan can't reach (validation rigor for *content*, telemetry depth, error recovery, semantic-not-just-structural self-improvement utility, hygiene).
+
+**How to apply:** When `/flow streamline` reviews a flow's verification stage and sees only structural checks, surface this as a Tier-1 graduation opportunity. The pattern is: structural scan stays in the runner (cheap, runs every time); semantic scan lives in a meta-flow (expensive, runs periodically). Don't mash them together.
+
+**Status:** captured
+
+---
+
+## 2026-04-28 — Filesystem-Truth violation: `_core/model-aliases.yaml` exists but isn't read (session-id: 2026-04-28-flow-runner-llm-recon)
+
+The runner has `_core/model-aliases.yaml` on disk, but `bin/run-flow` lines 28–40 hardcode the same aliases as a Python dict — the YAML file is never opened. This is a textbook Filesystem-Truth axiom violation per `Income/docs/flow.md` §1.2: a file present in the tree that doesn't agree with the code that would consume it.
+
+The fix is small (load the YAML on startup, fall back to dict only if file is missing), but it must land via `_suggestions/` because the YAML lives under `_core/` (locked). The new meta-flow's stage 0500 routing matrix handles this exact case.
+
+**Why this matters as a `/flow` lesson:** when scaffolding new flows from `_flow-blueprint`, leave NO config-file stubs that aren't actually read. Every scaffolded YAML/JSON config either ships with a real loader, or it doesn't ship at all. This is a `proposes-tools-register-edit` candidate — the tools register should add a "configs are read on first invocation, not just present" check pattern.
+
+**Status:** proposes-tools-register-edit *(deferred — promote after the next `_meta-flow/` iteration confirms the fix shape)*
+
+---
+
+## 2026-04-27 — `/flow audit` workflow that hit (the processification template) (session-id: 2026-04-27-flows-audit)
+
+The audit invocation that produced this batch worked unusually well. The shape:
+
+1. **Plan-mode-first.** Single Explore agent with a structured per-flow brief (goal / steps / coherence / tier / lag → score + biggest-gap-to-close). Output written as a plan file in `~/.claude/plans/`.
+2. **Risk-class flagging.** Recommendations bucketed by risk: additive (autonomous-execute) / destructive (confirm) / structural (confirm) / doctrine-divergent (confirm).
+3. **Bundled confirmation.** All confirmation-required calls surfaced in **one** message with named options (A1/A2/A3, B1/B2/B3, C1/C2). No death-by-a-thousand-questions.
+4. **Course-correction headroom.** When Dan auto-accepted genius defaults, the assistant re-checked each recommendation against substrate (step.md, ADRs, init.md) and downgraded wrong calls before executing.
+
+**Source flow:** the audit thread itself (2026-04-27, six flows in `Income/Flows/`). Two of the audit's own recommendations (delete navigator 05/06; restructure wholesaling) were re-evaluated and reversed at execution time after reading the actual substrate.
+
+**Why:** Dan named this thread out as a positive `/flow` example worth processifying. Capturing the shape so future `/flow audit` invocations can follow the same arc by default rather than rediscover it.
+
+**How to apply:** Make this the canonical flow for `/flow audit [path]`:
+- Phase 1: Explore agent with structured brief.
+- Phase 2: Plan file with per-flow tables + ranked moves with risk-class flags.
+- Phase 3: Auto-execute additive moves while bundling destructive/structural/divergent into one confirmation set.
+- Phase 4: On greenlight, re-verify each non-additive recommendation against substrate before executing — downgrade wrong calls visibly with reasoning.
+- Phase 5: Curate the audit's own course-corrections as lessons (this entry is an example).
+
+**Status:** captured-2026-04-27 — agreed-with but **not promoted to doctrine**. This is a process-arc lesson about HOW `/flow audit` should run, which lives in `SKILL.md` (the audit modality contract), not `doctrine.md` (what a flow IS). Promote modality cannot edit `SKILL.md`; this needs a separate edit cycle. Held here as the canonical source for that future SKILL.md update.
+
+---
+
+## 2026-04-28 — `realize` must respect existing realm taxonomy before recommending `docs/` tree (session-id: 2026-04-28-patillo-realize)
+
+When `/flow realize` runs on a realm that already has rich internal taxonomy (numeric-prefix folders like `00_EXEC_README.md`, `01_intake/`, `02_rubric/`, `03_scenarios/`; structured ledgers like `02_rubric/ASSUMPTIONS.md` carrying ranked-alternatives A-NNN entries; canonical conventions doc), the default `Shape 1 → Tier 1` recommendation in `shapes.md` (decompose into `docs/decisions/A-NNN.md` + `docs/scenarios/`) is **wrong** for this realm. Imposing a parallel `docs/` tree would duplicate existing scaffolding and violate Filesystem-Truth.
+
+**Source flow / realm:** `Finance/patillo redeaux/`. Approved plan recommended creating `docs/decisions/0001-county-jurisdiction.md`, `0002-mixed-entity-title.md`, and `docs/scenarios/00NN-<name>.md` × 12. Substrate already had `02_rubric/ASSUMPTIONS.md` (9 A-NNN entries with full ranked-alternatives), `03_scenarios/S01–S12/` (with sealed-brief pattern), and `_CONVENTIONS.md` (yellow tape + ID schema). The actual realization needed was: (a) extract durable contract from monolithic 278-line `HANDOFF.md` into a new `CLAUDE.md`, (b) slim `HANDOFF.md` to ephemeral status pointing at the existing structured docs as source-of-truth. No `docs/` tree created.
+
+**Why:** The Acid Test cuts both ways. "Whatever `ls` shows in ascending order IS the order of the Flow" means the existing OS-ascending-sort taxonomy IS the truth — overlaying a parallel naming scheme creates two competing truths. The realization opportunity for these realms is **not** "decompose into the canonical `docs/` shape" but "extract durable contract layer (`CLAUDE.md`) and slim the ephemeral pointer (`HANDOFF.md`) so the *existing* structured layer is the authoritative one." The structured layer was already there — it just wasn't being routed to.
+
+**How to apply:** Before `/flow realize` recommends Tier 1 decomposition for Shape 1 (Mission HOP), it must first scan for existing internal taxonomy:
+
+1. Numeric-prefix top-level folders (`00_`, `01_`, `02_`...) → realm has its own ordered taxonomy; do NOT impose `docs/`.
+2. ID-tagged structured ledgers (`A-NNN`, `B-NNN`, etc.) inside named subfolders → existing decisions/assumptions surface; do NOT create `docs/decisions/`.
+3. Canonical convention doc (`_CONVENTIONS.md` with structured rules) → conventions already factored; do NOT duplicate.
+4. Scenario / case folders with sealed-brief pattern → existing case scaffolding; do NOT create `docs/scenarios/`.
+
+When any of these are detected, the realization target shifts from "build `docs/` scaffold" to "build a thin durable contract (`CLAUDE.md`) that *routes to* the existing structured layer + slim the monolithic ephemeral doc to a pointer." Filesystem-truth wins over template-shape conformance.
+
+**Status:** proposes-doctrine-edit — `shapes.md` Shape 1 realization-target table should add a precondition: "If realm has existing internal taxonomy (numeric-prefix folders + ID-tagged ledgers + structured conventions), substitute `docs/`-tree decomposition with `CLAUDE.md`-routes-to-existing-layer pattern." Hold for `/flow promote` after one more confirming case.
+
+---

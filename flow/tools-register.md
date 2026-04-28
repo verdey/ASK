@@ -16,6 +16,42 @@ Each entry carries:
 
 ---
 
+## Flow execution
+
+### `run-flow` — Python CLI walking any `_flow-blueprint`-shaped flow via the OpenRouter (Claude-compatible) API
+
+- **Trigger:** "walk this flow," "execute the LOB pipeline," "smoke-test a flow's format," "run the runner against `<path>`," any context where Dan wants the LLM to step through a flow's `processes/` rather than hand-walking. Yin-yang to `/flow` itself: `/flow` reads/audits/curates; `run-flow` executes.
+- **Example:** `~/Documents/Claude/Projects/Tooling/flow-runner-llm/bin/run-flow <flow-path> --dry-run` (smoke); `run-flow <flow-path> --ModelRequest mid --extraprompts 'focus on X'` (real).
+- **Use instead of an LLM-in-chat when…** the same flow will be walked >3 times, OR the flow has ≥4 stages (manual prompt-by-prompt becomes friction), OR you need an audit log per run. The runner appends one JSONL line per step to `<flow-root>/_audit/runs.jsonl` — `/flow audit`'s "step self-logging present?" check is satisfied automatically.
+- **Self-improvement seam:** the runner emits `_suggestions/YYYY-MM-DD-<slug>.md` for any structural gaps it finds during a walk. Honor `_core/` lockout: never edit `_core/system-prompt.md` or `_core/model-aliases.yaml` directly — the runner refuses, route through suggestions instead.
+- **Anti-pattern:** don't hand-walk a `_flow-blueprint`-shaped flow via repeated chat prompts. The runner builds every step's LLM call with `init.md` as a stable prefix (so providers that support prefix caching benefit automatically) and the current step's content as the variable suffix — dramatically cheaper than re-pasting context every step.
+- **Install:** `~/Documents/Claude/Projects/Tooling/flow-runner-llm/bin/run-flow` (already on disk; symlink to `~/bin/` planned at runner's stage 0800-package).
+
+### Meta-flow over the runner: `Tooling/flow-runner-llm/_meta-flow/`
+
+- **Trigger:** "is the runner healthy?," "audit the runner's quality," "what should we improve in `flow-runner-llm`?" The seven-stage state→quality→improvement loop scaffolded 2026-04-28 walks observe → score → diagnose → propose → apply-or-route → verify → log-and-aar.
+- **Example:** `run-flow ~/Documents/Claude/Projects/Tooling/flow-runner-llm/_meta-flow` (the runner walks its own meta-flow — eat-our-own-dogfood by design).
+- **Use instead of an LLM-in-chat when…** a runner regression is suspected, the `_suggestions/` backlog has grown unreviewed, or the scorecard hasn't been refreshed in >2 weeks.
+- **Honors `_core/` lockout:** stage 0500 routes any `_core/`-targeting fix to `_suggestions/` instead of applying.
+
+---
+
+## YAML
+
+### `yq` (mikefarah, Go) — YAML as JSON
+
+- **Trigger:** any LLM or hand-rolled script asked to parse YAML config.
+- **Example:** `yq -o=json '.' registry.yaml | jq '.include_kinds'`
+- **Use instead of an LLM when…** the YAML is **declarative config** (knobs the operator hand-edits), not authored prose. `yq` is a single Go binary; once it's on the system, every flow's config-reading step gets simpler.
+
+### Anti-pattern: don't hand-roll a YAML parser
+
+- **Trigger:** "I'll just write 30 lines of Python to parse this little YAML." You won't.
+- **Example earned the hard way:** [`flows_deals/processes/0020-curate-registry/curate.sh`](file:///Users/verdey/Documents/Claude/Projects/Live/flows_deals/processes/0020-curate-registry/curate.sh) initial implementation lost `include_kinds` and `section_order` to a recursive-descent bug; cost one full debug cycle. The fix was a peek-ahead heuristic, but the real fix is `yq`.
+- **Use this register entry as a tripwire** — if a Streamline pass spots a hand-rolled YAML parser anywhere in a flow, propose the `yq` swap.
+
+---
+
 ## JSON
 
 ### `jq` — JSON reshape, filter, aggregate
@@ -94,6 +130,23 @@ Each entry carries:
 
 - **Trigger:** same as find but you want gitignore-respecting walk by default.
 - **Example:** `fd -e md . processes/`
+
+### `find -print0 | python3 -c '…JSONL…'` — file-tree classify pattern
+
+- **Trigger:** "walk a directory, classify each file by path-pattern, emit one record per file."
+- **Example:** see [`flows_deals/processes/0010-discover/discover.sh`](file:///Users/verdey/Documents/Claude/Projects/Live/flows_deals/processes/0010-discover/discover.sh) — `find -print0` then a 6-line Python `json.dumps` per record. Bash handles the walk + path-glob classification; Python handles the JSON-safe emission.
+- **Use instead of an LLM when…** the classifier is path-pattern only (no content reading). Anything content-aware should still pass through the LLM (or a parser) downstream.
+
+---
+
+## HTML extraction
+
+### `pup` — CSS-selector HTML extraction (Go binary)
+
+- **Trigger:** "extract `<body>` from this HTML," "pull all `<a href>`s from a page," "get the inner HTML of an element by selector."
+- **Example:** `pup 'body' < source.html` (body element); `pup 'a attr{href}' < page.html` (every link href, one per line)
+- **Use instead of an LLM when…** the task is structural transformation on HTML, not interpretation. Single Go binary, matches the `yq`/`jq` ethos. **Earned the hard way:** [`flows_deals/processes/0030-stitch/stitch.py`](file:///Users/verdey/Documents/Claude/Projects/Live/flows_deals/processes/0030-stitch/stitch.py) initially hand-rolled a `html.parser.HTMLParser` subclass (`BodyExtractor`) for body extraction; Wave 2 of mariela's arc retired it for `pup`. Per the doctrine: *don't subclass `html.parser.HTMLParser` for structural work — that's a `pup` job, not a Claude job.* Note: `pup 'body'` emits `<body>...</body>` including the wrapper; strip it in Python with `re.sub(r'^<body[^>]*>\s*', '', ...)`.
+- **Install:** `go install github.com/ericchiang/pup@latest` (not in Homebrew core; binary lands at `$(go env GOPATH)/bin/pup`).
 
 ---
 
