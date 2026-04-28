@@ -4,6 +4,28 @@
 
 ---
 
+## 2026-04-28 — Flow surface files always carry both Herd `*.test` URL and absolute filesystem path (session-id: 2026-04-28-flow-runner-llm-recon)
+
+When any council vessel (Oracle, Catalyst, Teacher) re-delivers a flow surface file (`index.html`, dashboard, HUD card, regenerated artifact) for Dan to look at, the message must surface **two paths**:
+
+1. **Herd `*.test` URL** — clickable. Kingdom portal `alpha.test` → `~/Documents/Claude/Projects/`, so any kingdom file is reachable as `http://alpha.test/<path-from-kingdom>/`. Per-realm valets may exist (`flows.test`, `backlogs.test`, `runner.test`, etc.) — check `~/Library/Application Support/Herd/config/valet/Sites/` first.
+2. **Absolute filesystem path** — `/Users/verdey/Documents/Claude/Projects/...`. Never relative. The kingdom is large; relative paths force navigation, absolute paths are copy-paste targets.
+
+**For non-surface files** (markdown briefs, source code, configs): absolute path only — markdown doesn't render usefully in browser; surface URL is reserved for HTML/CSS/JS artifacts that have visual presence.
+
+**Why:** Dan stated 2026-04-28 in the carmen arc, after a re-delivery friction moment: *"i dont know where those files are bruh, you|skills|memories need to know that you should talk to me on any flow related surface files (index.html's) that you should talk to me with them as herd links on the whatever.test domain and you need to give me the copy-paste-friendly absolute filepath (not relative filepaths) — this is a big codebase."*
+
+**How to apply:**
+
+- **Brief authors (Oracle)**: every "Required reading" / "Deliverable" / "Visual QA" section that names a flow surface includes both surfaces. Brief drafts without both are stale before they ship.
+- **Wave executors (Catalyst)**: every AAR's "What landed" line for a regenerated `index.html` carries both. Verify the Herd valet exists before asserting the URL; if no valet, recommend creating one in the same response.
+- **Audit / Streamline modes**: when a flow's surface lacks a Herd valet symlink, that's a Tier-1 graduation gap — propose `~/Library/Application Support/Herd/config/valet/Sites/<slug>` linking into the realm.
+- **Composes with**: the omega-canon five-section contract (`flow.md` §1.1.1) — every flow's `index.html` is meant to be Herd-linked anyway. This rule canonizes the *delivery surface format* that complements the doctrine.
+
+**Status:** captured-2026-04-28 — memory layer encoded at `~/.claude/projects/-Users-verdey-Documents-Claude-Projects/memory/feedback_flow_surface_links.md`; council layer (this lesson + Oracle SKILL.md "Rules" line) updated same session.
+
+---
+
 ## 2026-04-27 — `/flow audit` should detect documented variants before flagging "orphan" steps (session-id: 2026-04-27-flows-audit)
 
 When auditing a flow, "step exists but doesn't fit my mental model of the archetype" is **not** the same as orphan. Before flagging a step as orphan or recommending deletion, audit must:

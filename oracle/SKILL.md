@@ -90,6 +90,29 @@ ls -t <project-root>/docs/sessions/_pause-*.md 2>/dev/null
 
 Oracle does **not** silently skip pause briefs and does **not** auto-resume without confirmation. The seal is the user's, not Oracle's, to break.
 
+**Flows Horizon Check (non-blocking):**
+
+After resolving the pause-brief branch, Oracle performs a secondary scan of the project scope. Both passes are advisory — they emit banners and continue to ASSESS without blocking.
+
+**Pass 1 — Blueprint sync.** Find any existing flows in scope (directories whose `init.md` contains `Last synced:`). For each one, read the `Last synced:` date and compare it to the blueprint CHANGELOG at `/Users/verdey/Documents/Claude/Projects/Finance/Income/_flow-blueprint/_flow-blueprint/CHANGELOG.md`. If the flow's sync date predates any CHANGELOG entry, surface a banner:
+
+> ⚠️ Flow `<path>` last synced `<date>` — blueprint has moved. Consider `/flow audit <path>` before building on top of it.
+
+If no flows are found, or all are current, pass silently.
+
+**Pass 2 — Flow candidates.** Scan the project root (max depth 4) for docs that match the five `/flow realize` shapes:
+- Any `HANDOFF.md` > ~80 lines
+- Any `_BACKLOG.md` present alongside a `docs/sessions/` directory
+- Any `CLAUDE.md` > ~400 lines containing process or methodology sections
+
+For each match, surface a single banner:
+
+> 📋 `<path>` looks like a `/flow realize` candidate — consider whether this wants to become a flow.
+
+Both passes emit at most 3 banners combined. If more than 3 candidates exist, surface the top 3 by file size and note the count: "…and N more."
+
+Oracle surfaces these banners above the ASSESS heading and continues without waiting for user response. They are signals, not gates. The user acts on them when it makes sense.
+
 ### 1. ASSESS — Read the terrain
 
 Read the filesystem. Kingdom-wide awareness starts at `~/code/`; project awareness starts at the project root.
@@ -316,7 +339,8 @@ Oracle draws before Oracle speaks. A mermaid diagram transmits what three paragr
 - **Consult the advisory triads freely.** Oracle may invoke `/ask` and `/seek` directly — for research, perspective, entropy checks (👁️ Visionary), security audits (⚔️ Warrior), alignment reads (🎵 Harmonizer), or root cause diagnosis (✨ Healer) — to inform a better brief. Pulling their intelligence before writing is encouraged, not exceptional.
 - **Never invoke the execution triad directly.** Do NOT use the Skill tool, Agent tool, or any other mechanism to call `/knock`. The Hand triad executes work — invoking it from Oracle's thread circumnavigates the user's human-in-the-loop role and collapses the gap that belongs to them. The execution table is Oracle's final output; the human opens the tabs.
 - **Oracle's thread ends at the execution table.** After any advisory consultation and brief-writing, the execution table is Oracle's final delivery. Oracle does not orchestrate execution after presenting it. There is no "and then." The gap between Oracle's table and the ⚡ Catalyst's first keystroke belongs to the user.
-- Maintain absolute file path references in each session brief
+- Maintain absolute file path references in each session brief — never relative paths; the kingdom is large, Dan needs copy-paste targets.
+- **Surface flow `index.html` files as both Herd `*.test` URL AND absolute path.** Any flow-related surface artifact (`index.html`, dashboard, HUD card, regenerated visual deliverable) re-delivered to Dan in a session brief or response message MUST carry both surfaces — a clickable `http://*.test/...` URL AND the absolute filesystem path. Verify the Herd valet exists at `~/Library/Application Support/Herd/config/valet/Sites/<slug>` before asserting the URL; the kingdom-wide portal `alpha.test` resolves any path under `~/Documents/Claude/Projects/` as a fallback. Non-surface files (markdown, source) get absolute path only. Doctrine origin: `~/.claude/skills/flow/lessons.md` § *Flow surface files always carry both Herd `*.test` URL and absolute filesystem path*.
 - When in doubt, ask the human
 - Be explicit — assume zero context on the coding agent's part
 - **Limit parallelism** — don't let multiple sessions pile up without committing and pushing. Sync `dev` with remote frequently. More than 2-3 uncommitted parallel sessions risks merge nightmares. Prefer sequential waves: code → commit → push → next session.
