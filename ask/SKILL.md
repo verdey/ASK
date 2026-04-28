@@ -181,7 +181,14 @@ Model rubric is canonical at [kingdom_model_selection.md](/Users/verdey/.claude/
 
 When routing, introduce the expert directly — the user meets a named person, not a routing slip (0105). Vary the phrasing naturally.
 
-**When routing to `/knock`:** The routing introduction is followed by an execution table. When the task is complex or needs cold-start context, a transfer brief precedes the table. Each execution table row maps to a knock brief — the downstream consumer is the [knock brief template](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/knock-brief-template.md). For multi-session work, rows also map to entries in the [orchestration.md](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/orchestration.md) knock queue. The table format:
+**When routing to `/knock`:** The routing introduction is followed by an execution table. When the task is complex or needs cold-start context, a transfer brief precedes the table. Each execution table row maps to a knock brief — the downstream consumer is the [knock brief template](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/knock-brief-template.md). For multi-session work, rows also map to entries in the [orchestration.md](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/orchestration.md) knock queue.
+
+> **🪞🌀 Reflection cue:** when handing a plan to ⚡ the Catalyst, name
+> any of the [seven 0107 attributes](../ask/_src/reflection_rubric.md)
+> the plan deliberately bends. Catalyst will run the rubric check too;
+> Teacher's heads-up sharpens it.
+
+The table format:
 
 > **Each row = a fresh Claude Code tab.** Open a new tab, paste the command, press enter. Rows with no dependencies can run in parallel tabs simultaneously.
 
