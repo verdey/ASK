@@ -58,6 +58,8 @@ No file written. No tokens spent on a document that would be immediately compost
 
 A pause brief that would be composted on the next invocation was never a brief. It was waste.
 
+**Single-decision vs. whole-session:** `/pause` seals the full session state for cold-boot resume. For a single off-thread clarifier that doesn't require stopping the session, use [`/surface`](../surface/SKILL.md) instead — it captures just the cliffhanger and keeps the session alive.
+
 ---
 
 ## What the Keeper reads before writing

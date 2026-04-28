@@ -16,7 +16,10 @@ The council is a 3×3 mandala. Each triad has a **demiurge** (lead) plus two **a
 |-------|------|
 | `/flow` | LOB knowledge curator — read-only over LOBs, mutates own knowledge base. Sister-of-the-curator to `/skillz`. |
 | `/parallel` | Script bank dispatcher — runs LLM scripts in parallel. |
+| `/sketch` | Visual-doubt reflex — suppresses clarifiers, dispatches parallel prototypes via `/parallel`. |
+| `/arriba` | Session posture toggle — engages GSD+sketch+parallel stance for the rest of the session. Mirror to `/pause` (engage vs seal). |
 | `/skillz` | Council librarian — this skill. Knows the whole council, audits build-vs-adopt, prunes drift. |
+| `/surface` | Cliffhanger reflex — off-thread single-decision capture → persistent `decisions.test` asset. Sister of `/sketch` (visual reflex) and `/pause` (whole-session seal). |
 
 **Plugin/utility skills** (not vessels):
 
@@ -40,6 +43,8 @@ The council is a 3×3 mandala. Each triad has a **demiurge** (lead) plus two **a
 - **Align / tune / security audit / tech debt** → 💜 `/seek`
 - **Build / ship / refactor / commit** → 🔥 `/knock`
 - **Seal / handoff / cold-boot brief** → 🗝️ `/pause`
+- **Engage / GSD posture for the session / "light a fire" / "ninja parallelism"** → 🚀 `/arriba`
+- **Visual clarifier with 3+ defensible defaults** → 🎨 `/sketch`
 - **Recurring / scheduled** → `/loop` or `/schedule`
 - **Code review / cleanup** → `/simplify`, `/review`, `/security-review`
 - **Documents (pdf/docx/xlsx/pptx)** → `anthropic-skills:*`
