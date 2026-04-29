@@ -1,7 +1,7 @@
 ---
 name: flow
 description: "🌊 Flow — Lines of Business and the prompt-folder craft. Curates the evergreen doctrine of flows, audits maturity against the blueprint, streamlines existing flows (including LLM→script offload via a tools register), and scaffolds new ones from _flow-blueprint. Read-only over LOBs; mutates only its own knowledge base."
-argument-hint: "[doctrine | showcase | audit <path> | streamline <path> | realize <path> | new <name> | curate <observation> | curate-batch | promote <lesson-id> | nav | tools]"
+argument-hint: "[doctrine | showcase | audit <path> | streamline <path> | realize <path> | absorb <path> | new <name> | curate <observation> | curate-batch | promote <lesson-id> | nav | tools]"
 ---
 
 # 🌊 flow — Flow
@@ -59,6 +59,7 @@ Parse `$ARGUMENTS`. The first word is the modality. If `$ARGUMENTS` is empty, re
 | Audit | `/flow audit [path]` | Walks the target dir against the blueprint, returns a maturity tier and the gaps to close. |
 | Streamline | `/flow streamline [path]` | Two passes: structural simplification + LLM→script offload recommendations from the tools register. |
 | Realize | `/flow realize [path]` | Walks any realm (not just LOBs), classifies session-resumption docs into 5 archetypal shapes, names what could graduate prose into living code. Read-only; routes to `/knock` for action. |
+| Absorb | `/flow absorb [path]` | Converts an oversized static prose document (500+ lines with repeated internal structure) into a catalog flow. Read-only analysis + routing brief; routes to `/knock` for execution. |
 | Scaffold | `/flow new <name>` | Clones `_flow-blueprint/` into a new LOB. Confirms destination before writing. |
 | Curate | `/flow curate <observation>` | Appends a dated entry to `lessons.md`. Proposes (never auto-applies) edits to `doctrine.md`/`showcase.md` if the observation supersedes prior content. |
 | Curate-batch | `/flow curate-batch` | Accepts a markdown list (or reads recent assistant chat). Files each item as its own entry in `lessons.md` with a shared `session-id` and per-item Status flag. |
@@ -78,6 +79,7 @@ When `$ARGUMENTS` is empty, render this menu and wait for selection:
    3. Audit         — assess this dir (or a path) against the blueprint
    4. Streamline    — recommend simplifications + LLM→script offload
    5. Realize       — find prose-doc that wants to graduate into living code
+   5a. Absorb       — convert an oversized static prose doc into a catalog flow
    6. Scaffold      — clone _flow-blueprint into a new LOB / realm
    7. Curate        — capture an evergreen lesson about flows
    8. Curate-batch  — file a batch of candidate lessons under one session-id
@@ -96,22 +98,31 @@ Then dispatch on the user's reply.
 
 ### 1. Doctrine
 
-Read `~/.claude/skills/flow/doctrine.md` and emit it verbatim. Do not paraphrase. If the user asks a follow-up about flows, answer from `doctrine.md` first; if the answer isn't there, say so and offer to capture the gap via Curate.
+`/Users/verdey/.claude/skills/flow/doctrine.md` is a thin pointer-index, not a paraphrase. To emit doctrine: read it for the routing pointers, then **walk into the kingdom** — read `_flow-blueprint/init.md` (head + frontmatter rules), `Income/docs/flow.md` (axioms + motion), and `Income/CLAUDE.md` §14 — and compose the answer from substrate. Skill-side taxonomy (archetypes, audit corollaries, step-shape question) lives in `doctrine.md` and is appended after the kingdom view. If the user asks a follow-up the kingdom doesn't cover, say so and offer `/flow curate`.
 
 ### 2. Showcase
 
-Read `~/.claude/skills/flow/showcase.md` and emit it. Each exemplar carries: path, archetype, what to learn, what *not* to copy. If the user asks "what's the best example of X?", scan the showcase for a match before pointing at the broader portfolio.
+`/Users/verdey/.claude/skills/flow/showcase.md` is a thin pointer table, not stored summaries. To emit showcase: read the index, then for each entry **read the flow's actual `init.md` head live** — emit a composed view with the kingdom's current substrate plus this index's "what it teaches" column. Never paraphrase a kingdom flow into the showcase file; the file holds pointers only.
 
 ### 3. Audit
 
 Default target: `pwd`. Otherwise the path Dan supplies. Read these signals:
 
 - Presence and shape of `init.md` at root (per `Income/docs/flow.md` §1.1)
+- **YAML frontmatter at top of `init.md`** declaring `flow_id`, `archetype`, `parent_flows`, `blueprint_lineage` (and optionally `child_flows`). Per `_flow-blueprint/init.md:4`: `parent_flows` is REQUIRED and non-empty for every flow except the source blueprint itself; self-source is permitted ONLY at `/Users/verdey/Documents/Claude/Projects/_flow-blueprint`. `child_flows` is informational — its absence is never a finding.
+- **`blueprint_lineage` walks correctly.** For each path in `blueprint_lineage`, verify the path resolves and contains a `CHANGELOG.md`. Broken lineage (an ancestor that doesn't exist or has no CHANGELOG) is doctrine drift.
 - Presence of `processes/` with OS-ascending-sort step dirs (the **Acid Test**)
-- **Archetype detection** — Workflow / Stitch / Living-blueprint (per `doctrine.md` *Flow archetypes*). For Stitch flows, additionally check: stable artifact path, dated snapshots dir, self-refresh comment block in artifact, registry.yaml split from exec script, defang behavior in stitch step.
+- **Subflow detection** — for any step folder that contains its own `init.md` + `processes/`, recurse the audit into that subflow (it's a flow in its own right per `doctrine.md` *Composition*). Verify the subflow's frontmatter declares its parent.
+- **Archetype detection** — Workflow / Stitch / Catalog / Living-blueprint (per `doctrine.md` *Flow archetypes*; orthogonal to composition). For Stitch flows, additionally check: stable artifact path, dated snapshots dir, self-refresh comment block in artifact, registry.yaml split from exec script, defang behavior in stitch step.
 - Per-step content shape — **all three are valid** (skinny YAML / legacy README+`_graduation.md` / prose-skinny `step.md`). Audit only flags steps with *none* of the three. Do not push convergence on shape until the self-logging data calls one out.
+- **`**Runtime:** SCRIPT` or `**Runtime:** composite` in any step?** — `flow-runner-llm --dry-run` passes structural validation on these, but the runner has no shell executor for SCRIPT-type steps. The runner will walk to `✅ RUN COMPLETE` and produce **no artifact**. Flag as `⚠️ runtime-not-implemented` even when dry-run is green. Resolution: convert to LLM-driven step OR wait for runner executor support. Never assume dry-run pass implies functional execution on SCRIPT-declared steps.
 - **Per-step self-logging present?** — does each step folder contribute to `<flow-root>/_audit/runs.jsonl`? If not, that's the highest-leverage gap regardless of tier (per `doctrine.md` *Step self-logging*).
-- **Live HTTP surface present?** — for flows that produce HTML, check for a Herd valet symlink at `~/Library/Application Support/Herd/config/valet/Sites/<slug>` resolving into the realm. If the flow produces HTML and there's no live surface, recommend creating one.
+- **`index.html` present and rich?** — Three-level check:
+  1. File present at flow root? If not → highest-leverage gap, flag immediately regardless of tier.
+  2. If present, does it contain all five required sections (process map, recent activity, AI insights, blueprint sync, init.md body)? Check for `id="flow-report"` or equivalent section markers. If only the init.md body is present → flag as "under-specified — regenerate via `0600-render-index-html/`". Exemplar floor: `Finance/Income/flow-navigator.html`.
+  3. **Positioning check** — does `processes/` have a render step and is it numbered last? Run `ls processes/` and verify the render step (any step with `render-index-html` in the name) sorts last under OS ascending order. If it exists but is NOT last → Filesystem-Truth violation; flag to rename/renumber it.
+- **Audience-frame readiness (Tier 2+ only)** — Per `_flow-blueprint/CLAUDE.md` §Designing for the audience: does `init.md` have a filled-in `## Audience` section (roster member, profile reference, reading context, tone)? Does `_assets/` exist with a `bg-*.{jpg,webp,png}` photo so the parallax/frosted-frame layer engages? If a flow is Tier 2+ and is missing either piece, flag as "audience-undeclared" — the rendered `index.html` is functional but unframed for its real reader. Run `bin/audience-frame-inject.py audit` for a kingdom-wide table of frame state + version stamps; that's the runnable form of this audit step.
+- **Live HTTP surface present?** — for flows that produce HTML, check for a Herd valet symlink at `~/Library/Application Support/Herd/config/valet/Sites/<slug>` resolving into the realm. If the flow produces HTML and there's no live surface, recommend creating one. Consult [`../ask/_src/surface-doctrine.md`](../ask/_src/surface-doctrine.md) — the `.test` surface map — for the correct URL to link in audit output.
 - `CLAUDE.md` (LOB contract) and `docs/cold-boot-brief.md`
 - `docs/{decisions,sop,backlog,sessions}/` scaffolding
 - A `## Blueprint reference` footer in `init.md` with `Last synced` date
@@ -123,7 +134,7 @@ Report the maturity tier and the *specific* gaps to close to advance one tier:
 | **Early Stage** | LOB exists; no `processes/` yet, or no `init.md`. |
 | **Emerging** | `init.md` + `processes/` with at least one numbered step; partial scaffolding. |
 | **Workflow** | Full scaffolding; serialized steps with graduation markers; cold-boot < 90s walk-test passes. |
-| **Canonical** | All of Workflow + `Blueprint reference` footer + AAR loop demonstrably feeding back into either the LOB or the blueprint. |
+| **Canonical** | All of Workflow + `Blueprint reference` footer + YAML frontmatter (with `parent_flows`, `child_flows`, `blueprint_lineage` declared correctly per *Composition*) + AAR loop demonstrably feeding back into either the LOB or the blueprint + `index.html` with all five required sections (process map, activity, insights, blueprint sync, init.md body). |
 
 End with a one-line "next move" — the single highest-leverage gap to close.
 
@@ -155,6 +166,14 @@ Default target: `pwd`. Otherwise the path Dan supplies. Operates on **any realm*
 
 **Constitutional rule.** Read-only. Names shape, surfaces exemplar, recommends realization path. Hands off to `/knock` for execution. Realize writes nothing — same constraint as Doctrine/Showcase/Audit.
 
+**Existing taxonomy precondition.** Before recommending Shape 1 (Mission HOP) → `docs/` decomposition, scan for existing internal taxonomy. When ANY of these are present, do NOT impose a parallel `docs/` tree:
+- Numeric-prefix top-level folders (`00_`, `01_`, `02_`...) → realm has its own ordered structure
+- ID-tagged structured ledgers (`A-NNN`, `B-NNN`) inside named subfolders → existing decisions/assumptions surface
+- A canonical convention doc (`_CONVENTIONS.md`) → do NOT duplicate
+- Scenario / case folders with sealed-brief pattern → do NOT create `docs/scenarios/`
+
+When existing taxonomy is detected, the Shape 1 realization target shifts from "build `docs/` scaffold" to: **extract a thin `CLAUDE.md` that routes to the existing structured layer + slim the monolithic ephemeral doc to a pointer.** Filesystem-Truth wins over template-shape conformance. (Lesson: patillo redeaux, 2026-04-28.)
+
 **What it does (4 steps):**
 
 1. **Scan** the realm for these patterns:
@@ -183,9 +202,34 @@ Default target: `pwd`. Otherwise the path Dan supplies. Operates on **any realm*
 
 **Negative case.** If the realm has no session-resumption docs and no oversized .md files, report "this realm is code-mature; no prose-doc realization opportunities detected."
 
+### 4.6. Absorb
+
+`/flow absorb [path]` — default target is `pwd`. Convert an oversized static prose document into a **catalog flow** (per `doctrine.md` *Absorption: the prose-to-flow modality*).
+
+**Constitutional rule.** Read-only. Validates absorbability, proposes step mapping, produces a routing brief for `/knock`. Absorb writes nothing itself.
+
+**Trigger conditions (all should hold):**
+1. Source document is 500+ lines
+2. Consistent repeated structure across sections (e.g., one concept per H3, all H3s share the same fields)
+3. Units are independent — readers don't need to read the whole document first
+4. Content maps cleanly to `step.md` sections (concept, techniques, build-spec, references)
+5. `ls processes/` would expose valuable options — discoverability payoff justifies the conversion
+
+**If conditions don't hold:** report why, suggest the applicable `realize` shape instead (Shape 2 capsule, Shape 5 living doctrine, etc.).
+
+**The absorption motion (emit as a routing brief for `/knock`):**
+1. **Identify the repeated unit** — the consistent structure (e.g., H3 per pattern)
+2. **Pipeline or catalog?** — sequential with dependencies → pipeline; independent options → catalog
+3. **Map source → step.md sections** — concept, techniques, build-spec, inspired-by; stay faithful to source structure
+4. **Numbering** — 2-digit (`01-`, `02-`) for fixed-count ≤50; 4-digit for unbounded or >100
+5. **Init.md variant** — catalog init: metadata table + selection guidance + blueprint ref; no Mermaid pipeline diagram
+6. **Archive plan** — pointer stub at source path (~20 lines); original moves to `<source-dir>/_archive/`
+
+**Output:** a `/knock` routing brief including: target catalog path, entry count, step.md field mapping table, numbering decision, archive plan, and 2–3 example entry drafts.
+
 ### 5. Scaffold
 
-`/flow new <name>` clones `/Users/verdey/Documents/Claude/Projects/Finance/Income/_flow-blueprint/` into a destination Dan confirms. Default destination depends on intent:
+`/flow new <name>` clones `/Users/verdey/Documents/Claude/Projects/_flow-blueprint/` into a destination Dan confirms. Default destination depends on intent:
 
 - **Income LOB** (a process-shaped business unit) → `/Users/verdey/Documents/Claude/Projects/Finance/Income/Flows/LOBs/<name>/`
 - **Kingdom realm** (a Live/Council/etc surface) → `/Users/verdey/Documents/Claude/Projects/Live/<name>/` (or wherever Dan specifies)
@@ -202,6 +246,7 @@ After scaffold:
 - Create `_audit/` dir with an empty `runs.jsonl` so the self-logging contract (per `doctrine.md` *Step self-logging*) is wired from day one
 - Remind Dan to add the LOB to `Income/CLAUDE.md` §2 (the Known LOBs table) and `docs/roster.yaml` `lob_permissions` (Income LOBs only); for kingdom realms, append to `Projects/manifest.json` and run `bin/refresh-manifest.sh`
 - For HTML-producing flows, suggest creating a Herd valet symlink so the live HTTP surface signal (per Audit) is satisfied immediately
+- Note: the scaffold produces a bare init.md render in `index.html` (no flow report sections yet); the living report sections (process map, activity, insights, sync) populate on the **first run** of `0600-render-index-html/instructions.md` — which reads `processes/`, `runs.jsonl`, and the blueprint CHANGELOG. No bark if `index.html` is under-specified immediately after scaffold.
 
 ### 6. Curate
 
@@ -268,7 +313,7 @@ Read `~/.claude/skills/flow/tools-register.md` and emit it. When Dan asks "what 
 - **Read-only over LOBs.** Never write to `Income/<LOB>/` outside the Scaffold modality, and even Scaffold confirms first.
 - **Mutation-only-via-skill for knowledge files.** `doctrine.md`, `showcase.md`, `lessons.md`, `tools-register.md` only mutate via Curate (or via Streamline appending a new offload to the tools register, with confirmation).
 - **No prose where a list will do.** Streamline output is a prioritized list of concrete moves, not paragraphs.
-- **Source-of-truth references, not copies.** When in doubt, point at `Income/_flow-blueprint/`, `Income/CLAUDE.md` §14, or `Income/docs/flow.md`. Don't reproduce them here.
+- **Source-of-truth references, not copies.** When in doubt, point at `_flow-blueprint/` (kingdom root), `Income/CLAUDE.md` §14, or `Income/docs/flow.md`. Don't reproduce them here.
 - **The Acid Test is canonical.** "Whatever `ls` shows in ascending order IS the order of the Flow." (`Income/docs/flow.md` §1.2)
 - **Filesystem-Truth is canonical.** Drift between a doctrine reference and what's actually at the path is the highest-priority fix. Either build the missing thing or amend the reference — never both, never neither.
 
@@ -284,7 +329,7 @@ Read `~/.claude/skills/flow/tools-register.md` and emit it. When Dan asks "what 
 
 ## Source-of-truth references (external)
 
-- `/Users/verdey/Documents/Claude/Projects/Finance/Income/_flow-blueprint/` — the canonical living blueprint
+- `/Users/verdey/Documents/Claude/Projects/_flow-blueprint/` — the canonical living blueprint
 - `/Users/verdey/Documents/Claude/Projects/Finance/Income/CLAUDE.md` — portfolio contract, §14 Living Product DNA
 - `/Users/verdey/Documents/Claude/Projects/Finance/Income/docs/flow.md` — the motion doctrine in full
 

@@ -172,7 +172,7 @@ This is the seam the new `_meta-flow/` attaches to: stage 0200 (judge-quality) e
 
 **How to apply:** When `/flow realize` sees a Shape 2 (Oversized Prose) document that's dense but internally consistent (readable prerequisites, no ordering required), test for absorb-ability before recommending decomposition into `docs/`. If structural mapping works, absorb into a catalog flow. Absorb surfaces documentation as executable processes, not decision artifacts.
 
-**Status:** captured-2026-04-28 → promoting to doctrine.md as new modality + showcase candidacy entry + tools-register note on absorption detection
+**Status:** captured-2026-04-28 → promoting to `/Users/verdey/.claude/skills/flow/doctrine.md` as new modality + showcase candidacy entry + `tools-register.md` note on absorption detection
 
 ---
 
@@ -211,7 +211,7 @@ Every step's `instructions.md` (or `step.md` skinny variant) must declare its ru
 
 **Source:** `Tooling/flow-omega-author/docs/sessions/_S1-heal-the-runtime-gap.md` §7 (L2).
 **Sister:** L4 (Dry-run validates shape, not runtime) — the executor-side corollary.
-**Status:** captured-2026-04-28; promoted-2026-04-28 to doctrine.md as formal axiom (see doctrine §The two axioms, amendment 3).
+**Status:** captured-2026-04-28; promoted-2026-04-29 to `/Users/verdey/Documents/Claude/Projects/Finance/Income/docs/flow.md` §1.2 as the third axiom (Runtime declaration is mandatory), repatriated from skill-side staging.
 
 ---
 
@@ -401,7 +401,7 @@ Audit of `Finance/Income/Flows/LOBs/wholesaling/processes/intake-funnel/` surfac
 
 ## 2026-04-28 — Parent/child flows formalized as declarative composition (session-id: 2026-04-28-parent-child-flows)
 
-The "subflows nest" pattern lived in prose for months (`flow.md` §1.7, README's Sub-Flow exception, doctrine.md line 28 stub mention) without a declarative metadata layer. Surfaced when planning the wholesaling short-sale-deal blueprint: three deals (Acacia, Rowlett, Biscayne) shared a clear short-sale shape but `_deal-stage-template/` was a one-time copy, no inheritance link, so improvements to the template never flowed downstream.
+The "subflows nest" pattern lived in prose for months (`flow.md` §1.7, README's Sub-Flow exception, `/Users/verdey/.claude/skills/flow/doctrine.md` stub mention) without a declarative metadata layer. Surfaced when planning the wholesaling short-sale-deal blueprint: three deals (Acacia, Rowlett, Biscayne) shared a clear short-sale shape but `_deal-stage-template/` was a one-time copy, no inheritance link, so improvements to the template never flowed downstream.
 
 **Decision rationale:**
 
