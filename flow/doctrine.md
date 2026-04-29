@@ -54,11 +54,13 @@ Every flow must produce `index.html` at its root. This file is the flow's **alph
 
 ---
 
-## The two axioms
+## The three axioms
 
 **The Acid Test.** *Whatever `ls` shows in ascending order IS the order of the Flow.* No exceptions. If the filesystem and the doctrine disagree, the filesystem wins — or the doctrine gets amended to match.
 
 **Filesystem-Truth.** *Every name or reference in a flow's tree must agree with what is actually present at that path.* Drift between claim and content is the highest-priority fix. Either build the missing thing or amend the claim. Never both, never neither. Papering over drift IS the violation.
+
+**Runtime declaration is mandatory.** *Every step must declare its runtime: `LLM`, `SCRIPT`, or `composite` in its `instructions.md` or `step.md`.* The declaration removes ambiguity about whether a step is in-LLM-budget and gates execution against the runner's capability matrix. A step without runtime declaration is under-specified, even if dry-run passes. Precedent: step 0400-author-omega caused a silent failure (no omega written despite run-complete toast) because SCRIPT-tagged steps had no executor in the runner version in use; dry-run passed because it validates shape, not runtime implementation. The declaration is the pre-flight gate. (Source: `Tooling/flow-omega-author/docs/sessions/_S1-heal-the-runtime-gap.md` §7 L2; promoted 2026-04-28 via `/flow curate-batch` W3 cassiopeia.)
 
 **Audit corollary — documented intent over shape inference.** Before flagging a step or folder as orphan, drift, or misplaced: read its `step.md` / `README.md` / `_graduation.md`, check `docs/decisions/` for an ADR that justifies it, and re-read the parent flow's `init.md` for archetype-with-variant declarations. A step whose declared intent contradicts a recommendation downgrades that recommendation to "verify intent" before any subtract/merge. Documented intent beats archetype assumption — every time. Precedent: 2026-04-27 audit of `_flow-navigator` would have deleted the Phase 3 co-creation harvest step as "orphan tail" without this rule (`lessons.md` 2026-04-27).
 

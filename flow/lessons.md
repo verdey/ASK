@@ -188,6 +188,47 @@ The fix is small (load the YAML on startup, fall back to dict only if file is mi
 
 ---
 
+## 2026-04-28 — Tier-0 LLM step output ceiling ~10 KB (session-id: 2026-04-28-omega-author-S1-heal)
+
+Single LLM call should not emit >10 KB of structured output reliably. When a step's expected output exceeds that, decompose into multiple narrow steps OR offload mechanical concat to a script.
+
+**Why:** omega-author step 0400-author-omega attempted to emit a full ~80 KB omega `index.html` in a single LLM call, including 71 KB of Pico CSS inline. Token limits and output errors mid-stream made this failure-prone. The blueprint's own recipe (`_flow-blueprint/processes/0600-render-index-html/instructions.md` Phase C) already prescribes this: *"In multi-file build sessions, prefer a Python build script over direct LLM text substitution to avoid emitting 71KB of Pico CSS in the output stream."* The cure is applying the prescription.
+
+**How to apply:** When auditing or streamlining a flow, if a step's documented output exceeds 10 KB, check whether the LLM is being asked to emit mechanical concat (file reads + substitution + inlining) rather than editorial judgment. If yes, flag for script offload. Decomposition pattern: (a) mechanical compose (SCRIPT-runtime) + (b) editorial author (LLM-runtime, capped ~2 KB) + (c) assembly (SCRIPT-runtime).
+
+**Source:** `Tooling/flow-omega-author/docs/sessions/_S1-heal-the-runtime-gap.md` §7 (L1).
+**Status:** captured-2026-04-28
+
+---
+
+## 2026-04-28 — Step runtime declaration is mandatory (session-id: 2026-04-28-omega-author-S1-heal)
+
+Every step's `instructions.md` (or `step.md` skinny variant) must declare its runtime: `LLM`, `SCRIPT`, or `composite`. `/flow audit` flags steps that don't declare this. The declaration removes ambiguity about whether a step is in-LLM-budget and gates execution against the runner's capability matrix.
+
+**Why:** omega-author step 0400-author-omega was ambiguous — was it an LLM-in-chat step, or a script-offload step? The substrate had no explicit marker. When the runner walked the decomposed flow (steps 0400-compose-mechanical, 0410-author-insights, 0420-assemble-omega) tagged `Runtime: SCRIPT`, dry-run passed but the runner lacked a SCRIPT-executor. Result: steps ran "silently" (LLM narrated the script invocation without shelling out), no omega written, run-complete toast shown, $0.05 cost, zero artifact. The declaration is the pre-flight gate.
+
+**How to apply:** `/flow audit` must check every step's `instructions.md` for a `**Runtime:**` declaration. If absent, flag as under-specified. Match declared runtime against `Tooling/flow-runner-llm/CLAUDE.md` §Runtimes: SCRIPT and composite steps only work if the runner version in use supports those executors. If not, surface ⚠️ `runtime-not-implemented` even when dry-run passes.
+
+**Source:** `Tooling/flow-omega-author/docs/sessions/_S1-heal-the-runtime-gap.md` §7 (L2).
+**Sister:** L4 (Dry-run validates shape, not runtime) — the executor-side corollary.
+**Status:** captured-2026-04-28; promoted-2026-04-28 to doctrine.md as formal axiom (see doctrine §The two axioms, amendment 3).
+
+---
+
+## 2026-04-28 — Filesystem-Truth pre-flight per run (session-id: 2026-04-28-omega-author-S1-heal)
+
+Runner should snapshot `processes/*/` shape at run start and bark loud if shape drifted from a previous successful run (when that signal exists). Prevents the silent rename-without-migrate failure mode.
+
+**Why:** omega-author hit a mystery state: validator reported three step dirs (`0100-read-target`, `0200-build-report`, `0300-write-index-html`) that did not exist on disk. The canonical shape (mtime 13:11) had six steps (`0100-resolve-target` … `0600-render-index-html`). Something briefly renamed step dirs without migrating READMEs, then reverted. Whether human or LLM-mid-run, this is a Filesystem-Truth violation — the runner saw a flow that didn't exist. No bark happened because the validator ran pre-flight against the *current* (good) shape. The lesson: drift happened *silently*.
+
+**How to apply:** After every successful run, store a shape snapshot (`<flow>/_audit/shape-snapshot.json`: step count, dir names, mtime). On next run start, compare: if shape drifted (dirs renamed/added/removed), bark LOUD before proceeding. Prevents silent partial-failures from being hidden by a passing dry-run. Mechanic: `/flow audit` pre-flight addition OR runner.py pre-flight gate.
+
+**Source:** `Tooling/flow-omega-author/docs/sessions/_S1-heal-the-runtime-gap.md` §7 (L3).
+**Sister axiom:** Filesystem-Truth (doctrine.md §The two axioms) — this is the runner-side corollary.
+**Status:** captured-2026-04-28 — runner implementation separate scope; audit-side integration is a Streamline candidate.
+
+---
+
 ## 2026-04-27 — `/flow audit` workflow that hit (the processification template) (session-id: 2026-04-27-flows-audit)
 
 The audit invocation that produced this batch worked unusually well. The shape:
