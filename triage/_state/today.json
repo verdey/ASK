@@ -1,1 +1,171 @@
-{"computed_at": null, "moves": []}
+{
+  "computed_at": "2026-04-28T22:00:00-04:00",
+  "persona_lens": [
+    "Dan",
+    "Amber",
+    "Chance"
+  ],
+  "signal_sweep": {
+    "tier1_stalled_flows": "none — all 7 queue entries completed",
+    "tier2_overdue_backlogs": "none — all 3 _BACKLOG.md files 1 day old, no due: lines",
+    "tier3_blueprint_drift": "none — all 5 Income LOBs + 3 Live flows synced 2026-04-28",
+    "tier4_roster_focus": "7 active signals from _current-profile.md",
+    "tier5_active_flows": "5 flows touched today: flows_deals, surface-backlogs, wholesaling, Income-Source-Intel, Income-Land-Deal-Search"
+  },
+  "moves": [
+    {
+      "rank": 1,
+      "title": "Third short sale — process inbox item before TTL expires (May 4)",
+      "signal": "roster-focus + inbox-ttl",
+      "realm": "Finance/Income/Flows/LOBs/wholesaling",
+      "open_thread": "Finance/Income/Flows/LOBs/wholesaling/processes/amber-top-of-mind/inbox/2026-04-27-third-short-sale.md",
+      "impact_easiness": "[I⬆ E⬆⬆]",
+      "score": 50,
+      "persona": [
+        "Amber",
+        "Dan"
+      ],
+      "actions": [
+        "Amber: brain-dump deal details (call Dan)",
+        "Dan: confirm email attachments received; pull both 1-4 contracts + short sale addendums"
+      ],
+      "deadline": "2026-05-04"
+    },
+    {
+      "rank": 2,
+      "title": "Patillo redeaux — review ranked recommendation + file tax protest",
+      "signal": "roster-focus + calendar-gate",
+      "realm": "Finance/patillo redeaux",
+      "open_thread": "Finance/patillo redeaux/HANDOFF.md",
+      "impact_easiness": "[I⬆ E⬆]",
+      "score": 40,
+      "persona": [
+        "Dan"
+      ],
+      "actions": [
+        "Dan: read 05_synthesis/RANKED_RECOMMENDATION.md",
+        "Dan: confirm axis weights (A-002)",
+        "Dan: file Track Zero protest packet with Erath CAD"
+      ],
+      "deadline": "2026-05-08 (target) / 2026-05-15 (statutory)"
+    },
+    {
+      "rank": 3,
+      "title": "704 Acacia Dr — start 0700-rehab-bidding NOW (parallel to bank approval)",
+      "signal": "roster-focus + option-clock",
+      "realm": "Finance/Income/Flows/LOBs/wholesaling/deals/704-acacia-dr-short-sale-2026apr20",
+      "open_thread": "Finance/Income/Flows/LOBs/wholesaling/deals/704-acacia-dr-short-sale-2026apr20/init.md",
+      "impact_easiness": "[I⬆ E⬆]",
+      "score": 40,
+      "persona": [
+        "Amber",
+        "Dan"
+      ],
+      "actions": [
+        "Amber: engage contractor for property walk + bid before May 20",
+        "Dan: fill #needs-human-input fields in 0100-intake/ with Amber's numbers"
+      ],
+      "deadline": "2026-05-20 (option period ends)"
+    },
+    {
+      "rank": 4,
+      "title": "catalina.emerald — regen 4 Roster dashboards + add Blueprint footers",
+      "signal": "roster-focus + dispatch-pending",
+      "realm": "Live/Roster",
+      "open_thread": "Live/",
+      "impact_easiness": "[I⬆ E⬆]",
+      "score": 40,
+      "persona": [
+        "Dan"
+      ],
+      "actions": [
+        "Dispatch catalina.emerald to regen Live/Roster/Amber/ and Live/Roster/Chance/ dashboards"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "aurora.lyra — fire first real flow run from alpha.test",
+      "signal": "roster-focus + dan-gated",
+      "realm": "Council/ASK/triage",
+      "open_thread": "http://alpha.test",
+      "impact_easiness": "[I⬆ E⬆]",
+      "score": 40,
+      "persona": [
+        "Dan"
+      ],
+      "actions": [
+        "Dan: single click at alpha.test to fire lyra"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "Convergence channel brief — formalize Dan+Chance+Amber+Caroline deal-flow",
+      "signal": "roster-focus + revgen",
+      "realm": "Finance/Income/Flows/LOBs/wholesaling",
+      "open_thread": "Finance/wealth_architecture/processes/0210-income-harmonics/income.md",
+      "impact_easiness": "[I⬆ E⬆]",
+      "score": 40,
+      "persona": [
+        "Dan",
+        "Chance",
+        "Amber"
+      ],
+      "actions": [
+        "Write _convergence-channel-brief.md in wholesaling/docs/sessions/"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "aurora Arc-3 portal evolution — Today's Moves + Insight Fragments + Realm cards + iOS PWA",
+      "signal": "roster-focus",
+      "realm": "Council/ASK/triage + portal",
+      "open_thread": "Council/ASK/triage/",
+      "impact_easiness": "[I⬆ E⬆]",
+      "score": 40,
+      "persona": [
+        "Dan"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "amber-top-of-mind — run fresh fragment for Amber (last run: 2026-04-27)",
+      "signal": "active-flow",
+      "realm": "Finance/Income/Flows/LOBs/wholesaling",
+      "open_thread": "Finance/Income/Flows/LOBs/wholesaling/processes/amber-top-of-mind/",
+      "impact_easiness": "[I⬆ E⬆⬆]",
+      "score": 25,
+      "persona": [
+        "Amber",
+        "Dan"
+      ],
+      "actions": [
+        "Run amber-top-of-mind 0100-0200-0300 to emit updated briefing fragment"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "Income-Source-Intel — first ingest (seed video pending)",
+      "signal": "active-flow",
+      "realm": "Finance/Income/Flows/LOBs/Income-Source-Intel",
+      "open_thread": "Finance/Income/Flows/LOBs/Income-Source-Intel/processes/0100-ingest/",
+      "impact_easiness": "[I⬆ E⬆]",
+      "score": 20,
+      "persona": [
+        "Dan",
+        "Chance"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "catalina.fluorite — LOB structural: wholesaling omega + flows_deals AI insights",
+      "signal": "roster-focus + dispatch-pending",
+      "realm": "Finance/Income/Flows/LOBs/wholesaling + Live/flows_deals",
+      "open_thread": "Finance/Income/Flows/LOBs/wholesaling/",
+      "impact_easiness": "[I⬆ E⬆]",
+      "score": 40,
+      "persona": [
+        "Dan"
+      ]
+    }
+  ]
+}

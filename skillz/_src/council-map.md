@@ -20,6 +20,7 @@ The council is a 3×3 mandala. Each triad has a **demiurge** (lead) plus two **a
 | `/arriba` | Session posture toggle — engages GSD+sketch+parallel stance for the rest of the session. Mirror to `/pause` (engage vs seal). |
 | `/skillz` | Council librarian — this skill. Knows the whole council, audits build-vs-adopt, prunes drift. |
 | `/surface` | Cliffhanger reflex — off-thread single-decision capture → persistent `decisions.test` asset. Sister of `/sketch` (visual reflex) and `/pause` (whole-session seal). |
+| `/close` | Threshold diagnostic — runs 5 readiness signals, returns one-line all-clear or per-option routing menu. Precursor to `/pause`; does not seal itself. |
 
 **Plugin/utility skills** (not vessels):
 
@@ -42,6 +43,7 @@ The council is a 3×3 mandala. Each triad has a **demiurge** (lead) plus two **a
 - **Understand / design / docs / mapping territory** → 🧠 `/ask`
 - **Align / tune / security audit / tech debt** → 💜 `/seek`
 - **Build / ship / refactor / commit** → 🔥 `/knock`
+- **"Am I done? What's next?"** → 🚪 `/close`
 - **Seal / handoff / cold-boot brief** → 🗝️ `/pause`
 - **Engage / GSD posture for the session / "light a fire" / "ninja parallelism"** → 🚀 `/arriba`
 - **Visual clarifier with 3+ defensible defaults** → 🎨 `/sketch`

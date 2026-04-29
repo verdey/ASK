@@ -139,7 +139,7 @@ If self-peek returns `brief: ""` (brief.md missing after write): abort; report "
 ### Step 6 — Render confirmation to Dan
 
 Surface **both**:
-- Clickable URL: `https://decisions.test/decision.php?slug=<slug>`
+- Clickable URL: `http://decisions.test/decision.php?slug=<slug>` (kingdom convention is `http://*.test`; Herd 301-redirects to https — once `herd secure decisions` has been run, the cert is trusted; until then the browser flags Not Secure)
 - Absolute filesystem path: `/Users/verdey/Documents/Claude/Projects/Decisions/<slug>/brief.md`
 
 One-line summary of the cliffhanger. Invite Dan to resolve async at `decisions.test`.

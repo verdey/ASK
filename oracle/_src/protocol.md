@@ -65,6 +65,8 @@ graph TB
 
 Each oracle is one heading-level-2 block. Order: most-recently-touched first, retired entries collected at the bottom under a `## 🪦 Retired` section.
 
+> **Schema bump (controller-mode, 2026-04-29).** Each oracle block may carry an optional `**Controller:**` field with the absolute path to its `_controller-<oracle>.md` file. Pre-existing oracles get blank or `—` until they next touch (lazy migration). The kingdom-rendered surface is `http://oracles.test`. Full controller protocol → [thread-protocol.md](thread-protocol.md). Template → [controller-template.md](controller-template.md).
+
 ```markdown
 ## 🔮 juanita · muscle-cars · active
 - **Born:** 2026-04-27T14:32-04:00

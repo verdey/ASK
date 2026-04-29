@@ -1,44 +1,62 @@
 ---
 name: compass-doctrine
-description: N/S/E/W/Z navigation metaphor — Wave-3 placeholder
-status: placeholder
-wave: 3
+description: N/S/E/W/Z navigation metaphor — Layered Bands (locked Wave 5)
+status: locked
+wave: 5
+locked_by: aurora.taurus
+locked_at: 2026-04-28
 ---
 
-# Compass Doctrine — N/S/E/W/Z Navigation Metaphor
+# Compass Doctrine — Layered Bands Metaphor
 
-**TBD post-Wave-3**
+**Metaphor name:** Layered Bands
 
-This file is a placeholder. Wave 3 (`/sketch`) will produce the canonical spatial metaphor that maps the kingdom's navigation axes. The sketch session presents prototype gallery options — compass rose, card stack, infinite canvas, layered sheets — and Dan selects the one that feels right.
-
----
-
-## What this file will contain (post-Wave-3)
-
-- **The canonical metaphor name** — the spatial model Dan chose (e.g., "compass rose", "layered sheets")
-- **Axis semantics:**
-  - **N/S** (vertical) — what moving "north" or "south" means in this model
-  - **E/W** (lateral) — what moving "east" or "west" means
-  - **Z** (depth) — what drilling "in" or surfacing "out" means
-- **Boundary behaviors** — what happens at the edge of each axis (spring-back, no-op, loop)
-- **Visual affordances** — how each axis is signaled to the user (directional arrows, swipe indicators, breadcrumb trail)
-- **The adoption rule** — which surfaces in the kingdom should implement which axes
+The kingdom portal is a vertical stack of four priority bands: Today's Moves → Insight Fragments → Realms → Flows. The compass treats this stack as a set of discrete layers on a vertical axis. Lateral movement (E/W) navigates items within a band. Depth (Z) drills into an item or ascends back out.
 
 ---
 
-## Dependency chain
+## Axis semantics
 
-```
-Wave 3: /sketch presents metaphor gallery → Dan selects
-    ↓
-This file: portal/nav-metaphor.md and compass/doctrine.md both fill
-    ↓
-Wave 5: compass/bindings.js implements the selected metaphor
-    ↓
-Wave 5: portal index.html + api.php wire bindings.js into the surface
-```
+| Axis | Direction | Meaning |
+|------|-----------|---------|
+| **N** | Up | Scroll to / focus previous band |
+| **S** | Down | Scroll to / focus next band |
+| **E** | Right | Focus next item within current band |
+| **W** | Left | Focus previous item within current band |
+| **Z-in** | Drill | Enter selected item: realm → scoped flow list; flow → omega artifact |
+| **Z-out** | Ascend | Exit drilled view; return to parent band / kingdom root |
 
 ---
 
-*Placeholder authored by `aurora.leo` · Wave 1 · 2026-04-28 · Sonnet 4.6*
-*See also: [portal/nav-metaphor.md](../portal/nav-metaphor.md) (parallel placeholder)*
+## Boundary behaviors
+
+| Condition | Behavior |
+|-----------|----------|
+| N at first band | No-op — brief spring-back visual cue |
+| S at last band | No-op — brief spring-back visual cue |
+| E at last item in band | No-op |
+| W at first item in band | No-op |
+| Z-in with no drillable target | No-op |
+| Z-out at kingdom root (no drill active) | No-op |
+| iOS pull-to-refresh (N swipe at scrollY=0) | Compass disarms — OS handles it |
+| iOS edge-swipe from left | Treated as Z-out (browser-native, cannot override) |
+
+---
+
+## Visual affordances
+
+- **Edge hints** — small absolute-positioned labels at viewport edges showing current axis destinations (e.g. `↑ moves`, `↓ flows`, `→ next`). Opacity 10% at rest, 60% on hover/focus.
+- **Breadcrumb** — shown above the Flows band when in drill-down state: `↑ kingdom / {realm name}`.
+- **Band focus indicator** — a subtle left-edge pip that marks the currently compass-focused band.
+
+---
+
+## Adoption rule
+
+All bands in the kingdom portal implement N/S + E/W + Z. Non-portal surfaces (flow omegas, realm dashboards) are encouraged but not required to adopt these bindings independently.
+
+---
+
+*Placeholder authored by `aurora.leo` · Wave 1 · 2026-04-28*
+*Metaphor locked by `aurora.taurus` · Wave 5 · 2026-04-28*
+*See also: [portal/nav-metaphor.md](../portal/nav-metaphor.md)*

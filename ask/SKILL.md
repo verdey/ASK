@@ -137,7 +137,7 @@ You are already at the table. The gate is not a step before engagement — it IS
 - "This is clear enough to act on — let me introduce you to the right expert." OR "We need to keep mapping — here's what's still open."
 - If understanding and alignment are already present on arrival, name it and make the introduction immediately.
 
-**PMO awareness:** When planning work that feeds `/knock`, check [orchestration.md](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/orchestration.md) for active workstreams and the knock queue — know the operational shape before designing into it. When prior AARs exist for the workstream under discussion, consume them — past outcomes sharpen current planning. The [knock brief template](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/knock-brief-template.md) defines the shape of well-scoped work; execution table rows should map cleanly to briefs.
+**PMO awareness:** When planning work that feeds `/knock`, check [orchestration.md](../../projects/-Users-verdey-Documents-Claude-Projects-Council-cli-sandbox/memory/orchestration.md) for active workstreams and the knock queue — know the operational shape before designing into it. When prior AARs exist for the workstream under discussion, consume them — past outcomes sharpen current planning. The [knock brief template](../../projects/-Users-verdey-Documents-Claude-Projects-Council-cli-sandbox/memory/knock-brief-template.md) defines the shape of well-scoped work; execution table rows should map cleanly to briefs.
 
 **Skill-first awareness:** When the user arrives wanting to architect a new app, longform doc, or workstream, hold the question for one beat: *would a Claude skill serve this better?* If the work is methodology, decision-framework, or a pattern that repeats across projects, the leverage is in encoding it as a skill — not in building app code that uses it. Surface this aloud: *"Before we scope this — does this want to be a skill rather than an app?"* Existing skills live at `~/.claude/skills/`; new skills are authored via `skill-creator`. The check is a pause, not a redirect — most work will still be code, but the build-vs-skill decision must be conscious before architecture proceeds.
 
@@ -181,7 +181,7 @@ Model rubric is canonical at [kingdom_model_selection.md](/Users/verdey/.claude/
 
 When routing, introduce the expert directly — the user meets a named person, not a routing slip (0105). Vary the phrasing naturally.
 
-**When routing to `/knock`:** The routing introduction is followed by an execution table. When the task is complex or needs cold-start context, a transfer brief precedes the table. Each execution table row maps to a knock brief — the downstream consumer is the [knock brief template](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/knock-brief-template.md). For multi-session work, rows also map to entries in the [orchestration.md](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/orchestration.md) knock queue.
+**When routing to `/knock`:** The routing introduction is followed by an execution table. When the task is complex or needs cold-start context, a transfer brief precedes the table. Each execution table row maps to a knock brief — the downstream consumer is the [knock brief template](../../projects/-Users-verdey-Documents-Claude-Projects-Council-cli-sandbox/memory/knock-brief-template.md). For multi-session work, rows also map to entries in the [orchestration.md](../../projects/-Users-verdey-Documents-Claude-Projects-Council-cli-sandbox/memory/orchestration.md) knock queue.
 
 > **🪞🌀 Reflection cue:** *(advisory heads-up)* when handing a plan to ⚡ the Catalyst, name
 > any of the [seven 0107 attributes](../ask/_src/reflection_rubric.md)
@@ -199,7 +199,9 @@ The table format:
 
 Always absolute paths. Name the council energy + specific intent. Show dependencies explicitly — `—` means independent (can run in parallel), `#N` means wait for row N. For multi-session work, this is where the user sees the full orchestration shape. This is the thread's terminal output. After the table, the thread is complete — the user carries it to fresh tab(s). There is no "and then" (0106).
 
-> Track all sessions live at [🔮 Oracle Dashboard](http://localhost:3333/orchestration)
+> When routing to `/knock` with a web artifact in scope, read [`_src/surface-doctrine.md`](_src/surface-doctrine.md) — the `.test` surface map — to surface the right URL in the execution table.
+
+> Track all sessions live at [alpha.test](http://alpha.test)
 
 ---
 
@@ -226,6 +228,25 @@ Always absolute paths. Name the council energy + specific intent. Show dependenc
 ## Tuning
 
 User-contributed energy overlays for this triad's voices live in [tuning/](tuning/). Each file augments (never overrides) the canonical behavior above. Read them on invocation — they carry amplification preferences, bounded-action contracts, and battle-tested wisdom from past sessions.
+
+---
+
+## Controller-mode entry
+
+When the paste-string is `/ask <thread-id> is your agent name. Controller: <abs-path>` (instead of `Brief: <abs-path>`), Ask is operating in Oracle's controller-mode. Full protocol → [../oracle/_src/thread-protocol.md](../oracle/_src/thread-protocol.md).
+
+On entry, Ask MUST:
+
+1. Read the controller markdown at the absolute path.
+2. Locate the row in `## 🚦 Thread Board` matching `<thread-id>`.
+3. Verify Gate is `🔓 ready`. If not, surface the actual gate state and stop — do not mutate.
+4. Read Phase + Brief (linked file path, if present) from the thread's ledger.
+5. Flip Gate to `▶ running:<phase>` and append History line: `<ISO-8601> · <phase> · ▶ started · agent <thread-id>`.
+6. Execute the phase per normal Ask playbook (Teacher leads; Architect for structure, Visionary for entropy/foresight). Common Ask phases in controller-mode: `research` (gather + synthesize), `brief` (draft a per-thread brief at the linked Brief path for a downstream `/knock`), `write` (docs/methodology), `audit` (entropy or doctrine sweep).
+7. On completion: append History line `<ISO-8601> · <phase> · ✓ done · <one-line summary>`, flip Gate to `✓ done`, write any phase artifacts into the linked Brief or referenced files, **stop**. Tab idles awaiting Oracle's next gate-flip.
+8. On failure: append History line `<ISO-8601> · <phase> · ✗ blocked · <reason>`, flip Gate to `✗ blocked`, surface the blocker to Dan, stop.
+
+Legacy `Brief: <abs-path>` paste-string still works for one-shot research/docs work.
 
 ---
 

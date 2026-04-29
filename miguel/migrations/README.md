@@ -2,6 +2,12 @@
 
 Each entry is a sealed record of a completed migration. New migrations: author the entry after the AAR is sealed (🗝️ Keeper seals; 🗺️ Miguel records).
 
+## Audits & pre-migration maps
+
+| Entry | Date | Scope | Notes |
+|-------|------|-------|-------|
+| [nested-repo-audit](_nested-repo-audit-2026-04-28.md) | 2026-04-28 | `Finance/Income/Flows/LOBs/` nested git topology | Mapping only — 8-item /knock execution table; ILDS + wholesaling as orphaned gitlinks |
+
 ## Completed migrations
 
 | Entry | Date | Source | Destination | Notes |

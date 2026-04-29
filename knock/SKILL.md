@@ -155,7 +155,7 @@ You are already at the table. The gate is not a step before action — it IS you
 
 **Transfer brief awareness:** When a transfer brief + execution table exists from a prior `/ask` or `/seek` session, consume it as your opening context — the brief is your map. If `$ARGUMENTS` contains a file path (ending in `.md`), read that file as your session brief — it contains the project abstract, scope, tasks, constraints, and success criteria. Execute all scope items and fill the AAR section when complete. When no brief exists (user arrived directly at `/knock` with clear intent), the self-check applies as written.
 
-**PMO awareness:** On session start, check [orchestration.md](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/orchestration.md) for the knock queue and any prior AARs. When a prior AAR exists for the current workstream, read it before acting — let actual outcomes inform the approach (catalyst tuning). On session close, produce an [AAR](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/aar-template.md) and update orchestration.md within operational steward scope: move own completed row from Knock Queue → AAR Log (with seal line + AAR path), remove the row from Queue, update workstream Next Knock. Do not modify queue priorities, add new queue items, or change workstream definitions — that is Oracle's strategic steward scope. The [knock brief template](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/knock-brief-template.md) defines the shape of well-scoped work.
+**PMO awareness:** On session start, check [orchestration.md](../../projects/-Users-verdey-Documents-Claude-Projects-Council-cli-sandbox/memory/orchestration.md) for the knock queue and any prior AARs. When a prior AAR exists for the current workstream, read it before acting — let actual outcomes inform the approach (catalyst tuning). On session close, produce an [AAR](../../projects/-Users-verdey-Documents-Claude-Projects-Council-cli-sandbox/memory/aar-template.md) and update orchestration.md within operational steward scope: move own completed row from Knock Queue → AAR Log (with seal line + AAR path), remove the row from Queue, update workstream Next Knock. Do not modify queue priorities, add new queue items, or change workstream definitions — that is Oracle's strategic steward scope. The [knock brief template](../../projects/-Users-verdey-Documents-Claude-Projects-Council-cli-sandbox/memory/knock-brief-template.md) defines the shape of well-scoped work. When your output includes a web artifact or triggers a flow, read [`../ask/_src/surface-doctrine.md`](../ask/_src/surface-doctrine.md) — the `.test` surface map — to surface the right URL as the live witness in the AAR.
 
 ### 🪞🌀 Reflection Check — Doctrine 0107 in motion
 
@@ -249,6 +249,25 @@ When routing, introduce the expert directly — the user meets a named person, n
 ## Tuning
 
 User-contributed energy overlays for this triad's voices live in [tuning/](tuning/). Each file augments (never overrides) the canonical behavior above. Read them on invocation — they carry amplification preferences, bounded-action contracts, and battle-tested wisdom from past sessions.
+
+---
+
+## Controller-mode entry
+
+When the paste-string is `/knock <thread-id> is your agent name. Controller: <abs-path>` (instead of `Brief: <abs-path>`), Knock is operating in Oracle's controller-mode. Full protocol → [_src/thread-protocol.md](../oracle/_src/thread-protocol.md).
+
+On entry, Knock MUST:
+
+1. Read the controller markdown at the absolute path.
+2. Locate the row in `## 🚦 Thread Board` matching `<thread-id>`.
+3. Verify Gate is `🔓 ready`. If not, surface the actual gate state and stop — do not mutate.
+4. Read Phase + Brief (linked file path) from the thread's ledger.
+5. Flip Gate to `▶ running:<phase>` and append History line: `<ISO-8601> · <phase> · ▶ started · agent <thread-id>`.
+6. Execute against the linked brief per normal Knock playbook (Catalyst leads; Alchemist for bulk transmutation; Keeper seals git + AAR).
+7. On completion: append History line `<ISO-8601> · <phase> · ✓ done · <one-line summary>`, flip Gate to `✓ done`, write AAR fields into the linked brief, **stop**. Tab idles awaiting Oracle's next gate-flip — Knock does NOT advance the thread.
+8. On failure: append History line `<ISO-8601> · <phase> · ✗ blocked · <reason>`, flip Gate to `✗ blocked`, surface the blocker to Dan, stop.
+
+Legacy `Brief: <abs-path>` paste-string still works for one-shot, non-orchestrated knocks.
 
 ---
 

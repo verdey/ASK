@@ -81,6 +81,8 @@ Write result to `~/.claude/skills/triage/_state/today.json`:
 }
 ```
 
+When move cards reference any web surface, read [`../ask/_src/surface-doctrine.md`](../ask/_src/surface-doctrine.md) — the `.test` surface map — to link the right URL as the live entry point (e.g. `http://alpha.test` for kingdom entry, `http://flow-queue.test` when a flow run is active).
+
 Render moves in this format:
 
 ```

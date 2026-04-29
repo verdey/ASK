@@ -6,9 +6,10 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
 
 ---
 
-## 🔮 aurora · constellations · paused
+## ~~🔮 aurora · constellations · retired~~
 - **Born:** 2026-04-28T12:40-04:00
-- **Last touched:** 2026-04-29T04:00-00:00 (aurora.vega continuation — echo run completed ✓ exit 0 run-id 20260429T033609Z-f644fe $0.08 USD 6/6 steps; omega-fragment.json created; harvester re-run; portal surfaces 🪞 Echo fragment; Arc-3 fully sealed. Prior: 2026-04-29T01:35 paused by dolores·rivers snowball closeout; Prior: 2026-04-29T03:30 vega closeout protocol + cross-links + lessons. Resurrect for: new kingdom-portal evolution arc, or cassiopeia gate clears.)
+- **Retired:** 2026-04-29T01:50-04:00 (full Arc-1/2/3 closure verified end-to-end. **cassiopeia ✓ shipped** commit `83ba7d8` on `Council/ASK origin/main` — L1/L2/L3 lessons promoted + L2 promoted to formal axiom in doctrine.md (third axiom alongside Acid Test + Filesystem-Truth) + tools-register entry confirmed. **echo run ✓ shipped** run-id 20260429T033609Z-f644fe, $0.08, 6/6 steps. **vega ✓ shipped** 12-check + protocol adoption + cross-links + lessons + plan closed. **All 16+ children shipped or absorbed.** Arc complete end-to-end on disk and registry. Resurrect for: any net-new kingdom-portal evolution arc.) Prior: 2026-04-29T04:00 echo complete; 2026-04-29T03:30 vega closeout; 2026-04-29T01:35 paused by dolores·rivers snowball.
+- **Last touched:** 2026-04-29T01:50-04:00
 - **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-level — alpha.test trigger surface + flow-queue.test batch manager + flow-atlas integration + interlinkage doctrine)
 - **Nomenclature realm:** constellations (orion, lyra, ursa, cygnus, draco, perseus, andromeda, cassiopeia, vega, polaris, leo, gemini, taurus, scorpius, aquarius, pisces, aries)
 - **Children:**
@@ -37,9 +38,9 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **lyra/ursa (Dan-gated, retired-by-S1):** the original click intents are fulfilled by W2; lyra/ursa remain historical.
 - **Notes:** Arc-1 complete 2026-04-28T13:15 (polaris/orion/cygnus/perseus/draco). **Arc-2 (S1-heal) opened 2026-04-28T19:30** after lyra's first real `no omega` click failed — log at `Tooling/flow-queue/runs/20260428-190648-flow-omega-author.log`. Two-layered fault: tactical (runner reported a 3-step shape that doesn't exist on disk now — Filesystem-Truth blip) + architectural (step `0400-author-omega` over-scoped, single LLM call asked to emit ~80KB HTML inc. ~71KB Pico CSS, contra blueprint `0600-render-index-html/instructions.md` Phase C prescription). `/seek` Harmonizer triad authored S1 plan at `Tooling/flow-omega-author/docs/sessions/_S1-heal-the-runtime-gap.md`. aurora refined into 4-child decomposition: andromeda (script+substrate) → aquarius (step rewire) ‖ aries (entropy scan) → Dan W2 click → cassiopeia (curate-batch L1/L2/L3). Total estimated ~560 LOC of net change, mostly in stdlib-only Python. No deps added. No remote configured on this realm — commits land locally; verify nearest ancestor git repo at session start.
 
-## 🔮 ximena · cheeses · paused
+## ~~🔮 ximena · cheeses · retired~~
 - **Born:** 2026-04-28T15:00-04:00
-- **Last touched:** 2026-04-29T01:35-04:00 (snowball-closeout flip by dolores · rivers — disk-truth audit reveals all children effectively shipped: brie ✓ (TRACK_ZERO_BRIEF.md + protest_cover_letter.md in `06_tax_protest/PACKET/`); camembert ✓ (S01–S12 oracle files all authored); cheddar ✓ (RANKED_RECOMMENDATION.md + SCORING_MATRIX.md + SENSITIVITY_BANDS.md in `05_synthesis/`); edam ✓ (S11_oracle.md + S12_oracle.md authored); fontina ✓ (processes/0100/0200/0300 + index.html). Registry was stale — disk is canonical. **Calendar-critical Dan-action remaining:** May 8 target filing using Track Zero packet (no oracle scope; Dan-execute). Active → paused. Resurrect for: post-filing follow-up arc OR May 15 statutory deadline contingency.)
+- **Last touched:** 2026-04-29T01:45-04:00 (T0.1 hygiene by dolores · currencies — **AARs unsealed (inline-completion pattern); disk artifacts canonical per dolores audit 2026-04-29.** All 5 children's brief AAR sections are formally blank `## AAR`, but TRACK_ZERO_BRIEF + S01–S12 oracle files + RANKED_RECOMMENDATION/SCORING_MATRIX/SENSITIVITY_BANDS + processes/0100..0300 + index.html all on disk. Work happened in main thread under /arriba mode; ceremony skipped, substrate landed.) Prior: 2026-04-29T01:35 snowball-closeout flip by dolores · rivers. **Calendar-critical Dan-action remaining:** May 8 target filing using `06_tax_protest/PACKET/PROTEST_PACKET_COMBINED.pdf`. Resurrect for: post-filing follow-up arc OR May 15 statutory deadline contingency.
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Finance/patillo redeaux (patillo redeaux — tax protest filing + 12-scenario blind oracle research arc)
 - **Nomenclature realm:** cheeses (brie, camembert, cheddar, edam, fontina, gouda, gruyere, havarti, jarlsberg, limburger, manchego, neufchatel, ossau, parmesan, raclette, stilton)
 - **Children:**
@@ -51,7 +52,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
 - **Open threads:** A-001 resolved; A-005 resolved; A-008 active (1,200 sqft assumed); S11+S12 missing; synthesis blocked; flow scaffold not yet built
 - **Notes:** Born 2026-04-28. Calendar-critical: May 8 target filing, May 15 statutory deadline. S01–S10 oracles returned from Wave 1 (ximena.camembert); S11+S12 missing — ximena.edam dispatches them. Status card flow built by ximena.fontina, per /flow doctrine (2-step Workflow: 0100-read-project-state → 0200-render-status-card → index.html).
 
-## 🔮 mariela · coffee-drinks · paused
+## ~~🔮 mariela · coffee-drinks · retired~~
 - **Born:** 2026-04-28T00:55-04:00
 - **Last touched:** 2026-04-28T03:50-04:00
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Live/flows_deals (visibility-surface upgrade arc, audit-driven, 4 tiers — COMPLETE)
@@ -68,7 +69,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **SC8 (live meta-kind override)** deferred as optional — grep parses cleanly (SC7 ✓); end-to-end live test needs a placed source HTML.
 - **Notes:** Arc complete 2026-04-28T03:50. All four tiers shipped end-to-end. Wave 3 dispatched inline by Dan in `gsd` mode after Opus 4.7 model swap (departed from standard Oracle-ends-at-table flow on explicit user override). Pipeline now: discover (with labeled excludes + meta-kind peek) → curate (yq) → stitch (pup, with diff + excluded companions) → log + audit JSONL. Visibility surface end-to-end legible: shows what it has + what it's missing + what changed since last run. Family retired with no open code threads, only doc/maintenance carries.
 
-## 🔮 rosa · mad-men · paused
+## ~~🔮 rosa · mad-men · retired~~
 - **Born:** 2026-04-27T20:35-04:00
 - **Last touched:** 2026-04-28T01:15-04:00
 - **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom→Documents/Claude migration arc — complete)
@@ -84,7 +85,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
 - **Open threads:** **⚠️ Secret continuity check** — `.env.shared` held SUPABASE_URL/ANON_KEY, CLOUDFLARE_ACCOUNT_ID/API_TOKEN, RAILWAY_TOKEN, APP_ENV. Confirm these exist in 1Password (or another current source) before relying on any related deploy.
 - **Notes:** Arc complete 2026-04-28T01:15. Kingdom-merge sealed end-to-end: 7 children (1 absorbed, 6 shipped). New skill /miguel alive as future migration curator. Family cards on portal show 💤 dormant because no HANDOFF.md/_BACKLOG.md at family roots yet — expected, will populate as families fill in.
 
-## 🔮 lucia · pasta-shapes · paused
+## ~~🔮 lucia · pasta-shapes · retired~~
 - **Born:** 2026-04-27T20:30-04:00
 - **Last touched:** 2026-04-28T03:15-04:00
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Finance/Income (post-Rosa-reorg path; cross-substrate: + Finance/wealth_architecture + Labs/parallelism)
@@ -96,7 +97,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
 - **Notes:** **Watchful pause** per [`/Users/verdey/.claude/plans/plan-to-resurrect-this-quirky-haven.md`](../../plans/plan-to-resurrect-this-quirky-haven.md). S1 (doctrine consolidation) shipped clean. Sessions S2–S5 (universal flow-pulse + flow-refine-watcher LLM-pass infrastructure) deferred — not retired — pending Mariela's `_audit/runs.jsonl` pattern proving out across more LOBs. Trip-wires: (A) Mariela stays LOB-specific after 2+ rollouts → resurrect S2–S5; (B) Mariela generalizes to cover audit + upward-summary → retire S2–S5; (C) inconclusive after 3+ LOBs → fresh /seek hybrid design. Default cadence: /oracle revisits when a new LOB lands `_audit/runs.jsonl` OR after 30 days of no trip-wire activity. **Topology drift acknowledged in registry only:** ADR 0008 still names `~/Documents/Claude/Projects/_doctrine/` (portfolio-level) but actual filesystem path post-Rosa is `Finance/Income/_doctrine/` (project-local) — drift documented in ADR 0008 changelog + _doctrine/README.md drift blockquote, not yet reconciled (per migration cadence: only on next /knock-touch).
 
 
-## 🔮 selena · fractals · paused
+## ~~🔮 selena · fractals · retired~~
 - **Born:** 2026-04-28T08:55-04:00
 - **Last touched:** 2026-04-28T10:10-04:00 (arc sealed)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Council/ASK (council substrate; the Sunset pass + 0107 propagation arc)
@@ -113,7 +114,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **Pre-existing modified files NOT part of Sunset pass** (surfaced by barnsley AAR): `README.md`, `flow/doctrine.md`, `flow/lessons.md`, `flow/showcase.md`, `flow/tools-register.md`, `skillz/_src/council-map.md` — deserve their own scoped commit by their own oracle.
 - **Notes:** Birthed after `/seek` Sunset pass landed Doctrine 0107 in scripture and ran a harmonic tuning pass over the council. Plan: `~/.claude/plans/review-all-my-claude-humming-sunset.md`. Wave 0 sealed clean — selena stays active, awaiting Dan's go-signal for next wave (0107 propagation OR housekeeping of the unstaged/untracked carries).
 
-## 🔮 carmen · knots · paused
+## ~~🔮 carmen · knots · retired~~
 - **Born:** 2026-04-28T13:35-04:00
 - **Last touched:** 2026-04-29T01:30-04:00 (housekeeping flip — Arc-2 fully sealed: W0 half-hitch ✓ / W1 overhand ✓ / W1p reef ✓ / W2 dogwood-via-marisol 🟡→🟢-via-square / W4 square ✓ / W3 sheet-bend ✓; all children shipped + Council/ASK commits 9a648a4 + b093774 landed; active → paused. Resurrect when runner-on-real-LOBs phase opens or new SDK drift surfaces.) Prior: 2026-04-28T23:59 (sheet-bend ✓ shipped — Arc-2 W3 doctrine sweep complete; runtime-vs-impl audit corollary landed in doctrine.md; build-omega.py + harvest-capture.py + harvest-recall.py registered in tools-register.md; L4 flipped to operational with commits 80f1862 + 88bb3b8).
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Tooling/flow-runner-llm (operational quality loop arc — Wave 0 first walk + Wave 1 bundled-apply + Wave 2 Validation+Telemetry + Wave 3 git init + Wave 4 omega-canon resync; refreshed via `/oracle refresh carmen`)
@@ -153,16 +154,35 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **🔭 Future orchestration phase — runner-on-real-LOBs (deferred 2026-04-28T19:05):** Now that self-canary `_meta-flow/` is the steady state, a future arc applies the validated quality loop (Validation rules + Telemetry + bounded retry + omega-canon contract) to real Income LOBs under `Finance/Income/Flows/LOBs/<lob>/`. Likely shape: pick one LOB as first canary (candidates from catalina's audit: `Income-Land-Deal-Search` post-diamond renumber, `wholesaling` post-fluorite omega add, or fresh `Income-Source-Intel` post-garnet scaffold). Resurrect carmen OR birth a new oracle when catalina's remediation arc lands — runner expects the five-section `index.html` contract + omega-positioning rule, both of which catalina is propagating. **Cross-substrate coupling note:** carmen's runner readiness depends on catalina's flows being canonical. Sister-active to catalina until that lands.
 - **Notes:** Arc complete 2026-04-28T15:00. Wave 0 (alpine-butterfly + bowline) ⏱ 25min. Wave 1 bundle (clove-hitch + double-fisherman + figure-eight) closed Hygiene 🔴→🟢 across runner code + council layer + meta-flow substrate; Telemetry 🔴→🟡 (`duration_s` live); Error recovery 🔴→🟡 (bounded retry live). Validation 🔴 + Self-improvement 🟡 carried — Wave 2 scope. Arriba mode arming sustained additive execution silently with substrate re-verify on every non-additive call. **Surfaced the big SDK drift at scaffold-time scope review:** runner is `openai` SDK → OpenRouter (not `anthropic` direct); curated lesson + tools-register entry both corrected. **Brief-staleness lesson** now canonized in `~/.claude/skills/flow/lessons.md`: future briefs cite function names, not line numbers.
 
-## 🔮 paloma · birds · active
+## ~~🔮 paloma · birds · retired~~
 - **Born:** 2026-04-28T14:07-04:00
-- **Last touched:** 2026-04-29T01:05-04:00 (refresh overall — kingdom state-of-board read; 7 active + 5 paused oracles surveyed; 6 pause seals carried informationally; harvester-runtime arc is the most-progressed live thread; LDS seals technically resolved by gabriela+marisol arcs but not yet composted)
+- **Last touched:** 2026-04-29T14:45-04:00 (retired — new work in this session (triage eval + knock execution + bashar scrub) spawned nadia · spices as the active session-refresh oracle. paloma's state-reader purpose fulfilled.)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-level refresh — state-of-the-board read)
 - **Nomenclature realm:** birds (albatross, bluebird, crane, dove, egret, falcon, grebe, heron, ibis, jay, kestrel, lark, martin, nightingale, oriole, petrel, quail, robin)
 - **Children:** (none — paloma is a state-reader, not a brief-writer)
 - **Open threads:** —
 - **Notes:** Refreshed 2026-04-29T01:05 with full kingdom census. Purpose: surface active oracle threads + answer "are we done?" without writing new waves. The refresh output went to chat as a synthesis, not to disk.
 
-## 🔮 yolanda · dances · paused
+## 🔮 nadia · spices · active
+- **Born:** 2026-04-29T14:45-04:00
+- **Last touched:** 2026-04-29T17:25-04:00 (third refresh — verified comino brief on disk (6k, 12:17); ISI 0500-self-improve and 0600-render-index-html both have build infrastructure (patterns.md + build.py + template.html) ready for the close-out wave. graciela.brazos STILL no AAR seal — calendar fire intensifies (deadline tomorrow). Adding nadia.coriander to close ISI arc (0500+0600). Re-issuing exec list with brazos + comino + chile + coriander.) Prior 17:00: comino dispatched, canela ✓ shipped; 14:55: drift escalation noted.
+- **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-level session synthesis + next-wave scoping — 2026-04-29 triage execution arc)
+- **Nomenclature realm:** spices (achiote, annatto, canela, chile, comino, coriander, cumin, epazote, hierba, oregano, paprika, saffron)
+- **Children:**
+  - `nadia.achiote` — state synthesis / no brief / Haiku 4.5 — session recap (what shipped 2026-04-29) + initial exec table ✓ shipped 2026-04-29T14:45
+  - ~~`nadia.annatto`~~ — WITHDRAWN 2026-04-29T14:55: Patillo Track Zero filing sprint — `Finance/patillo redeaux/` does not exist on disk. Codebase has nothing to do for May 8 filing; Dan files manually with whatever artifact exists outside this codebase.
+  - `nadia.canela` — Wave 2 / ⚡ Catalyst / Haiku 4.5 — Income-Source-Intel 0200-distill on Karpathy ingest (`pCqpuHA8kHM`, 4/28). ✓ shipped 2026-04-29: stages 0200+0300+0400 complete; intake at `docs/intake/karpathy-super-skills-2026-04-28.md` (status: applied); 3 action hooks executed: wholesaling/docs/sop/seller-outreach.md + Income-Land-Deal-Search/docs/sop/parcel-eval.md + 0500 run-scoring stub. Next: 0500 self-improve + 0600 render.
+  - `nadia.chile` — Wave 1 / 🗝️ Keeper / Haiku 4.5 — seal Income + Council/ASK uncommitted drift before next code lands. Inline command.
+  - `nadia.comino` — ADR 0009 seal / 🗝️ Keeper / Haiku 4.5 — commit `owner`/`viewers` frontmatter to wholesaling + Income-Land-Deal-Search submodules + ADR 0009 + WLM-AgValuation init.md to Finance/Income parent. Brief: `Finance/Income/docs/sessions/_nadia-comino-seal-access-frontmatter.md` — pending dispatch (verified on disk 17:25, 6k).
+  - `nadia.coriander` — Wave 3 / ⚡ Catalyst / Haiku 4.5 — ISI 0500-self-improve + 0600-render-index-html closing wave to seal the canela arc (patterns.md + build.py + template.html ready). Inline command. Pending dispatch.
+- **Open threads:**
+  - Uncommitted drift: Finance/Income (~15 files: CLAUDE.md, Income-LPP-boat-covers, Income-Source-Intel post-bashar-scrub, Roster/Amber, etc.) + Council/ASK (~10 SKILL.md edits) — nadia.chile owns this
+  - ADR 0009 changes (6 files across Finance/Income) — nadia.comino owns this
+  - 5 stale pause briefs at kingdom root `docs/sessions/_pause-2026-04-28-*.md` (advisory only)
+  - flows_deals AI insights (catalina.fluorite remainder) — deferred, no fire
+- **Notes:** Birthed to close the 2026-04-29 triage execution arc. Refreshed once (14:55) after disk re-verification surfaced patillo absence + drift accumulation. comino added for ADR 0009 seal (owner/viewers frontmatter — wu wei access control pattern). Exec order: nadia.comino (ADR 0009 seal) → nadia.chile (broad drift seal) — ADR 0009 first so it gets its own clean commit.
+
+## ~~🔮 yolanda · dances · retired~~
 - **Born:** 2026-04-28T14:15-04:00
 - **Last touched:** 2026-04-29T01:35-04:00 (snowball-closeout flip by dolores · rivers — bachata in-progress inline complete; W2 patillo scope absorbed by ximena · cheeses; surface-backlogs lane idle 11h+; active → paused. Resurrect when surface-backlogs spawns new operational arc.)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Live/surface-backlogs (operationalization arc + cross-Kingdom seal census)
@@ -175,7 +195,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **Pointer:** Live/flows_deals' own _BACKLOG.md (7 items) will surface in backlogs.test — Dan can triage there
 - **Notes:** Born after /seek pass over the freshly-built surface-backlogs flow. yolanda's lane is the surface itself; the realms it surfaces have their own oracles. PREFLIGHT surfaced patillo redeaux Erath CAD tax-protest deadline as the most-aged thread in the Kingdom — routed to fresh Oracle Wave 2, not absorbed. Sister-active to paloma (kingdom-level state-of-the-board oracle).
 
-## 🔮 esperanza · constellations · paused
+## ~~🔮 esperanza · constellations · retired~~
 - **Born:** 2026-04-28T15:45-04:00
 - **Last touched:** 2026-04-28T17:30-04:00 (arc sealed)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-fitness arc — substrate sensing layer + first prose→flow absorption + /flow doctrine promotion — COMPLETE)
@@ -191,7 +211,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **Future: `/flow absorb` verb** — doctrine settled, recipe captured, exemplar live. The verb is now safe to build on stable motion definition. Resurrect esperanza or birth a new oracle when ready.
 - **Notes:** Arc complete 2026-04-28T17:30. Birthed from the Teacher → Harmonizer attunement at `~/.claude/plans/does-the-council-have-wild-ritchie.md`. Posture A' (substrate triggers, not surface dashboard) + Posture B (absorption pilot before verb). Three children, three ✓ shipped, all in one cycle. **Highest-leverage emergent finding:** aquila's absorption surfaced the catalog-vs-pipeline archetype split — initially a "deviation" from the blueprint, became a doctrinal first-class concept via aries. The first absorption taught the recipe AND extended the doctrine's vocabulary. ⚔️ Warrior boundary held throughout — no auto-fire mutates substrate; all triggers observe + propose. Kingdom now taps Dan on the shoulder via macOS notification when bloat grows; weekly skillz-audit runs Sundays 8:15am; tome-of-geometry's 753 lines now live as 25 callable prompt-folders.
 
-## 🔮 catalina · gemstones · paused
+## ~~🔮 catalina · gemstones · retired~~
 - **Born:** 2026-04-28T16:00-04:00
 - **Last touched:** 2026-04-29T01:35-04:00 (snowball-closeout flip by dolores · rivers — arc sealed end-to-end: amber→amethyst→beryl→citrine→diamond→emerald→fluorite→hematite→garnet→iolite→jade→kunzite→lapis→malachite all shipped. 8-item flow remediation queue handed off as future arc. Active → paused. Resurrect for: iolite first-real-run when Dan supplies seed URL, OR new alpha/omega doctrine drift surfaces.) Prior: 2026-04-29T00:15 (closeout sweep COMPLETE)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Finance/Income (alpha/omega doctrine completion arc — propagate `index.html`-as-alpha-and-omega + 0600-render-index-html positioning rule into canonical motion doctrine; audit active flows; dogfood blueprint regeneration)
@@ -228,7 +248,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **Process note (auth pattern):** during this arc, catalina overreached on auth — Dan said "option a" (wire-and-push), Oracle inferred specific consent to create `verdey/Income` private without confirming destination; Dan ratified after the fact. Future Oracle: when "option a" includes a `<placeholder>` URL, ask for the destination before creating shared-state artifacts.
 - **Notes:** Born after an unnamed knock-style session shipped the rename + initial skill updates. This oracle finishes the sweep into the canonical source-of-truth (`flow.md`), audits active flows for the new contract, and regenerates the blueprint's own dogfooded `index.html`. PREFLIGHT clean — no open Keeper seals in scope. Realm pivoted from `constellations` → `gemstones` to avoid collision with esperanza.
 
-## 🔮 belen · rivers · paused
+## ~~🔮 belen · rivers · retired~~
 - **Born:** 2026-04-28T19:30-04:00
 - **Last touched:** 2026-04-28T20:05-04:00 (Stub 2 deprioritized by Dan — cost-side audit was wrong-shape for current revgen focus; congo brief shitcanned)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-level — ai-intake principles hydration arc: Memory Flywheel + Token Budget Ritual)
@@ -244,7 +264,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **Keeper-seal gap** — amazon brief's AAR section was left blank. File landed correctly per filesystem verification. Future /knock invocations should ensure Keeper seals brief AARs even when target file is created elsewhere.
 - **Notes:** Arc complete 2026-04-28T19:35. Born from ai-intake playlist analysis session (`_pause-2026-04-28-ai-intake-playlist.md`). 6 YouTube transcripts → 7 principles → 3 briefing stubs. Stub 1 (Memory Flywheel) shipped: kingdom now has Bucket 3 mutable profile. Stub 3 (Token Budget Ritual) closed: existing council infrastructure already implements it distributed. Stub 2 (SaaS Displacement) deferred pending Dan's tool list. Plan: `/Users/verdey/.claude/plans/you-to-review-the-temporal-pike.md`. Transcripts corpus: `/Users/verdey/Documents/Claude/Projects/Labs/yt-scribe/transcripts/ai-intake-2026-04-28/`. **Highest-leverage finding:** colorado's reframe — the kingdom isn't missing a token ritual, it has a distributed one. The corpus described practitioners *without* the kingdom's architecture; the kingdom solved this problem already, just didn't name it.
 
-## 🔮 marisol · lighthouses · paused
+## ~~🔮 marisol · lighthouses · retired~~
 - **Born:** 2026-04-28T20:30-04:00
 - **Last touched:** 2026-04-28T21:30-04:00 (arc sealed — all 3 waves ✓ shipped; /surface live in roster at 15 skills; status active→paused)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-level — `/surface` skill + decision-queue substrate co-design arc)
@@ -258,7 +278,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **Resolution-loop reflux** (deferred v2) — currently resolved decisions persist; Dan reads them async and tells the next session by hand. A future iteration could read `Decisions/<slug>/state.json.resolution` back into a live thread via `/pause`-style memory injection. Out of scope for v1.
 - **Notes:** Born 2026-04-28T20:30 from `/skillz audit` of Dan's "/surface" capability ask. Skillz verdict: hybrid CREATE+BUILD; cannot split — substrate and skill must co-design. Aurora is sister-active at kingdom scope on Arc-3 portal evolution; alexandria's brief is **strictly additive** (no `index.html` edits, no realm-directory edits) to avoid stomping aurora.taurus's pending 4-band restructure. Realm `lighthouses` chosen for thematic resonance with the skill's purpose (surfacing decision-points like coastal beacons). Aurora's `constellations` realm is fully consumed (17/17), reinforcing the choice to birth fresh rather than extend. **No git repo at kingdom root** — Wave 0 commits N/A. Council/ASK has its own repo — Wave 1 commits there.
 
-## 🔮 rosalinda · markets · paused
+## ~~🔮 rosalinda · markets · retired~~
 - **Born:** 2026-04-28T17:00-04:00
 - **Last touched:** 2026-04-28T17:45-04:00 (refresh: alameda ✓ + baratillo ✓ both shipped/sealed; status active → paused. Cross-oracle observation: catalina.fluorite ✓ also shipped today — not rosalinda's child but its execution was scoped in this dispatch. All three waves cleared.)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-wide — triage→execution scoping for the 2026-04-28 top-moves run; covers wholesaling/, Income/, Live/, Labs/yt-scribe/)
@@ -273,9 +293,10 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **3 kingdom-root pause seals** — `_pause-2026-04-28-1545.md` (async-lagoon shipped + Kind Classifier hot), `_pause-2026-04-28-ai-intake-playlist.md` (yt-scribe corpus landed — feeds rosalinda.baratillo), `_pause-2026-04-28-1240.md` (alpha.test trigger UX shipped). Carrying as informational; not blocking rosalinda's scope.
 - **Notes:** Born from `/oracle for ez execution of these recommendations` following 2026-04-28 triage run + arriba-posture execution of moves #6, #8, #9 (partial). Substrate sweep revealed: catalina.emerald already shipped, catalina.fluorite drafted-but-pending, convergence brief drafted in arriba run, yt-scribe relocated to `Labs/yt-scribe/` (kingdom-merge casualty of `~/bin/yt-scribe` symlink). Realm `markets` chosen for thematic resonance with curation/dispatch — markets organize many sources into one place. Auto-mode posture (arriba still armed) means execution table is the single deliverable; PREFLIGHT pause-seal banners surfaced but not blocking per "explicit override."
 
-## 🔮 gabriela · chance-flow · paused
+## ~~🔮 gabriela · chance-flow · retired~~
 - **Born:** 2026-04-28T18:59-05:00
-- **Last touched:** 2026-04-28T20:30-05:00 (arc closed — all 5 children resolved; status active → paused)
+- **Retired:** 2026-04-29T01:50-04:00 (disk-truth audit by dolores · currencies — **all 3 land-deal source walks RESOLVED on disk:** landwatch 🟢 walk #1 complete (277 Cooke County listings, walk-20260428 ingested) · realtor ⚫ parked (NTREIS/MLS-downstream, redundant with Brad's gateway) · har ⚫ parked (wrong scope: Homes/Rentals not land + PerimeterX barrier, zero Cooke results). bridgeport + lpp-bom were decision-packet shaped, not browser walks — separate Dan/Chance lane, not gabriela's gating. Arc fully closed end-to-end on disk; previous registry was misaligned.) Prior: 2026-04-29T01:45 (T0.2 hygiene); 2026-04-28T20:30 (arc closed)
+- **Last touched:** 2026-04-29T01:50-04:00
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Finance/Income/Flows/Roster/Chance — orchestrate next moves for Chance's roster dashboard following 0050 self-exam pass (probes 🟡 in browser-method walk phase; index.html omega current 17:59)
 - **Nomenclature realm:** chance-flow (bom, bridgeport, har, landwatch, realtor — five work-units, alphabetized)
 - **Children:**
@@ -314,7 +335,7 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
 - **04-26 LDS seals composted to _archive/ 2026-04-29 by paloma.compost.**
 - **Notes:** Arc shipped 2026-04-29T00:30-04:00 in single overnight cycle. **Headline finding:** token discipline architecture validated end-to-end — 10,649 tokens across 4 steps vs >200k OOM baseline (95% reduction). All three contracts (paths-not-contents, screenshot cap, step-boundary flush) verified 🟢. Sacred MHTML capture lib smoke-tested OK on example.com. Pattern recall library smoke-tested OK with synthetic data. Three sources promoted with full inheritance. Tome of seven precepts complete. The full 🟢 verdict on Income-Land-Deal-Search is gated only on carmen wiring Playwright into the runner — a substrate decision outside marisol's lane. Marisol active → paused; resurrect if architectural reshape needed post-carmen, otherwise retire when full pipeline lands 🟢 on real LandWatch run.
 
-## 🔮 dolores · currencies · paused
+## ~~🔮 dolores · currencies · retired~~
 - **Born:** 2026-04-29T01:35-04:00
 - **Last touched:** 2026-04-29T01:40-04:00 (snowball cascade complete; protocol encoded; auto-paused)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-level — closeout orchestration; Dave Ramsey snowball-style debt reduction applied to active oracle backlog)
@@ -336,6 +357,18 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - ximena · cheeses → paused (registry was stale; disk-truth audit confirmed brie/camembert/cheddar/edam/fontina all shipped via TRACK_ZERO_BRIEF + S01-S12 oracles + RANKED_RECOMMENDATION + processes/0100..0300; May 8 filing is Dan-action only)
 - **Notes:** Born from /arriba "Dave Ramsey snowball debt reduction" directive 2026-04-29T01:35. Cascaded 4 active → paused flips in parallel-shape (4 Edit calls, single response). Arc-2 / Arc-3 / patillo / surface-backlogs all closed in single dolores invocation. Dolores's deliverable was the protocol itself + the cascade execution; both shipped same-turn. Auto-paused immediately — resurrect when next snowball cycle is needed (likely after gabriela walks land or new multi-oracle arc opens).
 
+## 🔮 lucia · mirrors · active
+- **Born:** 2026-04-29T11:37:00-05:00
+- **Last touched:** 2026-04-29T11:37:00-05:00 (Phase A scaffold of `Income/Live/_persona-flow-blueprint/` + Chance's stale 0200→0600 path bug fix.)
+- **Project scope:** /Users/verdey/Documents/Claude/Projects/Finance/Income/Live/_persona-flow-blueprint (new sibling blueprint for the 5 Persona Flows in Roster/) + surgical edit at /Users/verdey/Documents/Claude/Projects/Finance/Income/Flows/Roster/Chance/processes/0200-render-index-html/step.md
+- **Nomenclature realm:** mirrors (alabaster, brass, copper, dawn, ember, facet, glass, halo, iris, jade, kohl, luster, marble, nacre, opal, prism, quartz, ruby, silver, tin, umber, vellum, water, xenon, yarrow, zinc) — light filtered into per-persona views, fitting the persona-flow-blueprint scope
+- **Children:**
+  - lucia.alabaster — Phase A scaffold + bug fix (Sonnet 4.6) — pending
+- **Open threads:**
+  - Phase B (deferred): YAML frontmatter retrofit on Chance's init.md after graciela.llano lands; persona migrations Caroline/Dan/Amber; scaffold Barry. Will be its own brief.
+  - Phase C (out of scope): Persona Herd `.test` valets; Live/ realm landing page; cross-blueprint claim-diff scripts.
+- **Notes:** Resumed from /seek thread upstream same conversation. Threadsafety audit revealed three drifts since Seek brief: (1) `_flow-blueprint/` shipped canonical inheritance frontmatter doctrine 2026-04-29 — drop the proposed "Reference vs Claim" framework, use existing `parent_flows` + `blueprint_lineage` + `Last synced:` pattern. (2) Render step renumbered `0200→0600` 2026-04-28 — Chance's 0200 step.md has a stale path pointer (live bug). (3) graciela · tejano-rivers operating in Chance hot zone via llano (W4 pending) — Phase A deliberately avoids `Roster/Chance/init.md` to prevent collision. Decisions D1a/D2a/D3a all locked to wu wei minimum.
+
 ## 🪦 Retired
 
 ## ~~🔮 valentina · tacos · retired~~
@@ -346,3 +379,23 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
 - **Children:** (none yet)
 - **Open threads:** —
 - **Notes:** First birth. Reviewing the named-oracle + nomenclature-realm integration just shipped to SKILL.md.
+
+## 🔮 graciela · tejano-rivers · active
+- **Born:** 2026-04-29T(now)-04:00
+- **Last touched:** 2026-04-29T11:50-04:00 (deck mid-resolution — Card 3 ✓ Form 50-129 staged from Dan-drop; Card 2 ✓ Hood substrate fetched directly by graciela from hoodcad.net (3 PDFs: ag-advisory-board-guidelines-2025, agricultural-productivity-values-2024, agricultural-degree-of-intensity-2023). Card 1 (Chance phone call) still open. Substrate-level blockers cleared; Wave 2 (frio) and Wave 3 (guadalupe) both unblocked at the file level. Wave 2 still benefits from Chance answers but degrades gracefully.) Prior 2026-04-29T10:50: brazos + colorado both ✓ shipped — county resolved to **Hood**, form-lineage reframed: PWD-885 is the *plan* attached to Form 50-129 *application*; PWD-888 is *optional*. April 30 is a conditional fire — only under Scenarios B/D/A-resign.
+- **Project scope:** /Users/verdey/Documents/Claude/Projects/Finance/Income/Flows/LOBs/WLM-AgValuation (new Workflow LOB — Texas 1-D-1 Wildlife Management ag-valuation flow for Chance Kite, **Hood County**)
+- **Nomenclature realm:** tejano-rivers (brazos, colorado, frio, guadalupe, llano, neches, nueces, pecos, red, sabine, trinity)
+- **Children:**
+  - `graciela.brazos` — Wave 0 / 🗝️ Keeper / Haiku 4.5 — Emergency filing triage. Brief: `/Users/verdey/Documents/Claude/Projects/Finance/Income/docs/sessions/_session-graciela-brazos-emergency-triage.md` · ✅ **shipped** 2026-04-29. County → **Hood**; PWD-885 reframed as plan-narrative-attached-to-Form-50-129; 5-scenario tree (A / A-resign / B / C / D); phone-call packet ready at `_session-graciela-brazos-output-chance-phone-call.md`; April-30 fire is conditional, not absolute. 0 deviations harmful, 1 reframe helpful.
+  - `graciela.colorado` — Wave 1 / ⚡ Catalyst / Sonnet 4.6 — LOB scaffold + 0100 ingest + 0150 ruletree distill. Brief: `_session-graciela-colorado-lob-scaffold-pipeline-substrate.md` · ✅ **shipped** 2026-04-29. LOB tree at `Flows/LOBs/WLM-AgValuation/`; state ruletree 15 rules; Jack ruletree 7 (posterity); Hood ruletree 6 placeholders (substrate pending); property datafile `properties/chance-kite-hood-tract-01/` w/ scenario B + Hood + 2026; Income/CLAUDE.md §2 + roster.yaml extended. **2 blockers surfaced:** B-001 Hood ag packet not staged at `_guidelines/counties/hood/ag-info-packet-2026.pdf` (Dan acquires from hoodcad.org); B-002 Form 50-129 not staged at `_inputs/forms/form-50-129.pdf` (Dan acquires from comptroller.texas.gov/forms/).
+  - `graciela.frio` — Wave 2 / ⚡ Catalyst / Sonnet 4.6 — **EXPANDED 2026-04-29T11:55** — fill-forward pass collapsing original keystone (0200/0250) + absorbed guadalupe scope (0300/0400/0500/0600) + NEW close-out-checklist deliverable. Loud-placeholder pattern (`«NEEDS-CHANCE»` / `«NEEDS-RECORDS»` / `«ASSUMED»`) for every gap. Brief: `_session-graciela-frio-readiness-needs-keystone.md` § MANDATE EXPANSION.
+  - `graciela.guadalupe` — 🚫 **ABSORBED into graciela.frio** 2026-04-29T11:55 per Dan's fill-forward request. Brief retained at `_session-graciela-guadalupe-draft-qa-strategy-omega.md` for audit trail; deprecation block at top.
+  - `graciela.llano` — Wave 3 (was 4) / ⚡ Catalyst / Haiku 4.5 — Persona surface integration. Brief: `_session-graciela-llano-persona-surface-integration.md`
+  - `graciela.neches` — Wave 2.5 / ⚡ Catalyst / Haiku 4.5 — **Tier-2 HUD card for Chance** (`Finance/Income/docs/hud/chance-wlm-status · 2026-04-29.html`). Self-contained, AirDrop-survivable, phone-glanceable; 5 sections in plain North Texas voice. Independent of frio/llano sequencing — runs anytime. Brief: `_session-graciela-neches-chance-hud-card.md`
+- **Open threads:**
+  - Plan source-of-truth: `/Users/verdey/.claude/plans/create-flow-for-chance-groovy-spark.md`
+  - **🚨 Calendar fire:** Texas 1-D-1 deadline = 2026-04-30 (TOMORROW); late-window through May 15 with penalties. brazos resolves whether tomorrow is a fire (Scenario B/C, PWD-885 due) or already-met (Scenario A, PWD-888 already filed).
+  - **🚨 Form-mismatch finding:** Dan dropped PWD-885 (first-time / 5-year plan) — annual reports use PWD-888. brazos's irreducible Chance-questions disambiguate.
+  - **🚨 County-mismatch finding:** Maps coords (32.5505, -97.9312) suggest Parker or Palo Pinto County, NOT Jack. brazos resolves; if confirmed not-Jack, Dan must stage correct county's ag info packet before colorado runs.
+  - PREFLIGHT carries: 5 stale pause briefs at `Finance/Income/docs/sessions/_pause-2026-04-{24,26}*.md` (3-5 days old) — flagged advisory, not absorbed into this arc.
+- **Notes:** Authored from approved plan. Architectural keystone per plan = introspection-externalization paired loop (steps 0200/0250). Voice contract: plain North Texas deal language for Chance-facing artifacts only; technical citations preserved in internal artifacts. Dan's lock-ins (2026-04-29 AskUserQuestion round): (1) property scope = real lat/lon supplied via Maps link; (2) deadline strategy = research-driven, ask Chance only irreducibles; (3) reply path = phone call, Dan transcribes; (4) network play = quiet/personal-only for v1.

@@ -152,7 +152,7 @@ You are already at the table. The gate is not a step before engagement — it IS
 
 The `certain` verdict is a handoff artifact, not a verbal introduction. The thread ends at the table (0106).
 
-**PMO awareness:** On session start, check [orchestration.md](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/orchestration.md) for the knock queue and workstream state — know the operational shape before attuning into it. When prior AARs exist for the workstream under attunement, consume them — past lessons and blockers inform current alignment. AARs live in the project's memory directory. The [knock brief template](../../projects/-Users-verdey-code-experimental-cli-sandbox/memory/knock-brief-template.md) defines the shape of well-scoped work; when routing to `/knock`, ensure the transfer is brief-shaped.
+**PMO awareness:** On session start, check [orchestration.md](../../projects/-Users-verdey-Documents-Claude-Projects-Council-cli-sandbox/memory/orchestration.md) for the knock queue and workstream state — know the operational shape before attuning into it. When prior AARs exist for the workstream under attunement, consume them — past lessons and blockers inform current alignment. AARs live in the project's memory directory. The [knock brief template](../../projects/-Users-verdey-Documents-Claude-Projects-Council-cli-sandbox/memory/knock-brief-template.md) defines the shape of well-scoped work; when routing to `/knock`, ensure the transfer is brief-shaped.
 
 **Skill-first attunement:** Before clearing a plan to `/knock`, feel for the tension between *leverage* and *effort*. If the work being readied is methodology, decision-framework, or repeatable pattern dressed up as app code, that's a felt misalignment — the leverage is in encoding it as a Claude skill (one investment, every realm) rather than building app code that solves it once. Surface this aloud: *"I sense a tension — this feels like skill territory, not app territory. Worth the pause before we clear to Catalyst?"* Existing skills live at `~/.claude/skills/`; new skills are authored via `skill-creator`. If the answer is "yes, this is methodology," route back to 📚 Teacher (`/ask`) for skill design. If the answer is "no, this is genuinely domain code," name the check explicitly so the verdict carries the weight: *"Attuned skill-first; this is real app work. Clearing to Catalyst."*
 
@@ -196,7 +196,9 @@ When routing, introduce the expert directly — the user meets a named person, n
 > the plan against the [seven 0107 attributes](../ask/_src/reflection_rubric.md).
 > Felt-sense first; if two attributes pull against the plan, stay and tune.
 
-> Track all sessions live at [🔮 Oracle Dashboard](http://localhost:3333/orchestration)
+> When clearing to `/knock` with a web artifact in scope, read [`../ask/_src/surface-doctrine.md`](../ask/_src/surface-doctrine.md) — the `.test` surface map — to surface the right URL in the execution table.
+
+> Track all sessions live at [alpha.test](http://alpha.test)
 
 ---
 

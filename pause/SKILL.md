@@ -130,6 +130,8 @@ When nothing needs pruning: `## Composted (this seal)\nNothing — the field is 
 
 ## Output: the resume brief
 
+When writing the resume brief, read [`../ask/_src/surface-doctrine.md`](../ask/_src/surface-doctrine.md) — the `.test` surface map — to close the brief with the right entry point. The "Next immediate action" line should end with `http://alpha.test` as the live kingdom entry unless a more specific surface applies.
+
 **Written to:** `<project-root>/docs/sessions/_pause-YYYY-MM-DD-HHmm.md`
 
 **Fallback** (no detectable project context): printed to stdout. Income/ context also triggers email delivery — see "Email-briefing delivery" below.

@@ -17,8 +17,8 @@ git clone https://github.com/verdey/ask.git ~/.claude/skills
 **Dev workflow** — clone to a working directory and symlink:
 
 ```bash
-git clone https://github.com/verdey/ask.git ~/code/ASK
-ln -s ~/code/ASK ~/.claude/skills
+git clone https://github.com/verdey/ask.git ~/Documents/Claude/Projects/Council/ASK
+ln -s ~/Documents/Claude/Projects/Council/ASK ~/.claude/skills
 ```
 
 > The skills path `~/.claude/skills/` is the same across Claude Code CLI, VS Code extension, and JetBrains — on macOS, Linux, and Windows (WSL).
