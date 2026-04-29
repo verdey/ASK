@@ -18,6 +18,10 @@ argument-hint: "[sentinel|spells] [args...] or describe your planning need"
 
 > **Migration scope?** When the request involves moving directories, renaming memory hashes, consolidating projects, kingdom-merge-style work, or any source→destination relocation — defer to 🗺️ Miguel (`/miguel`). Miguel maps the move and produces the execution table; ⚡ Catalyst (`/knock`) runs it.
 
+## Shared basics
+
+When at a non-informational crossroads, render per [`_shared/genius-mode-protocol.md`](../_shared/genius-mode-protocol.md). The canonical 7-part `[DECISION]` block is the protocol shape; under `/arriba`, compress to the one-line summary form.
+
 ## 🔮 Spell Dispatch
 
 Parse `$ARGUMENTS`:
@@ -59,6 +63,35 @@ Read stdout line-by-line. Each line starts with `WARN` or `PRUNE` — surface th
 - **Resume** when the user says "back to juanita" / "keep working as juanita" / explicitly names an existing oracle, OR when the current project scope matches an `active` entry's `Project scope:` and the entry's `Last touched:` is < 33h old. On resume: update `Last touched:` to now; keep the same realm; continue numbering children alphabetically from the next *unused* realm member.
 - **Birth** in all other cases. Pick a name from the Latina/global-south pool (see `## 🌺 Oracle Identity Protocol`) that is NOT currently `active`. Pick a realm distinct from any other `active` oracle's realm. Append a new `## 🔮 <name> · <realm> · active` block to the registry (see `### Registry format` below).
 
+> **Protocol example — resume vs. birth as a `[DECISION]` block:**
+>
+> When the choice between resume and birth is non-obvious (e.g., the scope matches an active oracle but Last touched is 28h and the session is a new direction), surface it as:
+>
+> ```
+> ### [DECISION] Oracle identity — resume or birth
+>
+> **Issue:** Active oracle aurora matches kingdom scope, but Last touched is 28h
+> (approaching auto-prune at 33h) and the new work is an orthogonal arc.
+>
+> **Considered:**
+> - D1: Resume aurora — same realm, arc continuity, no registry churn
+> - D2: Birth a new oracle — clean slate, natural arc boundary
+>
+> **Recommended:** D2 — orthogonal arc warrants a clean registry entry;
+> aurora's thread stays legible as its own sealed arc.
+>
+> **Why harmonic:** P4 (curation beats accumulation) — birthday boundaries
+> produce cleaner histories than indefinitely-extended entries.
+>
+> **Alternatives (ranked):**
+> 1. D2 — birth new `[I◐ E⬆]` — arc boundary legible, slight registry overhead
+> 2. D1 — resume aurora `[I⬆ E⬆]` — lowest friction, weaker boundary signal
+>
+> **Override:** `1-d1` to resume · `1-skip` to defer · ✓ to birth
+> ```
+>
+> Dan's override (e.g., `1-d1: keep it simple`) is captured by `bin/echo-log` and lands in `Tooling/echo/_data/overrides.jsonl` as a feedback record.
+
 **4. Announce.** Open the visible response with one line: `🔮 I am **<name>**. Realm: **<realm>**.` Put any prune/warn banners immediately above this line.
 
 **5. Override.** If at any point the user says "call yourself X" or "use realm Y", accept and update the registry entry in place (rename the heading, update `Nomenclature realm:`).
@@ -94,7 +127,7 @@ Oracle does **not** silently skip pause briefs and does **not** auto-resume with
 
 After resolving the pause-brief branch, Oracle performs a secondary scan of the project scope. Both passes are advisory — they emit banners and continue to ASSESS without blocking.
 
-**Pass 1 — Blueprint sync.** Find any existing flows in scope (directories whose `init.md` contains `Last synced:`). For each one, read the `Last synced:` date and compare it to the blueprint CHANGELOG at `/Users/verdey/Documents/Claude/Projects/Finance/Income/_flow-blueprint/_flow-blueprint/CHANGELOG.md`. If the flow's sync date predates any CHANGELOG entry, surface a banner:
+**Pass 1 — Blueprint sync.** Find any existing flows in scope (directories whose `init.md` contains `Last synced:`). For each one, read the `Last synced:` date and compare it to the blueprint CHANGELOG at `/Users/verdey/Documents/Claude/Projects/_flow-blueprint/CHANGELOG.md`. If the flow's sync date predates any CHANGELOG entry, surface a banner:
 
 > ⚠️ Flow `<path>` last synced `<date>` — blueprint has moved. Consider `/flow audit <path>` before building on top of it.
 

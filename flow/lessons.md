@@ -58,6 +58,18 @@ A workflow LOB does **not** have to materialize its main pipeline as numbered st
 
 ---
 
+## 2026-04-28 — omega-fragment.json is the Tier 1 graduation signal for a flow (Arc-3 closeout)
+
+**Rule:** A Tier 2+ flow should emit `omega-fragment.json` alongside its `index.html`. The fragment is the machine-readable summary of what the omega says: a headline, a chart type + data, 0–3 decision hooks, and a theme. Its presence is the signal that a flow is mature enough for the portal to render its state at a glance without re-parsing the full omega HTML.
+
+**Why:** Arc-3 Wave 4 (`aurora.scorpius`) shipped the `insight-harvester` contract. First run found 20 flows; 3 had opted in. The 17 default text-cards are legible but inert — they carry no chart, no decision hook, no theme. The fragment is what makes the Insight Fragments band actionable rather than merely navigational.
+
+**How to apply:** When auditing a Tier 2+ flow, check for `omega-fragment.json`. If absent, add a "promote to opt-in" move to the audit output — it's a one-file authoring task, not a refactor. The `Tooling/insight-harvester/docs/contract.md` is the authoritative schema.
+
+**Status:** captured-2026-04-28 · aurora.vega Arc-3 closeout
+
+---
+
 ## 2026-04-28 — `flow-runner-llm` is yin-yang to `/flow` (curate vs execute) (session-id: 2026-04-28-flow-runner-llm-recon)
 
 The `flow-runner-llm` Python CLI at `~/Documents/Claude/Projects/Tooling/flow-runner-llm/bin/run-flow` walks any `_flow-blueprint`-shaped flow step-by-step via the Claude API. It is the **machine interface** to the flow system — `/flow` reads, audits, and curates flows; `run-flow` executes them. Both share the same DNA (the `_core/system-prompt.md` carries `/flow` skill semantics).

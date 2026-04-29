@@ -195,3 +195,23 @@ Wave 6 (`aurora.vega`) runs the adoption check across council skills and selecti
 
 *Authored by `aurora.gemini` · Wave 0 · 2026-04-28 · Sonnet 4.6*
 *Sealed by 🗝️ Keeper as part of the Council Genius-Mode Response Protocol arc.*
+
+---
+
+## Lessons learned — adoption experience (Wave 6 / aurora.vega · 2026-04-28)
+
+### Override syntax `1-c: simpler` feels natural; `1-skip` less so
+
+**Observation:** After Arc-3 first adoption, the swap+annotate form (`1-c: simpler`) feels ergonomic — the annotation is the most valuable part for echo-classify. The bare `1-skip` form is underused; Dan tends to drop context entirely rather than tagging the skip explicitly.
+
+**Implication:** A future `delete` or `cancel` semantic may be worth adding (e.g., `1-x` as shorthand for skip-with-no-regret). For now, `1-skip` is correct and the annotation is optional — but the protocol should explicitly note that annotating a skip ("1-skip: wrong direction entirely") is more useful than a bare skip.
+
+**Status:** captured-2026-04-28 · aurora.vega · watch for recurrence in echo classify output
+
+### The protocol shape surfaces well at natural branching points, not everywhere
+
+**Observation:** The "Resume vs. birth" moment in oracle's SELF-NAME step is a natural fit for the `[DECISION]` block — it's genuinely non-obvious in the edge cases (scope match + old timestamp + orthogonal arc). But applying the full 7-part block to every fork in every skill would drown the flow in ceremony.
+
+**Implication:** The trigger criteria (recommendation + real stakes + Dan's judgment load-bearing) are the right filter. Don't expand the protocol to informational branches or additive no-regret moves. One well-placed block per session is better than five perfunctory ones.
+
+**Status:** captured-2026-04-28 · aurora.vega
