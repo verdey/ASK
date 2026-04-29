@@ -62,6 +62,8 @@ Every flow must produce `index.html` at its root. This file is the flow's **alph
 
 **Audit corollary — documented intent over shape inference.** Before flagging a step or folder as orphan, drift, or misplaced: read its `step.md` / `README.md` / `_graduation.md`, check `docs/decisions/` for an ADR that justifies it, and re-read the parent flow's `init.md` for archetype-with-variant declarations. A step whose declared intent contradicts a recommendation downgrades that recommendation to "verify intent" before any subtract/merge. Documented intent beats archetype assumption — every time. Precedent: 2026-04-27 audit of `_flow-navigator` would have deleted the Phase 3 co-creation harvest step as "orphan tail" without this rule (`lessons.md` 2026-04-27).
 
+**Audit corollary — runtime declaration vs. executor support (added 2026-04-28, carmen.sheet-bend, per lessons.md L4).** When a step declares `**Runtime:** SCRIPT` or `**Runtime:** composite` in its `instructions.md`, audit must verify two things: (1) the step has a `## Invocation` section with a fenced bash block (for SCRIPT), and (2) the runner version in use supports the declared runtime — check `Tooling/flow-runner-llm/CLAUDE.md` §Runtimes for the current support matrix. If the runner lacks the executor, surface as ⚠️ `runtime-not-implemented`: the flow is *structurally correct but functionally non-executable* via the portal trigger surface. A dry-run green is not a live-click green. Precedent: `flow-omega-author` passed dry-run with `Runtime: SCRIPT` steps but produced no omega on live click until the dispatcher landed (commit `80f1862`, carmen.overhand); MHTML capture then confirmed functional end-to-end (commit `88bb3b8`, carmen.square). `runtime-not-implemented` flows should surface the `no omega` chip rather than a spurious run-complete toast.
+
 ---
 
 ## What a flow is NOT
@@ -147,7 +149,37 @@ A specialized workflow archetype for converting oversized static prose documents
 **Example:** `Library/tome-of-geometry/flows/prototype-patterns/` — 25 independent geometry/design pattern entries (01-Euclidean through 25-Applied), each a self-contained build target. Sourced from wave-2 absorption (K-EA2).
 
 ### Living-blueprint flow
-A meta-flow that is itself a flow AND the canonical reference other flows clone from. Currently one instance: `_flow-blueprint/`. Maintains a `CHANGELOG.md`; active flows pin a `Last synced` date and re-sync on cold-boot when the blueprint advances.
+A meta-flow that is itself a flow AND the canonical reference other flows clone from. The root instance is `_flow-blueprint/` at the kingdom root; intermediate blueprints (e.g., a "short-sale-deal blueprint" scoped to one LOB) are also Living-blueprint flows that nominate `_flow-blueprint` as their own parent. Maintains a `CHANGELOG.md`; active flows pin a `Last synced` date per ancestor and re-sync on cold-boot when any ancestor advances.
+
+---
+
+## Composition (parent/child)
+
+Composition is **orthogonal to archetype.** A flow can be Workflow-shaped and also be a subflow of another Workflow, or a Catalog inside a Stitch, etc. The archetype dimension answers "what shape of work?"; the composition dimension answers "what's its relationship to other flows?"
+
+**Three structural shapes,** all declared via YAML frontmatter at the top of `init.md`:
+
+```yaml
+---
+flow_id: <kebab-slug>
+archetype: workflow | stitch | catalog | living-blueprint
+parent_flows:
+  - <path-or-id>
+child_flows:
+  - <path>
+blueprint_lineage:
+  - <root-blueprint>
+  - <intermediate-blueprint>
+---
+```
+
+1. **Subflow.** A numbered step folder under `processes/` that contains its own `init.md` + `processes/`. The Acid Test holds at every level — each `processes/` is independently `ls`-ordered. Recursion stops at folders without `processes/` (those are leaf steps with `README.md` / skinny YAML / `step.md`). Existing example: `wholesaling/processes/intake-funnel/` is a subflow of `wholesaling/`.
+2. **Multi-level blueprint inheritance.** A flow can declare a chain of ancestor blueprints in `blueprint_lineage`. Example: a "short-sale deal blueprint" inherits from `_flow-blueprint`; individual deals inherit from the short-sale blueprint. Cold-boot walks the chain root-first and surfaces CHANGELOG divergence per ancestor. The denormalized chain saves the cold-boot from re-traversing.
+3. **Instance flow.** A one-off flow (a deal, a project, a campaign) that points at an intermediate blueprint via `parent_flows`. Improvements to the blueprint surface to the instance via the same CHANGELOG-divergence mechanic that propagates `_flow-blueprint` changes to top-level LOBs.
+
+**Inheritance is re-sync-by-divergence, not class extension.** The flow pins `Last synced: YYYY-MM-DD` once. Cold-boot scans every ancestor's `CHANGELOG.md` for entries newer than that date and surfaces deltas one-line-per-ancestor. Apply manually on greenlight. The inheritance link is reference, not lock — the Acid Test is the invariant, not file naming or stage counts.
+
+**When to introduce an intermediate blueprint.** When ≥ 2 instance flows share a recognizable shape that diverges in stage names/ordering and would benefit from a canonical reference. The canonical exemplar (2026-04-28): wholesaling's three short-sale deals (Acacia, Rowlett, Biscayne) shared a short-sale shape, diverged in stage names, and prompted `_short-sale-deal-blueprint/` as their common parent.
 
 ---
 
@@ -278,7 +310,7 @@ The source-of-truth references — `_flow-blueprint/`, `Income/CLAUDE.md` §14, 
 
 - [`Income/docs/flow.md`](file:///Users/verdey/Documents/Claude/Projects/Finance/Income/docs/flow.md) — the full motion doctrine
 - [`Income/CLAUDE.md`](file:///Users/verdey/Documents/Claude/Projects/Finance/Income/CLAUDE.md) §14 — the decet
-- [`Income/_flow-blueprint/`](file:///Users/verdey/Documents/Claude/Projects/Finance/Income/_flow-blueprint/) — the living reference flow
+- [`_flow-blueprint/`](file:///Users/verdey/Documents/Claude/Projects/_flow-blueprint/) — the living reference flow (kingdom root)
 - `showcase.md` — exemplar flows in the wild
 - `lessons.md` — curated refinements over time
 - `tools-register.md` — bash/scripts that offload long-form file munging from LLMs

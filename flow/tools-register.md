@@ -36,6 +36,41 @@ Each entry carries:
 
 ---
 
+## Flow SCRIPT-runtime CLIs
+
+> These are thin Python wrappers invoked via `**Runtime:** SCRIPT` step declarations. The runner shells out to them via `subprocess.run`; they return exit 0/non-zero and write artifacts to disk. Stdlib-only or venv-isolated — no LLM tokens.
+
+### `build-omega.py` — compose + assemble omega `index.html`
+
+- **Path:** `Tooling/flow-omega-author/bin/build-omega.py`
+- **Subcommands:** `compose` (renders mechanical HTML fragments from `walk.json` + `recipe.json`), `assemble` (combines template + Pico CSS + 5 fragments into final `index.html`).
+- **Runtime:** Python 3 stdlib only (no deps). ~210 LOC.
+- **Used by:** `Tooling/flow-omega-author/processes/0400-compose-mechanical/instructions.md` and `0420-assemble-omega/instructions.md`.
+- **When to reach for it:** any flow that needs to render its own omega `index.html` per the canonical 5-section contract (Process Map / Recent Activity / AI Insights / Blueprint Sync / Embedded init.md). Author the AI Insights section by hand or via LLM, then compose + assemble.
+- **Provenance:** authored by `aurora.andromeda` (S1-heal Wave 0, 2026-04-28) per `_flow-blueprint/processes/0600-render-index-html/instructions.md` Phase C prescription.
+
+### `harvest-capture.py` — thin SCRIPT wrapper for MHTML page capture
+
+- **Path:** `Tooling/harvester-runtime/bin/harvest-capture.py`
+- **Args:** `--url <URL> --output <path> --wait <ms>` (optional).
+- **Output:** writes MHTML to `--output`; emits `{"path": "...", "sha256": "..."}` JSON to stdout. Exit 0 on success, non-zero on failure.
+- **Runtime:** requires `harvester-runtime` venv (Playwright wired; see `Tooling/harvester-runtime/`). ~38 LOC.
+- **Used by:** `Tooling/harvester-runtime/processes/0400-capture/instructions.md`.
+- **When to reach for it:** any SCRIPT-runtime step that needs to snapshot a live URL as MHTML without LLM tokens. The LLM authors the capture strategy; this script executes it deterministically.
+- **Provenance:** carmen.square (Arc-2 W4, commit `88bb3b8`, 2026-04-28).
+
+### `harvest-recall.py` — thin SCRIPT wrapper for pattern-match recall
+
+- **Path:** `Tooling/harvester-runtime/bin/harvest-recall.py`
+- **Args:** `--patterns <glob> --fail-patterns <glob> --page-class <class> --min-confidence <0-1>`.
+- **Output:** writes an `observe` event to `_audit/runs.jsonl`. Exits 0 on miss (no match, continue flow), non-zero on hit (halt or branch).
+- **Runtime:** requires `harvester-runtime` venv. ~36 LOC.
+- **Used by:** `Tooling/harvester-runtime/processes/0100-recall/instructions.md`.
+- **When to reach for it:** recall step that needs to check a prior capture's patterns against known-good or known-bad signatures before the LLM interprets the content.
+- **Provenance:** carmen.square (Arc-2 W4, commit `88bb3b8`, 2026-04-28).
+
+---
+
 ## YAML
 
 ### `yq` (mikefarah, Go) — YAML as JSON
@@ -161,7 +196,7 @@ Each entry carries:
 ### `markdown-it` (CLI) or hand-rolled inline renderer — for the `index.html` embedded-md viewer
 
 - **Trigger:** building a `processes/<step>/index.html` per `flow.md` §1.1.1.
-- **Example:** `_flow-blueprint/processes/0200-render-index-html/instructions.md` carries the canonical hand-rolled ~50-line renderer.
+- **Example:** `_flow-blueprint/processes/0600-render-index-html/instructions.md` carries the canonical hand-rolled ~50-line renderer (the omega step).
 - **Use instead of an LLM when…** the viewer is structural — never call an LLM to render markdown that has a deterministic renderer available.
 
 ---

@@ -274,3 +274,96 @@ When any of these are detected, the realization target shifts from "build `docs/
 **Status:** proposes-doctrine-edit — `shapes.md` Shape 1 realization-target table should add a precondition: "If realm has existing internal taxonomy (numeric-prefix folders + ID-tagged ledgers + structured conventions), substitute `docs/`-tree decomposition with `CLAUDE.md`-routes-to-existing-layer pattern." Hold for `/flow promote` after one more confirming case.
 
 ---
+
+## 2026-04-28 — A-NNN assumption ledger: conservative defaults as a loud flow surface
+
+The A-NNN ledger pattern (born in `Finance/patillo redeaux/02_rubric/ASSUMPTIONS.md`) is now a first-class flow artifact. Every flow that makes assumptions under uncertainty should maintain `_assumptions.md` at the flow root with A-NNN entries: gap, chosen assumption, 2-5 ranked alternatives, resolution trigger, and STATUS (ACTIVE/RESOLVED).
+
+ACTIVE entries surface loudly on `index.html` as the first section — yellow warning card, before the process map. This is intentional: conservative defaults should be impossible to miss.
+
+**Source flow:** Finance/patillo redeaux
+**Pattern:** `_assumptions.md` at flow root → Phase C in 0600-render-index-html → Section 5 (loud, first) on index.html
+**Status:** proposes-doctrine-edit
+**Session:** 2026-04-28-flow-infrastructure-conservative-defaults
+
+---
+
+## 2026-04-28 — Kingdom-level trigger surface (alpha.test) as a flow's runtime door
+
+The kingdom portal at `https://alpha.test/` gained a live flow surface: search-as-you-type, saved-search chips, ▶ Run buttons that POST to `api.php?action=trigger&path=<flow>` and spawn `flow-runner-llm/bin/run-flow` detached. Discovery is a live `find` (no registry, no cache) — a directory IS a flow if it has `processes/`. An `index.html` (omega) is preferred but not required — no-omega flows surface a yellow chip (interlinkage doctrine signal).
+
+Companion surfaces interlink mutually: `flow-queue.test` (batch queue manager, ⚠️ Stalled / 🚀 Running / ❌ Failed / ✅ Completed buckets, auto-refresh while runs active) and `flow-atlas.test` (heavy audit, footer cross-links to portal + queue). The trigger surface honors trust: localhost-only `REMOTE_ADDR` check, path-must-exist-in-fresh-discovery allowlist (no path arguments accepted that weren't just discovered).
+
+The `no omega` chip is wired to `?action=generate-omega` which spawns `Tooling/flow-omega-author` — a meta-flow whose 6-step pipeline (resolve-target → walk-target → load-blueprint-recipe → author-omega → verify-artifact → render-index-html) reads any target flow's substrate and authors its omega artifact via the runner. The chip is a one-click invocation of the doctrinal recipe.
+
+A ✏️ inline button next to ▶ Run accepts an `--extraprompts` string via browser `prompt()` and threads it through to the runner — same path, same allowlist, same toast/queue plumbing, just with per-run prompt-injection context.
+
+**Source flows:** kingdom root (`api.php`, `index.html`); `Tooling/flow-queue/`; `Tooling/flow-omega-author/`
+**Pattern:** PHP grep-server (one file, action-routed) + log-filename-as-queue-record (no separate queue.jsonl) + discovery-as-allowlist (no allowlist file) + Pico.classless throughout
+**Status:** shipped
+**Session:** 2026-04-28-aurora-trigger-surface (oracle: aurora · constellations)
+
+---
+
+## 2026-04-28 — Dry-run validates *shape*, not *runtime*
+
+When a flow has a runtime declaration in its `instructions.md` (e.g. `**Runtime:** SCRIPT` per S1-heal Lesson L2), `flow-runner-llm --dry-run` reporting `✓ Flow format valid` does **not** imply the runner can actually execute the flow. Dry-run only validates step folder shape, README markers, and step numbering. It does not check that the runner has an executor for declared runtimes.
+
+**Concrete failure mode:** `flow-omega-author` shipped W1 with three steps tagged `Runtime: SCRIPT` (compose-mechanical, assemble-omega) and `Runtime: composite` (render-index-html). Dry-run passed. First real click on a `no omega` chip (Income-LPP-boat-covers, run `20260428-213034`) walked all 8 steps, exited 0, reported `✅ RUN COMPLETE` — but **no omega was written** because the runner has no SCRIPT-runtime executor: it hands every step's `instructions.md` to Claude as a prompt, and at SCRIPT-tagged steps the LLM merely *narrates* the script invocation ("Ready to run the compose command?") without actually shelling out. Run cost: ~$0.05; observable artifact: zero.
+
+**The trap:** any flow that declares non-LLM runtime is structurally satisfied while functionally broken until the runner gains a runtime-aware executor. The brief's pre-filled AAR and post-W1 dry-run both reported success while the meta-flow could not actually produce omegas via the portal.
+
+**How to apply:**
+- `/flow audit` should treat `**Runtime:** SCRIPT` (or `composite`) as a precondition that the runner-llm must back. Until backed, surface a yellow `runtime-not-implemented` warning even when dry-run passes.
+- Add a manual `--execute-script` smoke test path to flow-runner-llm OR (preferred) extend the runner to detect `Runtime: SCRIPT` and shell out to the `## Invocation` block in the step's `instructions.md`.
+- Until the runner gains the executor, treat SCRIPT-tagged flows as **portal-non-functional** even if dry-run is green. Manual chain works (verified 2026-04-28T16:41 — `bin/build-omega.py compose && assemble` produced a valid 82KB omega for Income-LPP-boat-covers when run by hand).
+
+**Source flow:** `Tooling/flow-omega-author/` post-W1 (S1-heal arc)
+**Sister lessons:** L1 (LLM step output ceiling ~10KB), L2 (runtime declaration mandatory) — this lesson is the L2 corollary on the executor side.
+**Status:** operational; `/flow audit` checks runtime-vs-impl drift via the new audit corollary in `doctrine.md` (carmen.sheet-bend, 2026-04-28); runner dispatches SCRIPT and composite steps via runtime-aware dispatcher (carmen.overhand, commit `80f1862`); validated end-to-end by carmen.square (commit `88bb3b8`) — LandWatch MHTML produced, SCRIPT-runtime step shelled out successfully.
+**Session:** 2026-04-28-aurora-arriba-boat-covers-manual-chain
+
+---
+
+## 2026-04-28 — Sub-Flow doctrine drift caught: `README.md` at SubFlow root + missing `_audit/` (session-id: 2026-04-28-amber-3-deal-intake)
+
+Audit of `Finance/Income/Flows/LOBs/wholesaling/processes/intake-funnel/` surfaced a class of drift that the blueprint's clone checklist didn't prevent: the SubFlow used `README.md` as its loud entry point instead of `init.md`, had no `_audit/runs.jsonl`, and no `## Blueprint reference` footer. `flow.md` §1.7 already declares Sub-Flows nest naturally with the same scaffold — the gap was that the blueprint README's clone checklist didn't make this explicit, AND `cp -R _flow-blueprint/ <new>/` carries the blueprint's own audit log into clones unless explicitly truncated.
+
+**Fix applied:**
+
+1. `_flow-blueprint/README.md` — clone checklist now applies to "every Flow at every depth" (top-level OR Sub-Flow), `_audit/runs.jsonl` truncation made step #1 of post-clone, `init.md`-not-`README.md` rule made explicit, Sub-Flow render-step exception documented (Sub-Flows may use `0NN-summary` instead of `0NN-render-index-html` when the parent LOB already renders the LOB-level `index.html` consuming SubFlow outputs).
+2. `_flow-blueprint/CHANGELOG.md` — entry logged.
+3. Wholesaling intake-funnel migrated: `README.md` → `init.md` (content conformed to template + Blueprint reference footer added); `_audit/runs.jsonl` seeded by the run that named the gap.
+
+**Why:** doctrine drift in shared-substrate flows compounds — every new SubFlow cloning the wholesaling pattern would inherit the drift. Catching it at the blueprint level and propagating once is cheaper than catching it per-clone forever.
+
+**How to apply:** when running `/flow audit` on any Flow under `<lob>/processes/<sub>/`, treat `README.md`-at-root and missing `_audit/` as the same priority as their top-level-LOB counterparts. The Sub-Flow exception is *only* about the render-vs-summary highest-numbered step; everything else is identical.
+
+**Source flow:** `Finance/Income/Flows/LOBs/wholesaling/processes/intake-funnel/` (drift discovered); `_flow-blueprint/` (doctrine fix landed).
+**Sister lessons:** None directly — this is the first SubFlow-class doctrine clarification.
+**Status:** proposes-doctrine-edit (already applied to blueprint README + CHANGELOG; SKILL.md Audit-modality checklist could be promoted to mention the SubFlow exception explicitly — defer to next /flow promote pass).
+**Session:** 2026-04-28-amber-3-deal-intake
+
+---
+
+## 2026-04-28 — Parent/child flows formalized as declarative composition (session-id: 2026-04-28-parent-child-flows)
+
+The "subflows nest" pattern lived in prose for months (`flow.md` §1.7, README's Sub-Flow exception, doctrine.md line 28 stub mention) without a declarative metadata layer. Surfaced when planning the wholesaling short-sale-deal blueprint: three deals (Acacia, Rowlett, Biscayne) shared a clear short-sale shape but `_deal-stage-template/` was a one-time copy, no inheritance link, so improvements to the template never flowed downstream.
+
+**Decision rationale:**
+
+1. **Composition is orthogonal to archetype.** Workflow / Stitch / Catalog / Living-blueprint answer *what shape of work?* Subflow / parent-blueprint / instance answer *what's the relationship to other flows?* These are independent dimensions. Composition belongs in its own doctrine section, not as a fifth archetype.
+2. **Frontmatter beats separate manifest file.** YAML at the top of `init.md` is diff-friendly, lives next to the prose it describes, and matches the existing `init.md`-as-loud-entry-point doctrine. A separate `flow-graph.yaml` would create two sources of truth.
+3. **Multi-level inheritance via `blueprint_lineage` denormalized chain.** The naive recursive walk (read `parent_flows[0]/init.md`, recurse) works but doubles cold-boot cost for every level. `blueprint_lineage` is the pre-walked chain root-first; cold-boot reads it once and scans every ancestor's CHANGELOG. The link IS reference-not-lock: re-sync-by-divergence still applies.
+4. **Subflow rule is testable, not aesthetic.** A step folder is a subflow iff it contains its own `init.md` + `processes/`. Anything else is a leaf step. This makes `/flow audit` mechanical at every level.
+
+**How to apply:**
+
+- New flows scaffold with frontmatter populated (the blueprint's `init.md` template carries the empty schema).
+- When ≥ 2 instance flows share a recognizable shape, introduce an intermediate Living-blueprint flow scoped to the LOB. Don't put deal-shape blueprints at the kingdom root unless they generalize across LOBs.
+- Cold-boot walks `blueprint_lineage` root-first; surfaces deltas one-line-per-ancestor. Apply manually on greenlight. The render step (`0600-render-index-html`) was extended to do this.
+
+**Source flow:** `_flow-blueprint/` (doctrine landed); `Finance/Income/Flows/LOBs/wholesaling/_short-sale-deal-blueprint/` + 3 deals (first exercise of multi-level inheritance).
+**Sister lessons:** Sub-Flow doctrine drift caught (2026-04-28-amber-3-deal-intake) — that lesson named the gap; this one names the structural fix.
+**Status:** promoted-2026-04-28 (changes applied to `doctrine.md`, `showcase.md`, `_flow-blueprint/init.md`, `_flow-blueprint/README.md`, `_flow-blueprint/CHANGELOG.md`, `_flow-blueprint/processes/0600-render-index-html/instructions.md`).
+**Session:** 2026-04-28-parent-child-flows
