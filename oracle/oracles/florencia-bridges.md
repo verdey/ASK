@@ -1,7 +1,7 @@
 ---
 name: florencia
 realm: bridges
-status: active
+status: paused
 born: 2026-04-29
 last_touched: 2026-04-29
 project_scope: wholesaling LOB — run 3 new flows (deals-in-flight-audit, partnership-network-expansion, _deal-type-register) + wire outputs to Amber's roster digest
@@ -10,9 +10,9 @@ nomenclature_realm: bridges
 
 ## Children
 
-- florencia.aqueduct — run deals-in-flight-audit (steps 01–04) → emit deals-in-flight-audit.html
-- florencia.brooklyn — run partnership-network-expansion (steps 01–04) → emit partnership-expansion-report.html
-- florencia.cable — wire HTML outputs to wholesaling/0900-render-index-html + Amber's roster digest
+- florencia.aqueduct — run deals-in-flight-audit (steps 01–04) → emit deals-in-flight-audit.html ✓ shipped
+- florencia.brooklyn — run partnership-network-expansion (steps 01–04) → emit partnership-expansion-report.html ✓ shipped
+- florencia.cable — wire HTML outputs to wholesaling/0900-render-index-html ✓ shipped
 
 ## Open threads
 

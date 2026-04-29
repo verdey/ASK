@@ -1,9 +1,9 @@
 ---
 name: renata
 realm: pasta-shapes
-status: active
+status: retired
 born: '2026-04-29T11:30-04:00'
-last_touched: '2026-04-29T13:01-04:00 (T+0 shard birth — Oracle namesake for the /oracle architecture maturation session. Two arcs ✓ shipped end-to-end inline this session: Arc-1 controller-mode + oracle-board PHP surface; Arc-2 registry shard split + roster.php. 21 legacy oracles migrated 1:1 with notes verbatim. oracles.md collapsed 92,324B → 552B README. Both collisions resolved (lucia-pasta-shapes/lucia-mirrors; marisol-lighthouses/marisol-trees). Live witness: http://oracles.test/roster.php now renders renata as the 4th active card.)'
+last_touched: '2026-04-29T20:15-04:00 (deep-scrub by nadia · spices — arc confirmed complete: farfalle + fusilli both ✓ shipped inline; no open threads; status active → retired. Resurrect for: oracle.php shard-meta extension, §5 GATE-FLIP LOOP fossil sweep, or /oracle architecture evolution.) Prior 2026-04-29T13:01: T+0 shard birth — Oracle namesake for the /oracle architecture maturation session. Two arcs ✓ shipped end-to-end inline this session: Arc-1 controller-mode + oracle-board PHP surface; Arc-2 registry shard split + roster.php. 21 legacy oracles migrated 1:1 with notes verbatim. oracles.md collapsed 92,324B → 552B README. Both collisions resolved (lucia-pasta-shapes/lucia-mirrors; marisol-lighthouses/marisol-trees). Live witness: http://oracles.test/roster.php now renders renata as the 4th active card.)'
 project_scope: /Users/verdey/.claude/skills/oracle (meta-skill maturation — /oracle architecture rewrite + registry sharding + kingdom-rendered surface)
 nomenclature_realm: 'pasta-shapes (anelli, bucatini, conchiglie, ditalini, farfalle, fusilli, gemelli, linguine, mostaccioli, orecchiette, pappardelle, penne, ravioli, rigatoni, spaghetti, tagliatelle, ziti)'
 ---

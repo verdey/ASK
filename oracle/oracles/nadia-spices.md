@@ -3,7 +3,7 @@ name: nadia
 realm: spices
 status: active
 born: '2026-04-29T14:45-04:00'
-last_touched: '2026-04-29T19:00-04:00 (controller-mode migration — _controller-nadia.md written; comino + epazote disk-verified ✓ shipped; chile 🔓 ready; coriander 🔒 waiting-on-chile; hierba 🔒 waiting-on-PDF. Live at http://oracles.test.)'
+last_touched: '2026-04-29T20:15-04:00 (deep scrub — chile NOT done: git confirms Finance/Income LPP-boat-covers 4 M files + Council/ASK oracle/oracles/ untracked + oracle/SKILL.md M + sp-prune M + sp-shard-registry untracked all uncommitted. Note: Live/ exists on disk but not showing as untracked in git status — chile executor must verify scope in preflight. renata-pasta-shapes retired in same pass. Prior: 2026-04-29T19:00 controller-mode migration — _controller-nadia.md written; comino + epazote disk-verified ✓ shipped; chile 🔓 ready; coriander 🔒 waiting-on-chile; hierba 🔒 waiting-on-PDF. Live at http://oracles.test.)'
 project_scope: /Users/verdey/Documents/Claude/Projects (kingdom-level session synthesis + next-wave scoping — 2026-04-29 triage execution arc)
 nomenclature_realm: 'spices (achiote, annatto, canela, chile, comino, coriander, cumin, epazote, hierba, oregano, paprika, saffron)'
 ---
