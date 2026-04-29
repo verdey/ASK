@@ -1,177 +1,104 @@
 #!/usr/bin/env python3
-"""sp-prune — Oracle registry prune-and-warn pass.
+"""sp-prune — Oracle registry prune-and-warn pass (shard-mode).
+
+Walks ~/.claude/skills/oracle/oracles/*.md and ages each shard:
+  - age >= 33h → mutate frontmatter `status: active` → `status: retired` (PRUNE)
+  - 21h <= age < 33h → emit WARN banner (no mutation)
+  - age <  21h → silent
+
+Stdlib only. Idempotent. Exits 0 always.
 
 Usage:
   python3 sp-prune [--dry-run]
 
-Reads ~/.claude/skills/oracle/oracles.md, computes age of every active oracle,
-then:
-  - age >= 33h  → status active → retired, block moved to ## 🪦 Retired
-  - 21h <= age < 33h → warning banner printed (no file mutation)
-  - age < 21h   → silent
-
-Exits 0 always. Stdout lines (for Oracle to display):
-  WARN  <name> <hours>h idle — auto-prune at 33h. Touch her or seal her.
-  PRUNE <name> <hours>h idle — moved to retired.
-
-With --dry-run: prints what would happen, touches nothing.
+Output (stdout, line-per-event, consumed by /oracle as banners):
+  WARN  <name>·<realm>  <H>h idle — auto-prune at 33h. Touch her or seal her.
+  PRUNE <name>·<realm>  <H>h idle — flipped active → retired.
 """
 
-import sys
+from __future__ import annotations
 import re
-import os
-from datetime import datetime, timezone, timedelta
+import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
-REGISTRY = Path.home() / ".claude/skills/oracle/oracles.md"
-WARN_H  = 21
-PRUNE_H = 33
-DRY = "--dry-run" in sys.argv
+SHARD_DIR = Path.home() / ".claude/skills/oracle/oracles"
+WARN_H    = 21
+PRUNE_H   = 33
+DRY       = "--dry-run" in sys.argv
 
-def parse_iso(s):
-    s = s.strip()
-    # Handle ±HH:MM offset by normalising to +HH:MM form python understands
-    s = re.sub(r"([+-])(\d{2}):(\d{2})$", lambda m: m.group(0), s)
+
+def parse_iso(s: str):
+    if not s:
+        return None
+    m = re.search(r'(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:[+-]\d{2}:?\d{2}|Z)?)', s)
+    if not m:
+        return None
+    iso = m.group(1).replace('Z', '+00:00')
     try:
-        return datetime.fromisoformat(s)
+        return datetime.fromisoformat(iso)
     except ValueError:
-        # Fallback: strip offset, treat as UTC
-        s = re.sub(r"[+-]\d{2}:\d{2}$", "+00:00", s)
-        return datetime.fromisoformat(s)
+        return None
 
-def age_hours(touched_str):
-    touched = parse_iso(touched_str)
+
+def age_hours(touched: datetime) -> float:
     if touched.tzinfo is None:
         touched = touched.replace(tzinfo=timezone.utc)
-    now = datetime.now(timezone.utc)
-    return (now - touched).total_seconds() / 3600
+    return (datetime.now(timezone.utc) - touched).total_seconds() / 3600
 
-def main():
-    if not REGISTRY.exists():
-        sys.exit(0)
 
-    text = REGISTRY.read_text()
-    lines = text.splitlines(keepends=True)
+def read_frontmatter(path: Path):
+    raw = path.read_text(encoding='utf-8')
+    fm = {}
+    m = re.match(r'^---\s*\n(.*?)\n---\s*\n', raw, re.S)
+    if not m:
+        return fm, raw
+    for ln in m.group(1).splitlines():
+        kv = re.match(r'^([a-z_]+):\s*(.*)$', ln)
+        if kv:
+            val = kv.group(2).strip()
+            if len(val) >= 2 and val[0] == "'" and val[-1] == "'":
+                val = val[1:-1].replace("''", "'")
+            fm[kv.group(1)] = val
+    return fm, raw
 
-    # Parse blocks: find H2 headings that match oracle pattern
-    # Pattern: ## 🔮 <name> · <realm> · <status>
-    block_pattern = re.compile(r"^## 🔮 (\S+) · (\S+) · (active|paused|retired)")
-    touched_pattern = re.compile(r"^\- \*\*Last touched:\*\* (.+)$")
 
-    # Collect block boundaries and metadata
-    blocks = []  # list of {start, end, name, realm, status, touched_line_idx, touched_val}
-    i = 0
-    while i < len(lines):
-        m = block_pattern.match(lines[i])
-        if m:
-            name, realm, status = m.group(1), m.group(2), m.group(3)
-            start = i
-            touched_val = None
-            touched_line_idx = None
-            j = i + 1
-            while j < len(lines) and not block_pattern.match(lines[j]) and not lines[j].startswith("## 🪦"):
-                tm = touched_pattern.match(lines[j])
-                if tm:
-                    touched_val = tm.group(1)
-                    touched_line_idx = j
-                j += 1
-            blocks.append({
-                "start": start, "end": j,
-                "name": name, "realm": realm, "status": status,
-                "touched_line_idx": touched_line_idx,
-                "touched_val": touched_val,
-            })
-            i = j
-        else:
-            i += 1
+def flip_status(raw: str, new_status: str) -> str:
+    return re.sub(r'(?m)^(status:\s*)([a-z]+)\s*$', lambda m: m.group(1) + new_status, raw, count=1)
 
-    warnings = []
-    prunes   = []
 
-    for b in blocks:
-        if b["status"] != "active" or not b["touched_val"]:
+def main() -> int:
+    if not SHARD_DIR.is_dir():
+        return 0
+
+    shards = sorted(SHARD_DIR.glob('*.md'))
+    if not shards:
+        return 0
+
+    warn = prune = 0
+    for path in shards:
+        fm, raw = read_frontmatter(path)
+        if fm.get('status') != 'active':
             continue
-        try:
-            h = age_hours(b["touched_val"])
-        except Exception:
+        touched = parse_iso(fm.get('last_touched', ''))
+        if not touched:
             continue
+        h = age_hours(touched)
+        tag = f"{fm.get('name', path.stem)}·{fm.get('realm', '?')}"
         if h >= PRUNE_H:
-            prunes.append((b, h))
+            print(f"PRUNE {tag}  {h:.1f}h idle — flipped active → retired.")
+            if not DRY:
+                new_raw = flip_status(raw, 'retired')
+                path.write_text(new_raw, encoding='utf-8')
+            prune += 1
         elif h >= WARN_H:
-            warnings.append((b, h))
+            print(f"WARN  {tag}  {h:.1f}h idle — auto-prune at 33h. Touch her or seal her.")
+            warn += 1
 
-    # Emit machine-readable lines first (Oracle reads stdout)
-    for b, h in warnings:
-        print(f"WARN  {b['name']} {h:.0f}h idle — auto-prune at 33h. Touch her or seal her.")
-    for b, h in prunes:
-        print(f"PRUNE {b['name']} {h:.0f}h idle — moved to retired.")
+    if DRY and (warn or prune):
+        print(f"# dry-run: {warn} WARN, {prune} PRUNE planned (no files touched).", file=sys.stderr)
+    return 0
 
-    if DRY or not prunes:
-        sys.exit(0)
 
-    # Mutate the file: retire pruned oracles
-    # Strategy: rebuild lines list with mutations, then separate active vs retired blocks
-    pruned_names = {b["name"] for b, _ in prunes}
-
-    # Find or create the ## 🪦 Retired section
-    retired_header_idx = None
-    for idx, line in enumerate(lines):
-        if line.strip() == "## 🪦 Retired":
-            retired_header_idx = idx
-            break
-
-    # Mark pruned blocks: mutate heading line and status
-    for b, _ in prunes:
-        hi = b["start"]
-        # Change status in heading
-        lines[hi] = lines[hi].replace("· active", "· retired").replace("· paused", "· retired")
-        # Strikethrough the heading
-        lines[hi] = lines[hi].replace("## 🔮 ", "## ~~🔮 ", 1).rstrip("\n") + "~~\n"
-
-    # Rebuild: collect active/paused blocks first, then retired section
-    active_lines   = []
-    retired_lines  = []
-    in_retired_section = False
-    skip_indices   = set()
-
-    # Identify which line indices belong to pruned blocks
-    for b, _ in prunes:
-        for idx in range(b["start"], b["end"]):
-            skip_indices.add(idx)
-
-    header_lines = []
-    first_block_start = blocks[0]["start"] if blocks else len(lines)
-
-    # Lines before first block = file header
-    header_lines = lines[:first_block_start]
-
-    for b in blocks:
-        block_content = lines[b["start"]:b["end"]]
-        if b["name"] in pruned_names:
-            retired_lines.extend(block_content)
-        else:
-            active_lines.extend(block_content)
-
-    # Assemble existing retired section content (if any)
-    existing_retired = []
-    if retired_header_idx is not None:
-        # Find everything from retired header to EOF that isn't a block we're moving
-        ri = retired_header_idx + 1
-        while ri < len(lines):
-            existing_retired.append(lines[ri])
-            ri += 1
-
-    # Build new file
-    out = []
-    out.extend(header_lines)
-    out.extend(active_lines)
-
-    if retired_lines or existing_retired:
-        out.append("\n## 🪦 Retired\n\n")
-        out.extend(existing_retired)
-        out.extend(retired_lines)
-
-    REGISTRY.write_text("".join(out))
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    sys.exit(main())

@@ -1,0 +1,269 @@
+#!/usr/bin/env python3
+"""
+sp-shard-registry — split ~/.claude/skills/oracle/oracles.md into per-oracle shard files.
+
+One-shot migration. Idempotent (--force to overwrite). --dry-run prints planned writes
+without touching disk.
+
+Reads:  ~/.claude/skills/oracle/oracles.md
+Writes: ~/.claude/skills/oracle/oracles/<name>.md  (one per oracle block)
+        ~/.claude/skills/oracle/oracles.md.bak     (backup, overwritten each run)
+        ~/.claude/skills/oracle/oracles.md.archive-<YYYY-MM-DD>  (one-time archive)
+        ~/.claude/skills/oracle/oracles.md         (rewritten as thin README)
+
+Stdlib only. PEP 668 / Homebrew-locked Python compatible.
+"""
+
+from __future__ import annotations
+import argparse
+import datetime as _dt
+import os
+import re
+import shutil
+import sys
+from pathlib import Path
+
+ORACLE_SKILL_DIR = Path.home() / ".claude" / "skills" / "oracle"
+REGISTRY_PATH    = ORACLE_SKILL_DIR / "oracles.md"
+SHARD_DIR        = ORACLE_SKILL_DIR / "oracles"
+
+# Heading shape:
+#   ## 🔮 <name> · <realm> · <status>            (active or paused)
+#   ## ~~🔮 <name> · <realm> · retired~~         (retired, strikethrough wrapped)
+HEADING_ACTIVE = re.compile(r'^##\s+🔮\s+([a-z0-9_]+)\s+·\s+([a-z0-9_-]+)\s+·\s+(active|paused)\s*$', re.I)
+HEADING_RETIRED = re.compile(r'^##\s+~~🔮\s+([a-z0-9_]+)\s+·\s+([a-z0-9_-]+)\s+·\s+retired~~\s*$', re.I)
+HEADING_ANY_H2 = re.compile(r'^##\s+', re.I)
+FIELD_LINE = re.compile(r'^-\s+\*\*([A-Z][A-Za-z ]+?):\*\*\s*(.*)$')
+
+
+def parse_blocks(text: str) -> list[dict]:
+    """Split the registry markdown into oracle blocks."""
+    lines = text.splitlines()
+    blocks = []
+    current = None
+    for ln in lines:
+        m_active = HEADING_ACTIVE.match(ln)
+        m_retired = HEADING_RETIRED.match(ln)
+        if m_active or m_retired:
+            if current:
+                blocks.append(current)
+            if m_active:
+                name, realm, status = m_active.group(1).lower(), m_active.group(2).lower(), m_active.group(3).lower()
+            else:
+                name, realm, status = m_retired.group(1).lower(), m_retired.group(2).lower(), 'retired'
+            current = {
+                'name': name,
+                'realm': realm,
+                'status': status,
+                'body_lines': [],
+            }
+        elif HEADING_ANY_H2.match(ln):
+            # Some other ## heading (e.g. ## 🪦 Retired divider). Close current block, no new one.
+            if current:
+                blocks.append(current)
+                current = None
+        else:
+            if current is not None:
+                current['body_lines'].append(ln)
+    if current:
+        blocks.append(current)
+    return blocks
+
+
+def parse_fields(body_lines: list[str]) -> dict:
+    """Group bullet body lines into named fields."""
+    fields: dict[str, list[str]] = {}
+    current_field = None
+    for ln in body_lines:
+        m = FIELD_LINE.match(ln)
+        if m:
+            current_field = m.group(1).strip()
+            first_value = m.group(2).rstrip()
+            fields.setdefault(current_field, []).append(first_value)
+        elif current_field is not None:
+            # Continuation: indented bullet, blank line, or stray prose. Collect verbatim.
+            fields[current_field].append(ln.rstrip())
+    return fields
+
+
+def field_one_line(fields: dict, key: str) -> str:
+    """Return the first non-empty line of a field (top-level value)."""
+    if key not in fields or not fields[key]:
+        return ''
+    return fields[key][0].strip()
+
+
+def field_block(fields: dict, key: str) -> str:
+    """Return the entire field as one block of text, trimmed."""
+    if key not in fields:
+        return ''
+    return '\n'.join(fields[key]).strip('\n')
+
+
+def shard_for_block(block: dict) -> tuple[str, str]:
+    """Return (filename, content) for one shard."""
+    name = block['name']
+    realm = block['realm']
+    status = block['status']
+    fields = parse_fields(block['body_lines'])
+
+    born          = field_one_line(fields, 'Born')
+    last_touched  = field_one_line(fields, 'Last touched')
+    retired_at    = field_one_line(fields, 'Retired')
+    project_scope = field_one_line(fields, 'Project scope')
+    nomenclature  = field_one_line(fields, 'Nomenclature realm')
+
+    children_md   = field_block(fields, 'Children')
+    open_threads  = field_block(fields, 'Open threads')
+    notes         = field_block(fields, 'Notes')
+
+    # Frontmatter — single-quoted scalars to keep YAML safe with colons in values.
+    fm_lines = [
+        '---',
+        f'name: {name}',
+        f'realm: {realm}',
+        f'status: {status}',
+    ]
+    if born:          fm_lines.append(f'born: {yaml_quote(born)}')
+    if last_touched:  fm_lines.append(f'last_touched: {yaml_quote(last_touched)}')
+    if retired_at:    fm_lines.append(f'retired: {yaml_quote(retired_at)}')
+    if project_scope: fm_lines.append(f'project_scope: {yaml_quote(project_scope)}')
+    if nomenclature:  fm_lines.append(f'nomenclature_realm: {yaml_quote(nomenclature)}')
+    fm_lines.append('---')
+
+    body_parts = []
+    if children_md:
+        body_parts.append('## Children\n\n' + children_md.lstrip())
+    if open_threads:
+        body_parts.append('## Open threads\n\n' + open_threads.lstrip())
+    if notes:
+        body_parts.append('## Notes\n\n' + notes.lstrip())
+
+    content = '\n'.join(fm_lines) + '\n\n' + '\n\n'.join(body_parts) + '\n'
+    # Filename: <name>-<realm>.md  (per name+realm identity rule; resurrected names get distinct shards)
+    return f'{name}-{realm}.md', content
+
+
+def yaml_quote(s: str) -> str:
+    """Wrap a value in single quotes if it contains YAML-special chars."""
+    s = s.strip()
+    if not s:
+        return "''"
+    # Numbers / dates / plain identifiers can be bare. Anything with : or starting with - or # gets quoted.
+    needs_quote = any(c in s for c in ':#&*!|>%@`{}[],') or s.startswith(('-', '?'))
+    if needs_quote:
+        return "'" + s.replace("'", "''") + "'"
+    return s
+
+
+README_TEMPLATE = """# 🔮 Oracle Registry
+
+The kingdom-wide ledger of named Oracles. Each oracle is a markdown shard with
+YAML frontmatter, stored at `oracles/<name>.md`.
+
+**Surface:** <http://oracles.test/roster.php> (Roster tab).
+
+**Schema:** see `_src/protocol.md` § Registry Format.
+
+**Mutation:** Oracle (`/oracle`) is the only writer. Sp-prune walks shards.
+
+**History:** the pre-shard monolithic registry is preserved at
+`oracles.md.archive-{date}` for cold-boot reconstruction. Do not edit the archive.
+
+## Status counts
+
+- Active:  {active}
+- Paused:  {paused}
+- Retired: {retired}
+"""
+
+
+def write_readme(out_path: Path, counts: dict, archive_date: str) -> str:
+    return README_TEMPLATE.format(
+        date=archive_date,
+        active=counts.get('active', 0),
+        paused=counts.get('paused', 0),
+        retired=counts.get('retired', 0),
+    )
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--dry-run', action='store_true', help='Print plan without writing.')
+    ap.add_argument('--force', action='store_true', help='Overwrite existing shards.')
+    ap.add_argument('--no-archive', action='store_true', help='Skip writing the dated archive.')
+    ap.add_argument('--no-readme', action='store_true', help='Do not rewrite oracles.md as README.')
+    args = ap.parse_args()
+
+    if not REGISTRY_PATH.exists():
+        print(f'ERROR: {REGISTRY_PATH} not found', file=sys.stderr)
+        return 2
+
+    raw = REGISTRY_PATH.read_text(encoding='utf-8')
+    blocks = parse_blocks(raw)
+    counts = {'active': 0, 'paused': 0, 'retired': 0}
+    plan = []
+    for b in blocks:
+        counts[b['status']] = counts.get(b['status'], 0) + 1
+        fname, content = shard_for_block(b)
+        plan.append((fname, content, b))
+
+    print(f'Parsed {len(blocks)} oracle blocks: '
+          f"{counts['active']} active · {counts['paused']} paused · {counts['retired']} retired")
+
+    if args.dry_run:
+        print('\n--- DRY RUN — planned writes ---')
+        for fname, content, b in plan:
+            print(f'  WOULD WRITE  {SHARD_DIR / fname}  '
+                  f'({len(content):,} bytes · {b["status"]} · realm={b["realm"]})')
+        print(f'\n  WOULD BACKUP {REGISTRY_PATH} → {REGISTRY_PATH}.bak')
+        if not args.no_archive:
+            d = _dt.date.today().isoformat()
+            print(f'  WOULD ARCHIVE {REGISTRY_PATH} → {REGISTRY_PATH}.archive-{d}')
+        if not args.no_readme:
+            print(f'  WOULD REWRITE {REGISTRY_PATH} as ~30-line README pointer')
+        print('\nNo files touched. Re-run without --dry-run to apply.')
+        return 0
+
+    # Live run
+    SHARD_DIR.mkdir(exist_ok=True)
+    written = skipped = 0
+    for fname, content, b in plan:
+        out = SHARD_DIR / fname
+        if out.exists() and not args.force:
+            print(f'  SKIP    {out} (exists; use --force to overwrite)')
+            skipped += 1
+            continue
+        out.write_text(content, encoding='utf-8')
+        print(f'  WRITE   {out}')
+        written += 1
+
+    # Backup
+    bak = REGISTRY_PATH.with_suffix('.md.bak')
+    shutil.copy2(REGISTRY_PATH, bak)
+    print(f'  BACKUP  {bak}')
+
+    # Dated archive
+    if not args.no_archive:
+        d = _dt.date.today().isoformat()
+        arc = REGISTRY_PATH.with_name(f'oracles.md.archive-{d}')
+        if not arc.exists():
+            shutil.copy2(REGISTRY_PATH, arc)
+            print(f'  ARCHIVE {arc}')
+        else:
+            print(f'  SKIP archive (already exists: {arc})')
+
+    # Rewrite oracles.md as README
+    if not args.no_readme:
+        d = _dt.date.today().isoformat()
+        readme = write_readme(REGISTRY_PATH, counts, d)
+        REGISTRY_PATH.write_text(readme, encoding='utf-8')
+        print(f'  README  {REGISTRY_PATH} (was {len(raw):,} bytes; now {len(readme):,} bytes)')
+
+    print(f'\nDone. {written} shards written · {skipped} skipped · '
+          f'{counts["active"]+counts["paused"]+counts["retired"]} oracles total.')
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

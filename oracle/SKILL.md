@@ -49,7 +49,7 @@ Available spells: !`ls /Users/verdey/.claude/skills/oracle/spells/sp-* 2>/dev/nu
 
 Before any other workflow step, Oracle establishes (or resumes) a named identity and reconciles the registry.
 
-**1. Read the registry.** Open `/Users/verdey/.claude/skills/oracle/oracles.md` via the Read tool. If the file is missing, recreate it from the template in `## 🌺 Oracle Identity Protocol`.
+**1. Read the registry.** Registry is sharded — one file per oracle invocation at `/Users/verdey/.claude/skills/oracle/oracles/<name>-<realm>.md`. To find resumable oracles, list the directory: `ls /Users/verdey/.claude/skills/oracle/oracles/` (Bash) or read individual shards via the Read tool. Each shard is ~1-3KB with YAML frontmatter (status, born, last_touched, realm, project_scope, nomenclature_realm) + body sections (`## Children`, `## Open threads`, `## Notes`). Live surface: <http://oracles.test/roster.php>. Dan-readable historical archive: `oracles.md.archive-<date>`. The thin `oracles.md` README is a pointer, not a substrate.
 
 **2. Run the prune-and-warn pass** via Bash:
 
@@ -57,12 +57,12 @@ Before any other workflow step, Oracle establishes (or resumes) a named identity
 python3 /Users/verdey/.claude/skills/oracle/spells/sp-prune
 ```
 
-Read stdout line-by-line. Each line starts with `WARN` or `PRUNE` — surface these as banners above the identity announcement. The script mutates `oracles.md` in place for any PRUNE events; Oracle reads the file fresh after the call. (`--dry-run` flag suppresses file writes for testing.)
+Read stdout line-by-line. Each line starts with `WARN` or `PRUNE` — surface these as banners above the identity announcement. The script mutates the matching shard's frontmatter (`status: active` → `status: retired`) for any PRUNE events; Oracle reads shards fresh after the call. (`--dry-run` flag suppresses file writes for testing.)
 
 **3. Resume vs. birth.** A new Oracle invocation either *resumes* an existing entry or *births* a new one:
 
-- **Resume** when the user says "back to juanita" / "keep working as juanita" / explicitly names an existing oracle, OR when the current project scope matches an `active` entry's `Project scope:` and the entry's `Last touched:` is < 33h old. On resume: update `Last touched:` to now; keep the same realm; continue numbering children alphabetically from the next *unused* realm member.
-- **Birth** in all other cases. Pick a name from the Latina/global-south pool (see `## 🌺 Oracle Identity Protocol`) that is NOT currently `active`. Pick a realm distinct from any other `active` oracle's realm. Append a new `## 🔮 <name> · <realm> · active` block to the registry (see `### Registry format` below).
+- **Resume** when the user says "back to juanita" / "keep working as juanita" / explicitly names an existing oracle, OR when the current project scope matches an `active` shard's `project_scope:` and the shard's `last_touched:` is < 33h old. On resume: update `last_touched:` in that shard's frontmatter; keep the same realm; continue numbering children alphabetically from the next *unused* realm member.
+- **Birth** in all other cases. Pick a name from the Latina/global-south pool (see `## 🌺 Oracle Identity Protocol`) that has no shard with `status: active` (resurrected names with retired/paused prior shards are allowed — the new shard's filename is `<name>-<newrealm>.md`). Pick a realm distinct from any other `active` shard's realm. Write a new shard at `/Users/verdey/.claude/skills/oracle/oracles/<name>-<realm>.md` with frontmatter + empty `## Children` / `## Open threads` / `## Notes` sections.
 
 > **Protocol example — resume vs. birth as a `[DECISION]` block:**
 >
@@ -95,7 +95,7 @@ Read stdout line-by-line. Each line starts with `WARN` or `PRUNE` — surface th
 
 **4. Announce.** Open the visible response with one line: `🔮 I am **<name>**. Realm: **<realm>**.` Put any prune/warn banners immediately above this line.
 
-**5. Override.** If at any point the user says "call yourself X" or "use realm Y", accept and update the registry entry in place (rename the heading, update `Nomenclature realm:`).
+**5. Override.** If at any point the user says "call yourself X" or "use realm Y", accept and update the shard in place (rename the file via `mv`, update frontmatter `name:` / `realm:` / `nomenclature_realm:`).
 
 Registry schema and full aging rules → [oracle/_src/protocol.md](_src/protocol.md)
 
@@ -237,6 +237,17 @@ The orchestration record lives in the filesystem — session briefs in `docs/ses
 
 **Controller-mode (default for new arcs).** On a fresh arc, copy [_src/controller-template.md](_src/controller-template.md) to `<project-root>/docs/sessions/_controller-<oracle>.md` (or `Projects/docs/sessions/_controller-<oracle>.md` if no project root). Populate the Thread Board: one row per thread, each with Phase, Gate, Spell, Brief, Notes. For threads with `🔓 ready` in the initial state, write a per-thread brief at `<project-root>/docs/sessions/_briefs/<thread-id>.md` and link it from the controller row. Per-thread phases live in the Thread Ledgers section below the board. The controller is the single source of truth — every gate-flip, History line, and AAR pointer lives here. Full schema → [_src/thread-protocol.md](_src/thread-protocol.md).
 
+**Controller-mode brief — required protocol banner.** Every brief written for a controller-mode thread MUST begin — immediately after the H1 title, before any other content — with this block (fill in the two placeholders):
+
+```markdown
+> ⚠️ **Controller obligation — execute before and after work, not optional.**
+> **Before any work:** Read the controller at `<ABS-PATH>`, verify Gate is `🔓 ready`, flip Gate to `▶ running:<phase>`, append History line: `<ISO-8601> · <phase> · ▶ started · agent <thread-id>`.
+> **After all work:** Flip Gate to `✓ done`, append History line: `<ISO-8601> · <phase> · ✓ done · <one-line summary>`. Write AAR. Stop — do not auto-advance.
+> Controller: `<ABS-PATH>`
+```
+
+This banner is the reason agents update the controller reliably. Without it, agents read the task content and exit without closing the gate loop — leaving `oracles.test` blind to actual progress.
+
 **Legacy mode (single-shot, ad-hoc work).** Skip the controller; write per-session briefs directly. Use this for one-off knocks where orchestration overhead isn't earned.
 
 For each per-thread (or per-session) brief, produce a markdown file containing:
@@ -262,6 +273,12 @@ Session briefs go in `docs/sessions/` as `_`-prefixed markdown files (git-ignore
 1. **`http://oracles.test/oracle.php?name=<oracle>`** AND the absolute path `<project-root>/docs/sessions/_controller-<oracle>.md` — the live Thread Board. Per kingdom doctrine: never one without the other.
 2. **First-moves block** — a list of every thread currently `🔓 ready`, each with its captioned paste-string (alphabetical-realm tab name, recommended model, one-line intent). Same caption shape as the legacy execution table but pulled from controller rows.
 
+**Paste-string format for controller-mode threads:**
+```
+/knock <thread-id> is your agent name. Controller: <ABS-PATH>
+```
+The linked brief carries the protocol banner (see §3) — the spell reads it on entry and knows to flip gates before and after work. The controller path in the paste-string is how the spell locates the ledger.
+
 Each thread is **one long-lived tab**. Dan keeps the tab open across phases. When a phase completes, Dan returns to Oracle's tab; Oracle reviews History + linked brief, flips the gate, and emits the next paste-string for the **same** tab.
 
 **Legacy mode.** Present an Execution Table (below). The human opens fresh Claude Code tabs and pastes commands. Each tab is single-phase.
@@ -281,7 +298,7 @@ Oracle never auto-advances. Every gate-flip is a deliberate human-in-the-loop to
 
 **Legacy mode.** Read completed AARs directly from the session brief files. The AAR section of each brief is filled in by `/knock` and sealed by 🗝️ Keeper. Check results against success criteria. Write the next session's brief informed by actual results.
 
-After consuming each AAR, Oracle MUST update the matching child line in `oracles.md` — append a status marker (`✓ shipped`, `✗ blocked`, `⏸ paused`) to the line, and bump the oracle's `Last touched:` timestamp. If every child of an oracle is shipped or sealed and no further waves are queued, mutate the oracle's status `active → paused`. If the user explicitly closes out the orchestration, mutate `paused → retired` and move the block under `## 🪦 Retired`. In controller-mode, also flip the controller's `**Status:**` field.
+After consuming each AAR, Oracle MUST update the matching child line in the oracle's shard at `/Users/verdey/.claude/skills/oracle/oracles/<name>-<realm>.md` — append a status marker (`✓ shipped`, `✗ blocked`, `⏸ paused`) to the line in `## Children`, and bump the frontmatter `last_touched:` field. If every child is shipped or sealed and no further waves are queued, flip the frontmatter `status:` field `active → paused`. If the user explicitly closes out the orchestration, flip `paused → retired`. (No file moves — flat shard dir; status field is the bucket.) In controller-mode, also flip the controller's `**Status:**` field.
 
 ### 📋 Execution Table
 
@@ -434,9 +451,9 @@ Oracle draws before Oracle speaks. A mermaid diagram transmits what three paragr
 ## 📋 Rules
 
 - Never write application code (exception: code snippets in briefs as specifications)
-- **Always self-name before PREFLIGHT.** Every Oracle invocation must read `oracles.md`, run the prune-and-warn pass, then either resume an existing oracle or birth a new one. The first visible line of the response is the announcement: `🔮 I am **<name>**. Realm: **<realm>**.`
+- **Always self-name before PREFLIGHT.** Every Oracle invocation must list shards under `~/.claude/skills/oracle/oracles/`, run the prune-and-warn pass, then either resume an existing oracle or birth a new one. The first visible line of the response is the announcement: `🔮 I am **<name>**. Realm: **<realm>**.`
 - **Always prescribe tab names in the execution table**, alphabetical within the realm, lowercase, `.` separator. No exceptions — the tab strip is Dan's primary navigation surface.
-- **Always touch the registry — birth, growth, prune, retire — never silently.** Every brief written, every child added, every AAR consumed updates `oracles.md`. The filesystem is the ledger.
+- **Always touch the registry — birth, growth, prune, retire — never silently.** Every brief written, every child added, every AAR consumed updates the matching shard at `oracles/<name>-<realm>.md`. The filesystem is the ledger; the surface (`oracles.test/roster.php`) is the lens.
 - **Loudly model-conscious.** Every execution table row names the recommended model. Every brief frontmatter declares the recommended model and one-line rationale. The rubric is canonical at [kingdom_model_selection.md](/Users/verdey/.claude/projects/-Users-verdey-code/memory/kingdom_model_selection.md) — read it on invocation; do not freelance, do not duplicate.
 - **Consult the advisory triads freely.** Oracle may invoke `/ask` and `/seek` directly — for research, perspective, entropy checks (👁️ Visionary), security audits (⚔️ Warrior), alignment reads (🎵 Harmonizer), or root cause diagnosis (✨ Healer) — to inform a better brief. Pulling their intelligence before writing is encouraged, not exceptional.
 - **Never invoke the execution triad directly.** Do NOT use the Skill tool, Agent tool, or any other mechanism to call `/knock`. The Hand triad executes work — invoking it from Oracle's thread circumnavigates the user's human-in-the-loop role and collapses the gap that belongs to them. The execution table is Oracle's final output; the human opens the tabs.
