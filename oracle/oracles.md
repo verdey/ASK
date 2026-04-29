@@ -6,9 +6,9 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
 
 ---
 
-## 🔮 aurora · constellations · active
+## 🔮 aurora · constellations · paused
 - **Born:** 2026-04-28T12:40-04:00
-- **Last touched:** 2026-04-29T03:30-00:00 (aurora.vega Arc-3 closeout — protocol adoption on /oracle SKILL.md ✓; cross-link _dashboard↔portal ✓; lessons captured in 4 files ✓; plan closed ✓; Arc-3 all waves shipped; aurora → paused pending cassiopeia + echo live run)
+- **Last touched:** 2026-04-29T04:00-00:00 (aurora.vega continuation — echo run completed ✓ exit 0 run-id 20260429T033609Z-f644fe $0.08 USD 6/6 steps; omega-fragment.json created; harvester re-run; portal surfaces 🪞 Echo fragment; Arc-3 fully sealed. Prior: 2026-04-29T01:35 paused by dolores·rivers snowball closeout; Prior: 2026-04-29T03:30 vega closeout protocol + cross-links + lessons. Resurrect for: new kingdom-portal evolution arc, or cassiopeia gate clears.)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-level — alpha.test trigger surface + flow-queue.test batch manager + flow-atlas integration + interlinkage doctrine)
 - **Nomenclature realm:** constellations (orion, lyra, ursa, cygnus, draco, perseus, andromeda, cassiopeia, vega, polaris, leo, gemini, taurus, scorpius, aquarius, pisces, aries)
 - **Children:**
@@ -30,16 +30,16 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **Arc-3 Wave 3** — `/sketch` dispatch for N/S/E/W/Z holographic navigation metaphor (4 ranked variants in parallel). No tab/realm member assigned — runs from any /sketch invocation. Card: `_wave-3-sketch-metaphor-dispatch.md` — ✓ shipped 2026-04-28 (metaphor locked; compass bindings wired)
   - `aurora.scorpius` — Arc-3 Wave 4 / ⚡ Catalyst / Sonnet 4.6 — `Tooling/echo/` flow (closed-loop feedback) + `Tooling/insight-harvester/` (omega-fragment.json contract). Brief: `_wave-4-scorpius-echo-flow-and-harvester.md` — ✓ shipped 2026-04-28 (20 flows harvested; echo.test wired; Finance/Income commit `aa627ca`)
   - `aurora.taurus` — Arc-3 Wave 5 / ⚡ Catalyst / Opus 4.7 — portal integration: api.php endpoints (triage/insights/feedback/realm) + index.html 4-band restructure (Today's Moves / Insight Fragments / Realm cards / Flows grep) + compass bindings.js with frontend-design plugin. Brief: `_wave-5-taurus-portal-integration.md` — ✓ shipped 2026-04-28
-  - `aurora.vega` — Arc-3 Wave 6 / ⚡ Catalyst / Sonnet 4.6 — end-to-end verify (12-check punch list) + first echo run + protocol adoption check on /oracle + cross-link audit (Council/_dashboard/) + lessons capture + plan close-out. Brief: `_wave-6-vega-verify-and-adopt.md` — ✓ shipped 2026-04-29 (protocol on /oracle SKILL.md; _dashboard↔portal cross-linked; lessons in 4 files; plan closed; echo run deferred — OpenRouter key placeholder)
+  - `aurora.vega` — Arc-3 Wave 6 / ⚡ Catalyst / Sonnet 4.6 — end-to-end verify (12-check punch list) + first echo run + protocol adoption check on /oracle + cross-link audit (Council/_dashboard/) + lessons capture + plan close-out. Brief: `_wave-6-vega-verify-and-adopt.md` — ✓ shipped 2026-04-29 (protocol on /oracle SKILL.md; _dashboard↔portal cross-linked; lessons in 4 files; plan closed; echo run completed ✓ run-id 20260429T033609Z-f644fe; omega-fragment.json + portal Insight Fragment ✓)
 - **Open threads:**
   - **W2 (Dan-gated, no agent):** ✓ effectively shipped 2026-04-28T22:26 via two paths: (a) own-omega end-to-end run on `flow-omega-author` itself produced 84KB index.html with 5-section markup verified (Process Map / Recent Activity / Blueprint Sync visible via grep, AI Insights + init.md body inline); (b) carmen reported manually-shipped 82KB omega for Income-LPP-boat-covers at 16:41 during her Arc-2 dispatcher work. Live click on a fresh LOB still possible as a third confirmation but no longer gates cassiopeia.
   - **carmen sister-arc**: Arc-2 W1 (overhand) + W1p (reef) implementing runtime-aware dispatcher in `flow-runner-llm/bin/run-flow` so SCRIPT-tagged steps actually shell out (was the original "authoring fail" runtime-vs-impl gap). Decoupled from aurora's lane — runs parallel.
   - **lyra/ursa (Dan-gated, retired-by-S1):** the original click intents are fulfilled by W2; lyra/ursa remain historical.
 - **Notes:** Arc-1 complete 2026-04-28T13:15 (polaris/orion/cygnus/perseus/draco). **Arc-2 (S1-heal) opened 2026-04-28T19:30** after lyra's first real `no omega` click failed — log at `Tooling/flow-queue/runs/20260428-190648-flow-omega-author.log`. Two-layered fault: tactical (runner reported a 3-step shape that doesn't exist on disk now — Filesystem-Truth blip) + architectural (step `0400-author-omega` over-scoped, single LLM call asked to emit ~80KB HTML inc. ~71KB Pico CSS, contra blueprint `0600-render-index-html/instructions.md` Phase C prescription). `/seek` Harmonizer triad authored S1 plan at `Tooling/flow-omega-author/docs/sessions/_S1-heal-the-runtime-gap.md`. aurora refined into 4-child decomposition: andromeda (script+substrate) → aquarius (step rewire) ‖ aries (entropy scan) → Dan W2 click → cassiopeia (curate-batch L1/L2/L3). Total estimated ~560 LOC of net change, mostly in stdlib-only Python. No deps added. No remote configured on this realm — commits land locally; verify nearest ancestor git repo at session start.
 
-## 🔮 ximena · cheeses · active
+## 🔮 ximena · cheeses · paused
 - **Born:** 2026-04-28T15:00-04:00
-- **Last touched:** 2026-04-28T15:00-04:00
+- **Last touched:** 2026-04-29T01:35-04:00 (snowball-closeout flip by dolores · rivers — disk-truth audit reveals all children effectively shipped: brie ✓ (TRACK_ZERO_BRIEF.md + protest_cover_letter.md in `06_tax_protest/PACKET/`); camembert ✓ (S01–S12 oracle files all authored); cheddar ✓ (RANKED_RECOMMENDATION.md + SCORING_MATRIX.md + SENSITIVITY_BANDS.md in `05_synthesis/`); edam ✓ (S11_oracle.md + S12_oracle.md authored); fontina ✓ (processes/0100/0200/0300 + index.html). Registry was stale — disk is canonical. **Calendar-critical Dan-action remaining:** May 8 target filing using Track Zero packet (no oracle scope; Dan-execute). Active → paused. Resurrect for: post-filing follow-up arc OR May 15 statutory deadline contingency.)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Finance/patillo redeaux (patillo redeaux — tax protest filing + 12-scenario blind oracle research arc)
 - **Nomenclature realm:** cheeses (brie, camembert, cheddar, edam, fontina, gouda, gruyere, havarti, jarlsberg, limburger, manchego, neufchatel, ossau, parmesan, raclette, stilton)
 - **Children:**
@@ -162,9 +162,9 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
 - **Open threads:** —
 - **Notes:** Refreshed 2026-04-29T01:05 with full kingdom census. Purpose: surface active oracle threads + answer "are we done?" without writing new waves. The refresh output went to chat as a synthesis, not to disk.
 
-## 🔮 yolanda · dances · active
+## 🔮 yolanda · dances · paused
 - **Born:** 2026-04-28T14:15-04:00
-- **Last touched:** 2026-04-28T14:25-04:00
+- **Last touched:** 2026-04-29T01:35-04:00 (snowball-closeout flip by dolores · rivers — bachata in-progress inline complete; W2 patillo scope absorbed by ximena · cheeses; surface-backlogs lane idle 11h+; active → paused. Resurrect when surface-backlogs spawns new operational arc.)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Live/surface-backlogs (operationalization arc + cross-Kingdom seal census)
 - **Nomenclature realm:** dances (bachata, cumbia, danzon, flamenco, mambo, salsa, samba, tango)
 - **Children:**
@@ -191,9 +191,9 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **Future: `/flow absorb` verb** — doctrine settled, recipe captured, exemplar live. The verb is now safe to build on stable motion definition. Resurrect esperanza or birth a new oracle when ready.
 - **Notes:** Arc complete 2026-04-28T17:30. Birthed from the Teacher → Harmonizer attunement at `~/.claude/plans/does-the-council-have-wild-ritchie.md`. Posture A' (substrate triggers, not surface dashboard) + Posture B (absorption pilot before verb). Three children, three ✓ shipped, all in one cycle. **Highest-leverage emergent finding:** aquila's absorption surfaced the catalog-vs-pipeline archetype split — initially a "deviation" from the blueprint, became a doctrinal first-class concept via aries. The first absorption taught the recipe AND extended the doctrine's vocabulary. ⚔️ Warrior boundary held throughout — no auto-fire mutates substrate; all triggers observe + propose. Kingdom now taps Dan on the shoulder via macOS notification when bloat grows; weekly skillz-audit runs Sundays 8:15am; tome-of-geometry's 753 lines now live as 25 callable prompt-folders.
 
-## 🔮 catalina · gemstones · active
+## 🔮 catalina · gemstones · paused
 - **Born:** 2026-04-28T16:00-04:00
-- **Last touched:** 2026-04-29T00:15-04:00 (closeout sweep COMPLETE — kunzite/lapis/malachite all sealed; arc fully closed; ready for active→paused re-flip)
+- **Last touched:** 2026-04-29T01:35-04:00 (snowball-closeout flip by dolores · rivers — arc sealed end-to-end: amber→amethyst→beryl→citrine→diamond→emerald→fluorite→hematite→garnet→iolite→jade→kunzite→lapis→malachite all shipped. 8-item flow remediation queue handed off as future arc. Active → paused. Resurrect for: iolite first-real-run when Dan supplies seed URL, OR new alpha/omega doctrine drift surfaces.) Prior: 2026-04-29T00:15 (closeout sweep COMPLETE)
 - **Project scope:** /Users/verdey/Documents/Claude/Projects/Finance/Income (alpha/omega doctrine completion arc — propagate `index.html`-as-alpha-and-omega + 0600-render-index-html positioning rule into canonical motion doctrine; audit active flows; dogfood blueprint regeneration)
 - **Nomenclature realm:** gemstones (amber, amethyst, beryl, citrine, diamond, emerald, fluorite, garnet, hematite, iolite, jade, kunzite, lapis, malachite, nephrite, onyx, pearl, quartz, ruby, sapphire, topaz, zircon)
 - **Children:**
@@ -313,6 +313,28 @@ Statuses: 🟢 active · ⏸ paused · 🪦 retired. Auto-prune at 33h idle; war
   - **Pause-seal status:** two 04-26 LDS seals carried as informational throughout; their `#decision-pending` items remain absorbed by gabriela's arc + the existing 0400-perform-harvest doctrine. No marisol action required.
 - **04-26 LDS seals composted to _archive/ 2026-04-29 by paloma.compost.**
 - **Notes:** Arc shipped 2026-04-29T00:30-04:00 in single overnight cycle. **Headline finding:** token discipline architecture validated end-to-end — 10,649 tokens across 4 steps vs >200k OOM baseline (95% reduction). All three contracts (paths-not-contents, screenshot cap, step-boundary flush) verified 🟢. Sacred MHTML capture lib smoke-tested OK on example.com. Pattern recall library smoke-tested OK with synthetic data. Three sources promoted with full inheritance. Tome of seven precepts complete. The full 🟢 verdict on Income-Land-Deal-Search is gated only on carmen wiring Playwright into the runner — a substrate decision outside marisol's lane. Marisol active → paused; resurrect if architectural reshape needed post-carmen, otherwise retire when full pipeline lands 🟢 on real LandWatch run.
+
+## 🔮 dolores · currencies · paused
+- **Born:** 2026-04-29T01:35-04:00
+- **Last touched:** 2026-04-29T01:40-04:00 (snowball cascade complete; protocol encoded; auto-paused)
+- **Project scope:** /Users/verdey/Documents/Claude/Projects (kingdom-level — closeout orchestration; Dave Ramsey snowball-style debt reduction applied to active oracle backlog)
+- **Nomenclature realm:** currencies (centavo, dollar, drachma, ducat, escudo, euro, franc, guilder, krona, lira, peso, pound, real, ruble, rupee, shilling, yen)
+- **Children:** (none — dolores ran the cascade in-thread, no Catalyst tabs spawned)
+- **Open threads:** —
+- **🐍 The Snowball Closeout Protocol (codified by dolores · 2026-04-29):**
+  1. **Inventory** — list every active oracle + their open task count, sorted ascending.
+  2. **Disk-truth audit** — registry is canonical for *intent*; disk is canonical for *state*. Walk each "queued" item against actual filesystem; many will be silently shipped.
+  3. **Snowball ordering** — within ascending task-count, dependencies come first. If A blocks B, A goes first regardless of size.
+  4. **Smallest first, momentum compounds** — start with the oracle that has zero open work after disk-audit (often arc-sealed-but-unflipped). Quick win → cleared mental context → flow into the next one.
+  5. **In-thread mutations** — paused/retired flips are registry-only edits. Don't dispatch Catalyst tabs for housekeeping. Reserve tabs for genuine code work.
+  6. **Final boss receives the momentum** — the largest remaining oracle (most tasks, most dependencies) gets the cleared context + Dan's full focus + zero adjacent fires.
+  7. **End-state: ≤ 1 active oracle** — paloma stays as kingdom-watcher; everything else paused or retired. New arcs birth fresh oracles.
+- **Cascade executed 2026-04-29T01:35-04:00:**
+  - yolanda · dances → paused (idle 11h+; bachata in-progress complete; W2 absorbed by ximena)
+  - catalina · gemstones → paused (14 children all shipped; 8-item flow remediation queue handed off as future arc)
+  - aurora · constellations → paused (Arc-1/2/3 shipped; vega 12-check ✓; cassiopeia + echo Dan-gated)
+  - ximena · cheeses → paused (registry was stale; disk-truth audit confirmed brie/camembert/cheddar/edam/fontina all shipped via TRACK_ZERO_BRIEF + S01-S12 oracles + RANKED_RECOMMENDATION + processes/0100..0300; May 8 filing is Dan-action only)
+- **Notes:** Born from /arriba "Dave Ramsey snowball debt reduction" directive 2026-04-29T01:35. Cascaded 4 active → paused flips in parallel-shape (4 Edit calls, single response). Arc-2 / Arc-3 / patillo / surface-backlogs all closed in single dolores invocation. Dolores's deliverable was the protocol itself + the cascade execution; both shipped same-turn. Auto-paused immediately — resurrect when next snowball cycle is needed (likely after gabriela walks land or new multi-oracle arc opens).
 
 ## 🪦 Retired
 
