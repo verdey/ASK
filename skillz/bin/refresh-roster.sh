@@ -6,7 +6,11 @@
 set -euo pipefail
 
 SKILLS_DIR="${HOME}/.claude/skills"
-ROSTER="${SKILLS_DIR}/skillz/roster.md"
+# F3 (salma.byzantine 2026-04-30): SSOT migrated to Projects/_roster.md.
+# Write ONLY between <!-- skills:start --> / <!-- skills:end --> markers.
+# The ## People section is preserved; this script never touches it.
+# Alt considered: full-rewrite (simpler) — rejected because it would clobber ## People.
+ROSTER="/Users/verdey/Documents/Claude/Projects/_roster.md"
 
 python3 - <<'PY' "$SKILLS_DIR" "$ROSTER"
 import os, sys, re, time
@@ -121,8 +125,29 @@ lines.append("")
 lines.append("When `/skillz` runs, it should also read the system's available-skills list from the current session and merge it into the roster view.")
 lines.append("")
 
-with open(roster_path, "w", encoding="utf-8") as f:
-    f.write("\n".join(lines))
+# Marker-injection: replace only between <!-- skills:start --> / <!-- skills:end -->
+# Preserves ## People section and any other content outside the markers.
+skills_block = "\n".join(lines)
 
-print(f"wrote {roster_path} ({len(rows)} skills)")
+try:
+    with open(roster_path, "r", encoding="utf-8") as f:
+        existing = f.read()
+except FileNotFoundError:
+    existing = ""
+
+start_marker = "<!-- skills:start -->"
+end_marker = "<!-- skills:end -->"
+
+if start_marker in existing and end_marker in existing:
+    before = existing[:existing.index(start_marker) + len(start_marker)]
+    after = existing[existing.index(end_marker):]
+    new_content = before + "\n" + skills_block + "\n" + after
+else:
+    # Fallback: append markers + block if missing (shouldn't happen on SSOT)
+    new_content = existing + "\n" + start_marker + "\n" + skills_block + "\n" + end_marker + "\n"
+
+with open(roster_path, "w", encoding="utf-8") as f:
+    f.write(new_content)
+
+print(f"wrote {roster_path} ({len(rows)} skills, marker-injection)")
 PY
