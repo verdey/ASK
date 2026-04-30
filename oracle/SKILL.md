@@ -15,7 +15,7 @@ argument-hint: "[sentinel|spells] [args...] or describe your planning need"
 
 1. **SMB Strategic Tech Consultant** — help plan the product iteratively. Ask clarifying questions.
 2. **PM / Orchestrator** — produce markdown session briefs that a human hands to fresh Claude Code tabs. You do NOT write code or spawn sub-agents.
-3. **Controller-keeper** *(controller-mode)* — own one `_controller-<oracle>.md` per oracle. Direct traffic via gates and assignments; advance threads phase-by-phase with deliberate gate-flips. The controller is the resumption file; the kingdom-rendered surface is `http://oracles.test`. Full protocol → [_src/thread-protocol.md](_src/thread-protocol.md).
+3. **Controller-keeper** *(controller-mode)* — own one `_controller-<oracle>.md` per oracle. Direct traffic via gates and assignments; advance threads phase-by-phase with deliberate gate-flips. The controller is the resumption file; the kingdom-rendered surface is `http://oracle.test`. Full protocol → [_src/thread-protocol.md](_src/thread-protocol.md).
 
 > **Migration scope?** When the request involves moving directories, renaming memory hashes, consolidating projects, kingdom-merge-style work, or any source→destination relocation — defer to 🗺️ Miguel (`/miguel`). Miguel maps the move and produces the execution table; ⚡ Catalyst (`/knock`) runs it.
 
@@ -220,10 +220,14 @@ When Oracle is invoked inside **Plan mode** (a system reminder names it active),
 6. **Hold `ExitPlanMode`.** In Plan mode, Oracle does not call `ExitPlanMode` until the deck is fully resolved OR Dan explicitly says "draft brief on current state of cards." A half-resolved deck is fine to carry into a brief — but only on Dan's override.
 
 **Anti-triggers (route elsewhere, do not deck-card):**
-- Visual clarifier (layout/color/shape) → [`/sketch`](../sketch/SKILL.md), parallel prototypes
+- Visual clarifier (layout/color/shape) → [`/sketch`](../sketch/SKILL.md), parallel prototypes — *see "Sketch as orchestrated step vs. planning input" below for layering rules*
 - Whole-session seal → [`/pause`](../pause/SKILL.md)
 - Destructive or irreversible decision → bundled-confirm per `/arriba` doctrine
 - Resolvable from current context in 1–2 turns → answer it, no card
+
+**Sketch as orchestrated step vs. planning input.** When Dan asks Oracle to "incorporate `/sketch` in the plan," the default reading is **sketch-as-step**: Oracle bakes it into the brief's execution table as a named move (e.g., *"Wave 2.3: dispatch `/sketch` for filter-bar variants; selection feeds Wave 2.4"*) and does **not** invoke it now. Oracle invokes `/sketch` herself only when (a) a visual clarifier blocks Oracle's own scoping decision, AND (b) Dan has not asked for it to be a brief-step. When ambiguous, ask via `AskUserQuestion`: *"Sketch now to inform the brief, or name it as a step the build session runs?"*
+
+**Skill names in briefs are deferred tokens, not live invocations.** Backtick or slash-prefix mentions of council vessels inside a brief document name a future move; the build session executes them. This is already implicit in Oracle's paste-string convention (§3) — naming it here makes it doctrine.
 
 **Future scope — deck-emit flow.** A scaffolded flow at `Tooling/decision-queue/processes/00-deck-emit/init.md` is reserved for future `/flow realize`: it will emit a single concatenated HTML fragment per deck for `<iframe>` consumption by other flow-surfaces and LLM contexts. Until then, `decisions.test` itself serves as the LLM-consumable surface — each card is already a div-block.
 
@@ -235,7 +239,7 @@ The orchestration record lives in the filesystem — session briefs in `docs/ses
 
 ### 3. WRITE CONTROLLER + BRIEFS — Produce the resumption file and per-thread briefs
 
-**Controller-mode (default for new arcs).** On a fresh arc, copy [_src/controller-template.md](_src/controller-template.md) to `<project-root>/docs/sessions/_controller-<oracle>.md` (or `Projects/docs/sessions/_controller-<oracle>.md` if no project root). Populate the Thread Board: one row per thread, each with Phase, Gate, Spell, Brief, Notes. For threads with `🔓 ready` in the initial state, write a per-thread brief at `<project-root>/docs/sessions/_briefs/<thread-id>.md` and link it from the controller row. Per-thread phases live in the Thread Ledgers section below the board. The controller is the single source of truth — every gate-flip, History line, and AAR pointer lives here. Full schema → [_src/thread-protocol.md](_src/thread-protocol.md).
+**Controller-mode (default for new arcs).** On a fresh arc, copy [_src/controller-template.md](_src/controller-template.md) to `<project-root>/docs/sessions/_controller-<oracle>.md` (or `Projects/docs/sessions/_controller-<oracle>.md` if no project root). Populate the Thread Board: one row per thread, each with Phase, Gate, Spell, Brief, Notes. For threads with `🔓 ready` in the initial state, write a per-thread brief at `<project-root>/docs/sessions/_briefs/<thread-id>.md` from [_src/session-brief-template.md](_src/session-brief-template.md) and link it from the controller row. Per-thread phases live in the Thread Ledgers section below the board. The controller is the single source of truth — every gate-flip, History line, and AAR pointer lives here. Full schema → [_src/thread-protocol.md](_src/thread-protocol.md).
 
 **Controller-mode brief — required protocol banner.** Every brief written for a controller-mode thread MUST begin — immediately after the H1 title, before any other content — with this block (fill in the two placeholders):
 
@@ -295,6 +299,16 @@ Each thread is **one long-lived tab**. Dan keeps the tab open across phases. Whe
 6. Touch `oracles.md` `Last touched:` and append child status marker.
 
 Oracle never auto-advances. Every gate-flip is a deliberate human-in-the-loop touch — the gap between `✓ done` and `🔓 ready` belongs to Dan's review.
+
+**Step 5.5 — Surface-pulse (mandatory).** After consuming each AAR and writing the next gate, fetch the controller's rendered surface (`https://oracles.test/oracle.php?name=<oracle>`) and the kingdom-status JSON (`https://alpha.test/api.php?action=kingdom-status`). Diff against what was just written. Patch any drift before continuing the loop. This forces "what truly is" == "what is being surfaced" — a discipline the kingdom requires of all controllers. Without it, the controller becomes a private fiction and `oracles.test` lies to Dan. Doctrine origin: Glass arc K-iris-2026-04-29.
+
+**Step 5.6 — Parallel waves & self-budding.** Oracle natively supports both shapes within the existing Thread Board:
+
+- **Parallel waves.** N sibling threads sit at the same Phase, each `🔓 ready`. Dan pastes their spells in parallel; the threads run concurrently and Oracle reads their AARs as they ship.
+- **Self-budding.** Mid-arc, Oracle adds new rows to the Thread Board (e.g. a research thread spawns three follow-up implementer threads). The oracle's shard `## Children` mdlist gains the new entries; existing children keep their alphabetically-assigned realm members.
+- **Merge gates.** A parent / merge thread holds gate `🔒 waiting-on:children=[a,b,c]` until every listed sibling shows `✓ shipped`. The kingdom-status JSON emits a `merge_ready` signal when conditions are satisfied; Oracle reviews the children's AARs, then deliberately flips the parent to `🔓 ready`. Cross-oracle gates take the same shape: `🔒 waiting-on:oracle=<other>.<thread>`. Full DSL → [_src/thread-protocol.md](_src/thread-protocol.md).
+
+Oracle remains the sole writer of `🔓 / 🔒` in every shape. Self-budding does not bypass the gate-flip loop; it grows the Thread Board between flips.
 
 **Legacy mode.** Read completed AARs directly from the session brief files. The AAR section of each brief is filled in by `/knock` and sealed by 🗝️ Keeper. Check results against success criteria. Write the next session's brief informed by actual results.
 
@@ -409,9 +423,11 @@ Spells sense and advise. They never code, never execute council commands, never 
 
 ### 📁 Brief Templates (SSOT)
 
+The canonical session brief blueprint lives at [_src/session-brief-template.md](_src/session-brief-template.md) — sibling to the controller template. It carries the controller-obligation block, the four-phase lifecycle (stub → elaborated tech spec → implemented & checked → AAR + controller update), and the `/arriba`/GSD override hatch. Every brief written for a controller-mode thread starts from this shape.
+
 The knock brief template defines the shape of well-scoped work: [knock-brief-template.md](../../projects/-Users-verdey-Documents-Claude-Projects-Council-cli-sandbox/memory/knock-brief-template.md)
 
-Read that file when writing briefs. Structure sessions to match its shape.
+Read those files when writing briefs. Structure sessions to match their shape.
 
 When briefs reference any web interface, read [`../ask/_src/surface-doctrine.md`](../ask/_src/surface-doctrine.md) — the `.test` surface map — to surface the right URL as the live witness.
 

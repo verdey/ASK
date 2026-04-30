@@ -31,6 +31,29 @@ A field on each thread row in the controller's Thread Board. Five values:
 
 **Oracle is the only writer of `🔓 ready` and `🔒 waiting-on-*`.** Spells flip into `▶ running:*` on entry and into `✓ done` or `✗ blocked` on exit. Advancing a thread to the next phase is always Oracle's gate-flip.
 
+### Merge gates and self-budding waves
+
+Two compact gate forms fit inside the existing Gate column to express parallel waves and cross-oracle handoffs without changing the schema:
+
+| Gate form | Meaning |
+|---|---|
+| `🔒 waiting-on:children=[a,b,c]` | This thread (typically a parent / merge thread) is blocked until every listed sibling thread under the same oracle shows `✓ shipped` (or `✓ done` for non-final phases). When all children clear, the kingdom surface flags this thread as **merge-ready** and Oracle flips it to `🔓 ready`. |
+| `🔒 waiting-on:oracle=<other-oracle>.<thread-id>` | Cross-oracle gate — this thread is blocked until the named thread on another oracle's controller reaches `✓ shipped`. Oracle is still the sole writer; the surface signals readiness. |
+
+These forms make explicit what was previously informal (e.g. `glass.focal` sealing `camila.alpha` after its children ship). The bracketed list of children may grow mid-flight as new sibling threads bud — self-budding waves are the same shape, just with the parent's children list extending alongside the Thread Board rows.
+
+Oracle never auto-flips a merge gate. The surface (`oracle.test`, `api.php?action=kingdom-status`) emits a `merge_ready` signal when conditions are satisfied; Oracle reads it, reviews the children's AARs, then flips deliberately.
+
+## Brief lifecycle
+
+Every per-thread brief — `<project-root>/docs/sessions/_briefs/<thread-id>.md`, linked from the Thread Board's Brief column — follows the canonical shape in [`session-brief-template.md`](session-brief-template.md). Three contracts the brief upholds:
+
+1. **Link back to the parent oracle / controller** in the obligation block at the top. The brief never floats unmoored.
+2. **Defer in operations to the oracle's gates.** When Phase 3 hits a `🔒` boundary (merge-gate, cross-oracle), the brief halts and surfaces the block; it does not route around the controller.
+3. **End with AAR + controller-history update.** Phase 4 fills the AAR section and appends the matching History line to the controller's `## 📜 Thread ledgers` for this thread.
+
+The brief walks four phases by default — **stub → elaborated tech spec → implemented & checked → AAR + controller update**. Override modes (`/arriba`, GSD, explicit "wu wei" instruction) collapse Phases 1–3 into a single continuous execution; the obligation block and Phase 4 AAR remain mandatory in every mode.
+
 ### Thread
 
 A named lane that walks through its phase set. Identifier: `<oracle>.<realm-member>` (e.g. `renata.farfalle`). One thread = one long-lived tab in Dan's Claude Code app.

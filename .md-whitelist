@@ -115,3 +115,6 @@ planq/spells/sp-promote-to-oracle.md
 oracle/SKILL.md
 oracle/_src/controller-template.md
 portal/SKILL.md
+oracle/_src/session-brief-template.md
+oracle/oracles/estrella-rumbos.md
+oracle/oracles/pu-dao.md
