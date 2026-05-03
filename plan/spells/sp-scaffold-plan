@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# sp-scaffold-plan — copy the plan blueprint into a new Plans/<slug>/ dir,
+# substitute title placeholders, stamp today's date.
+#
+# The Plans/index.html registry is LIVE (fetches /api.php?action=plans which
+# walks Plans/<slug>/index.html on every load). Creating the directory IS
+# the registry act — no mutation needed. Drift is impossible by construction.
+#
+# Usage:
+#   sp-scaffold-plan <slug> "<title>"
+#
+# Idempotent guard: refuses to overwrite an existing Plans/<slug>/.
+# Outputs (stdout, machine-readable last 2 lines):
+#   PATH /Users/verdey/Documents/Claude/Projects/Plans/<slug>/index.html
+#   URL  http://alpha.test/Plans/<slug>/
+
+set -euo pipefail
+
+CODEBASE="/Users/verdey/Documents/Claude/Projects"
+PLANS="$CODEBASE/Plans"
+BLUEPRINT="$PLANS/_plan-blueprint"
+
+if [[ $# -lt 2 ]]; then
+  echo "usage: sp-scaffold-plan <slug> \"<title>\"" >&2
+  exit 64
+fi
+
+SLUG="$1"
+TITLE="$2"
+TODAY="$(date -u +%Y-%m-%d)"
+DEST="$PLANS/$SLUG"
+
+# Slug sanity: kebab-case, no slashes, no spaces.
+if [[ ! "$SLUG" =~ ^[a-z0-9][a-z0-9-]*$ ]]; then
+  echo "ERROR: slug must be kebab-case (a-z 0-9 and -). Got: $SLUG" >&2
+  exit 65
+fi
+
+if [[ -e "$DEST" ]]; then
+  echo "ERROR: $DEST already exists. Treat as iteration (bump version) or pick a new slug." >&2
+  exit 66
+fi
+
+if [[ ! -d "$BLUEPRINT" ]]; then
+  echo "ERROR: blueprint not found at $BLUEPRINT" >&2
+  exit 67
+fi
+
+# 1. Copy the blueprint.
+cp -R "$BLUEPRINT" "$DEST"
+
+INDEX="$DEST/index.html"
+
+# 2. Substitute title + dates. macOS sed uses -i ''.
+#    The blueprint's <title> and <h1> both contain "HTML Plan Standard".
+sed -i '' \
+  -e "s|<title>Plan: HTML Plan Standard — v01</title>|<title>Plan: ${TITLE} — v01</title>|" \
+  -e "s|Plan: HTML Plan Standard|Plan: ${TITLE}|" \
+  -e "s|>Plan Name<|>${TITLE}<|" \
+  -e "s|Created: 2026-05-03|Created: ${TODAY}|" \
+  -e "s|Updated: 2026-05-03|Updated: ${TODAY}|" \
+  -e "s|Plans/_plan-blueprint/index.html|Plans/${SLUG}/index.html|g" \
+  "$INDEX"
+
+# 3. Echo machine-readable surface.
+#    The registry at http://alpha.test/Plans/ picks up the new dir on next load
+#    via /api.php?action=plans (no mutation needed here — see header comment).
+echo "📋 Plan scaffolded: ${TITLE} (v01, draft)"
+echo "PATH ${INDEX}"
+echo "URL  http://alpha.test/Plans/${SLUG}/"
