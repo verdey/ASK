@@ -1,6 +1,6 @@
 ---
 name: planq
-description: 🗂️ Planq — Lightweight plan queue manager. Manages the global planq.md at kingdom root, promotes lines into oracle shards, and owns the planq.test surface contract.
+description: 🗂️ Planq — Lightweight plan queue manager. Manages the global planq.md at codebase root, promotes lines into oracle shards, and owns the planq.test surface contract.
 argument-hint: "[add <idea> | reorder | promote <line-text> | list] or describe your queue intent"
 ---
 
@@ -12,9 +12,9 @@ argument-hint: "[add <idea> | reorder | promote <line-text> | list] or describe 
 
 ## Three Roles
 
-1. **Queue Manager** — maintain `planq.md` at kingdom root: append lines, reorder by priority, tag, delete resolved ideas.
+1. **Queue Manager** — maintain `planq.md` at codebase root: append lines, reorder by priority, tag, delete resolved ideas.
 2. **Promotion Gateway** — invoke `sp-promote-to-oracle` when Dan says "promote line X to oracle": scaffold the shard, wire the cross-reference, surface the new oracle URL.
-3. **Surface Owner** — direct Dan to `http://planq.test` (after camila.lambda lands) and the Named Oracles sidebar; coordinate with `oracles.test` Plan Queue section.
+3. **Surface Owner** — direct Dan to `http://planq.test` (after camila.lambda lands) and the Named Oracles sidebar; coordinate with `oracle.test` Plan Queue section.
 
 ## Trigger Conditions
 
@@ -52,7 +52,7 @@ All mutations write directly to `/Users/verdey/Documents/Claude/Projects/planq.m
 ### 3. SURFACE — Direct Dan to the right view
 
 - **After any mutation:** surface the changed `planq.md` state inline (compact — just the lines, not the full file header).
-- **After promotion:** surface `http://oracles.test/oracle.php?name=<name>` AND the new shard path.
+- **After promotion:** surface `http://oracle.test/oracle.php?name=<name>` AND the new shard path.
 - **Full surface:** `http://planq.test` (after camila.lambda) · absolute path `/Users/verdey/Documents/Claude/Projects/planq.md`.
 
 ## 🔮 Spell Dispatch
@@ -76,10 +76,10 @@ planq is **lightweight and ephemeral** — a seedbed, not a vault. It does not c
 - Do NOT touch `planq.md` at any path other than `/Users/verdey/Documents/Claude/Projects/planq.md`.
 - Do NOT add CLI `/planq add` logic yet — Q1 from Brief B is unresolved. Direct file edit is sufficient until friction is observed.
 - Oracle shard location is `~/.claude/skills/oracle/oracles/<name>-<realm>.md` — NOT `Tooling/oracle-board/oracles/<name>.md` (see sp-promote-to-oracle for rationale).
-- Surface both `planq.test` URL and absolute path whenever directing Dan to the surface — never one without the other (kingdom doctrine).
+- Surface both `planq.test` URL and absolute path whenever directing Dan to the surface — never one without the other (codebase doctrine).
 
 ## Format reference
 
 Full `planq.md` format spec → [`_src/planq-format.md`](_src/planq-format.md)
 
-Surface contract (planq.test + oracles.test) → [`_src/surface-map.md`](_src/surface-map.md)
+Surface contract (planq.test + oracle.test) → [`_src/surface-map.md`](_src/surface-map.md)

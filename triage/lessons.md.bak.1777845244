@@ -1,0 +1,30 @@
+# Triage Lessons
+
+**Location:** `Council/ASK/triage/lessons.md`
+**Mutates only via:** `/triage` skill (via `review-yesterday` modality)
+
+Patterns from `review-yesterday` cycles captured over time. Each entry is dated, tagged with the signal tier it informed, and carries a Status flag.
+
+---
+
+## 2026-04-28 — Stalled flow runs outweigh blueprint drift in early codebase (Arc-3 closeout)
+
+**Rule:** When ranking Today's Moves, `stalled flow run` (a flow that had a trigger click but exited non-zero or produced no omega) ranks above `blueprint drift` (a flow whose `init.md` footer shows a stale last-synced date). Runs are ground-truth signals; drift is structural.
+
+**Why:** Arc-3's lyra moment (2026-04-28T19:06) — a run click on `Income-Land-Deal-Search` failed at pre-flight and exposed the LLM-emits-80KB ceiling. That single failure spawned the entire S1-heal arc. Drift would have been a quieter signal that wouldn't have unblocked anything.
+
+**How to apply:** Triage rubric tier order (runs, then overrides, then drift, then backlog age) should reflect this. When two items score equally on the rubric, prefer the run-failure over the drift flag.
+
+**Status:** captured-2026-04-28 · aurora.vega Arc-3 closeout
+
+---
+
+## 2026-04-28 — Override count per skill is a weak signal until ≥3 sessions have run (Arc-3 closeout)
+
+**Rule:** Don't surface override patterns (via `echo` classify) as confident Triage recommendations until a skill has ≥3 classified override records. Single-session override counts are noise; the signal emerges from recurrence.
+
+**Why:** Arc-3 Wave 4 seeded `overrides.jsonl` with 2 test records from `--skill triage`. Those 2 records would generate a false "triage consistently overridden" pattern if classify ran naively on small-n data.
+
+**How to apply:** `0200-classify/step.md` should instruct the classifier to tag patterns as `low-confidence` until recurrence_count ≥ 3 across distinct sessions. Triage should not promote low-confidence patterns to Today's Moves cards.
+
+**Status:** captured-2026-04-28 · aurora.vega Arc-3 closeout

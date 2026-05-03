@@ -25,7 +25,7 @@ project_scope: Documents/Claude/Projects
 ## Open threads
 
 - **Controller (SSOT):** `/Users/verdey/Documents/Claude/Projects/docs/sessions/_controller-estrella.md`
-- **Surface:** http://oracles.test/oracle.php?name=estrella
+- **Surface:** http://oracle.test/oracle.php?name=estrella
 - **Source intake:** `/Users/verdey/Documents/Claude/Projects/docs/sessions/vectors.md` (Dan's intake — referenced; may be authored after sur completes recon)
 - **Visual atom (fixed):** `/tmp/sketch-zeta-20260429/variant-4/index.html` (cube-chain canvas 3D — camila.zeta winner)
 
@@ -33,7 +33,7 @@ project_scope: Documents/Claude/Projects
 
 Born via Glass dispatch from queued package `docs/sessions/_queued/glass-objective-vectors-dispatch.md` (consumed; archived).
 
-Arc A-1: **Vectors** — shared `*.test` navigator overlay for the kingdom's PHP family (alpha.test portal + oracles.test + decisions.test + planq.test + flow-queue.test + flow-atlas.test). Anti-kludge: no curated registries, no hand-maintained caches. Live computation + implicit cache invalidation.
+Arc A-1: **Vectors** — shared `*.test` navigator overlay for the codebase's PHP family (alpha.test portal + oracle.test + decisions.test + planq.test + flow-queue.test + flow-atlas.test). Anti-kludge: no curated registries, no hand-maintained caches. Live computation + implicit cache invalidation.
 
 Wave 1 + 2 briefs (oeste/noreste/sureste/noroeste) written after Wave 0 lands.
 

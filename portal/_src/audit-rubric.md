@@ -81,7 +81,7 @@ Defines the drift checks the `audit` modality runs against the live portal surfa
 
 | Attribute | Value |
 |-----------|-------|
-| File | `offline.html` at kingdom root |
+| File | `offline.html` at codebase root |
 | Signal | File exists |
 | Pass | File found |
 | Fail | Absent — service worker offline intercept has nothing to serve |
@@ -100,7 +100,7 @@ Defines the drift checks the `audit` modality runs against the live portal surfa
 | Attribute | Value |
 |-----------|-------|
 | File | `manifest.json` |
-| Signal | Each `href` value resolves to an existing path under the kingdom root |
+| Signal | Each `href` value resolves to an existing path under the codebase root |
 | Pass | All resolve |
 | Fail | Any 404 — dead card in portal. Remove the entry or restore the realm. |
 

@@ -1,6 +1,5 @@
-# Flow showcase — read the kingdom's exemplars
+# Flow showcase — read the codebase's exemplars
 
-Showcase entries are **pointers, not summaries.** When `/flow showcase` runs, the skill walks the heads of these flows directly (`init.md` first; `index.html` if Herd-served) and emits current substrate. Stored prose paraphrases drift; the kingdom doesn't.
 
 ```
    ~/.claude/skills/flow/showcase.md       Each entry: walk this path
@@ -15,19 +14,17 @@ Showcase entries are **pointers, not summaries.** When `/flow showcase` runs, th
 
 | # | Flow | Archetype | What it teaches | Live surface |
 |---|------|-----------|-----------------|--------------|
-| 1 | `_flow-blueprint/` | Living blueprint | The blueprint mechanic itself: a template you consult repeatedly, not copy-and-discard. `_graduation.md` siblings as the stage's future tense. The token substitution pattern in `CLAUDE.md`. | (kingdom-internal) |
+| 1 | `_flow-blueprint/` | Living blueprint | The blueprint mechanic itself: a template you consult repeatedly, not copy-and-discard. `_graduation.md` siblings as the stage's future tense. The token substitution pattern in `CLAUDE.md`. | (codebase-internal) |
 | 2 | `wholesaling/` | Workflow + multi-subflow + multi-level inheritance | Composition is first-class: parallel SubFlows (`intake-funnel/`, `amber-top-of-mind/`) under one LOB; the derivative blueprint `_short-sale-deal-blueprint/` parenting three deal instances. Existence proof of multi-level `blueprint_lineage`. | — |
 | 3 | `Income-Land-Deal-Search/` | Workflow (sequential pipeline) | Graduation gates as enforcement: testable `_graduation.md` per stage. `<LOB>/sources/<source-slug>/` registries layered alongside `processes/`. `docs/deals/` artifact directory pattern. | — |
 | 4 | `Live/flows_deals/` | Stitch | Read-only over substrate; one stable HTML accordion aggregating other flows' outputs. Patterns: declarative-knobs-vs-mechanical-execution (`registry.yaml` + `curate.sh`) and defang-don't-break for foreign content. | http://flows.test/ |
-| 5 | `_flow-navigator/` | Workflow with co-creation write-back tail | Embedded-runbook pattern (artifact carries its own refresh contract); read-only-beyond-the-page discipline; single-artifact deliverable. **Richness donor** for `0600-render-index-html/` enrichment: Next 3 Moves hero, Brief from Claude voice block, 7-day cadence heartbeat, holographic LOB grid, Decisions Queue. | (kingdom-internal) |
-| 6 | `Library/tome-of-geometry/flows/prototype-patterns/` | Catalog (candidacy → confirmed) | First absorption: 753-line prose document → 25 self-contained flow entries. Catalog vs pipeline; 2-digit numbering for fixed-count ≤50; init.md as selection-flow. | — |
+| 5 | `_flow-navigator/` | Workflow with co-creation write-back tail | Embedded-runbook pattern (artifact carries its own refresh contract); read-only-beyond-the-page discipline; single-artifact deliverable. **Richness donor** for `0600-render-index-html/` enrichment: Next 3 Moves hero, Brief from Claude voice block, 7-day cadence heartbeat, holographic LOB grid, Decisions Queue. | (codebase-internal) |
 
 ## What `/flow showcase` does at runtime
 
 1. Read this index.
-2. For each entry, `Read` the flow's `init.md` head (frontmatter + first ~30 lines).
 3. If a `live_surface` field is declared in frontmatter and the Herd valet exists, surface `*.test` URL alongside the absolute path.
-4. Emit a composed view: kingdom substrate + this index's "what it teaches" column. Never paraphrase the kingdom in this file.
+4. Emit a composed view: codebase substrate + this index's "what it teaches" column. Never paraphrase the codebase in this file.
 
 ## Curation rules
 

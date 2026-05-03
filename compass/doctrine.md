@@ -11,7 +11,7 @@ locked_at: 2026-04-28
 
 **Metaphor name:** Layered Bands
 
-The kingdom portal is a vertical stack of four priority bands: Today's Moves → Insight Fragments → Realms → Flows. The compass treats this stack as a set of discrete layers on a vertical axis. Lateral movement (E/W) navigates items within a band. Depth (Z) drills into an item or ascends back out.
+The codebase portal is a vertical stack of four priority bands: Today's Moves → Insight Fragments → Realms → Flows. The compass treats this stack as a set of discrete layers on a vertical axis. Lateral movement (E/W) navigates items within a band. Depth (Z) drills into an item or ascends back out.
 
 ---
 
@@ -24,7 +24,7 @@ The kingdom portal is a vertical stack of four priority bands: Today's Moves →
 | **E** | Right | Focus next item within current band |
 | **W** | Left | Focus previous item within current band |
 | **Z-in** | Drill | Enter selected item: realm → scoped flow list; flow → omega artifact |
-| **Z-out** | Ascend | Exit drilled view; return to parent band / kingdom root |
+| **Z-out** | Ascend | Exit drilled view; return to parent band / codebase root |
 
 ---
 
@@ -37,7 +37,7 @@ The kingdom portal is a vertical stack of four priority bands: Today's Moves →
 | E at last item in band | No-op |
 | W at first item in band | No-op |
 | Z-in with no drillable target | No-op |
-| Z-out at kingdom root (no drill active) | No-op |
+| Z-out at codebase root (no drill active) | No-op |
 | iOS pull-to-refresh (N swipe at scrollY=0) | Compass disarms — OS handles it |
 | iOS edge-swipe from left | Treated as Z-out (browser-native, cannot override) |
 
@@ -46,14 +46,14 @@ The kingdom portal is a vertical stack of four priority bands: Today's Moves →
 ## Visual affordances
 
 - **Edge hints** — small absolute-positioned labels at viewport edges showing current axis destinations (e.g. `↑ moves`, `↓ flows`, `→ next`). Opacity 10% at rest, 60% on hover/focus.
-- **Breadcrumb** — shown above the Flows band when in drill-down state: `↑ kingdom / {realm name}`.
+- **Breadcrumb** — shown above the Flows band when in drill-down state: `↑ codebase / {realm name}`.
 - **Band focus indicator** — a subtle left-edge pip that marks the currently compass-focused band.
 
 ---
 
 ## Adoption rule
 
-All bands in the kingdom portal implement N/S + E/W + Z. Non-portal surfaces (flow omegas, realm dashboards) are encouraged but not required to adopt these bindings independently.
+All bands in the codebase portal implement N/S + E/W + Z. Non-portal surfaces (flow omegas, realm dashboards) are encouraged but not required to adopt these bindings independently.
 
 ---
 

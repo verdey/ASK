@@ -8,7 +8,7 @@
 
 ## What this is
 
-A shared posture for every council voice at **non-informational crossroads requiring Dan's attention** — moments where the right answer isn't "here is the information" but "here is a decision with stakes." The genius-mode shape is how the kingdom speaks at those moments.
+A shared posture for every council voice at **non-informational crossroads requiring Dan's attention** — moments where the right answer isn't "here is the information" but "here is a decision with stakes." The genius-mode shape is how the codebase speaks at those moments.
 
 Without this protocol, each skill invents its own decision-time format, override patterns drift, and Dan can't drop a one-liner like `3-c: simpler` and have it parse consistently. With it, every council voice surfaces decisions the same way — structured, ranked, and override-ready.
 
@@ -44,7 +44,7 @@ Surface the genius-mode shape when **all three** are true:
 
 **Recommended:** <option letter/name> — <one clause why this one wins>
 
-**Why harmonic:** <one sentence connecting the recommendation to kingdom ethos, active principles, or stated constraints — name the principle>
+**Why harmonic:** <one sentence connecting the recommendation to codebase ethos, active principles, or stated constraints — name the principle>
 
 **Alternatives (ranked):**
 1. <option A> `[I⬆ E⬆]` — <tradeoff sentence>
@@ -118,10 +118,10 @@ Dan replied: `D2` → accepted. `carmen.prusik` retired without scope.
 
 ## Worked example 2 — Esperanza's posture choice
 
-**Context:** `esperanza` oracle opened with two competing postures for the kingdom-fitness arc. A (trigger surface dashboard) vs A' (substrate triggers) + B (absorption pilot).
+**Context:** `esperanza` oracle opened with two competing postures for the codebase-fitness arc. A (trigger surface dashboard) vs A' (substrate triggers) + B (absorption pilot).
 
 ```
-### [DECISION] Kingdom-fitness posture
+### [DECISION] codebase-fitness posture
 
 **Issue:** Should the arc lead with a visible trigger dashboard (Posture A) or
 substrate sensing hooks that tap Dan on the shoulder (Posture A')? And should
@@ -154,7 +154,7 @@ Dan accepted → esperanza.andromeda (hooks) + esperanza.aquila (pilot) shipped 
 ## Why this shape — the four principles baked in
 
 **P3 — Memory persistence compounds** (`_shared/genius-mode-protocol.md`):
-Each genius-mode block is a structured decision artifact. The `bin/echo-log` helper appends every override to `Tooling/echo/_data/overrides.jsonl` — a persistent record of how Dan's choices diverge from council recommendations over time. That record is the training signal for an increasingly accurate council. The protocol output is not ephemeral; it is the input contract for the kingdom's feedback loop (Wave 4: `aurora.scorpius`).
+Each genius-mode block is a structured decision artifact. The `bin/echo-log` helper appends every override to `Tooling/echo/_data/overrides.jsonl` — a persistent record of how Dan's choices diverge from council recommendations over time. That record is the training signal for an increasingly accurate council. The protocol output is not ephemeral; it is the input contract for the codebase's feedback loop (Wave 4: `aurora.scorpius`).
 
 **P4 — Curation beats accumulation** (`impact-easiness-rubric.md`):
 The trigger description above is intentionally narrow — "all three must be true." A protocol triggered on every decision becomes noise; 20% of triggers that actually load Dan's judgment produce 80% of the value. The "Do NOT trigger for" list is as important as the shape itself. Every council skill that adopts this protocol should preserve that boundary — curate when to surface it, not just how.

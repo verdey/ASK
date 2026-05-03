@@ -4,7 +4,7 @@ realm: rivers
 status: retired
 born: '2026-04-28T19:30-04:00'
 last_touched: '2026-04-28T20:05-04:00 (Stub 2 deprioritized by Dan — cost-side audit was wrong-shape for current revgen focus; congo brief shitcanned)'
-project_scope: '/Users/verdey/Documents/Claude/Projects (kingdom-level — ai-intake principles hydration arc: Memory Flywheel + Token Budget Ritual)'
+project_scope: '/Users/verdey/Documents/Claude/Projects (codebase-level — ai-intake principles hydration arc: Memory Flywheel + Token Budget Ritual)'
 nomenclature_realm: 'rivers (amazon, colorado, congo, danube, euphrates, ganges, hudson, indus, jordan, kafue, lena, mekong, nile, orinoco, parana, rio-grande, tigris, uruguay, volga, yangtze, zambezi)'
 ---
 
@@ -17,10 +17,10 @@ nomenclature_realm: 'rivers (amazon, colorado, congo, danube, euphrates, ganges,
 ## Open threads
 
 - **Stub 2 deprioritized** — cost-side audit not in scope for current revgen focus. If a revgen-shaped variant ever wants scoping (P2 read as "skills as productizable revenue surface" rather than "skills as cost displacers"), resurrect belen with a different brief. Today's posture: not now.
-  - **Risk 4 (colorado's open carry)** — model rubric lives in code-kingdom memory (`/Users/verdey/.claude/projects/-Users-verdey-code/memory/kingdom_model_selection.md`), not Projects-kingdom memory. Low-frequency gap today, grows as kingdoms diverge. Surface at next `consolidate-memory` pass.
+  - **Risk 4 (colorado's open carry)** — model rubric lives in code-codebase memory (`/Users/verdey/.claude/projects/-Users-verdey-code/memory/codebase_model_selection.md`), not Projects-codebase memory. Low-frequency gap today, grows as codebases diverge. Surface at next `consolidate-memory` pass.
   - **Risk 1 (colorado's signal to watch)** — if Dan starts running more sessions without a council skill entry point (raw chat, quick edits), the distributed-ritual pattern breaks down. Re-evaluate Option B (CLAUDE.md one-liner) if signal appears.
   - **Keeper-seal gap** — amazon brief's AAR section was left blank. File landed correctly per filesystem verification. Future /knock invocations should ensure Keeper seals brief AARs even when target file is created elsewhere.
 
 ## Notes
 
-Arc complete 2026-04-28T19:35. Born from ai-intake playlist analysis session (`_pause-2026-04-28-ai-intake-playlist.md`). 6 YouTube transcripts → 7 principles → 3 briefing stubs. Stub 1 (Memory Flywheel) shipped: kingdom now has Bucket 3 mutable profile. Stub 3 (Token Budget Ritual) closed: existing council infrastructure already implements it distributed. Stub 2 (SaaS Displacement) deferred pending Dan's tool list. Plan: `/Users/verdey/.claude/plans/you-to-review-the-temporal-pike.md`. Transcripts corpus: `/Users/verdey/Documents/Claude/Projects/Labs/yt-scribe/transcripts/ai-intake-2026-04-28/`. **Highest-leverage finding:** colorado's reframe — the kingdom isn't missing a token ritual, it has a distributed one. The corpus described practitioners *without* the kingdom's architecture; the kingdom solved this problem already, just didn't name it.
+Arc complete 2026-04-28T19:35. Born from ai-intake playlist analysis session (`_pause-2026-04-28-ai-intake-playlist.md`). 6 YouTube transcripts → 7 principles → 3 briefing stubs. Stub 1 (Memory Flywheel) shipped: codebase now has Bucket 3 mutable profile. Stub 3 (Token Budget Ritual) closed: existing council infrastructure already implements it distributed. Stub 2 (SaaS Displacement) deferred pending Dan's tool list. Plan: `/Users/verdey/.claude/plans/you-to-review-the-temporal-pike.md`. Transcripts corpus: `/Users/verdey/Documents/Claude/Projects/Labs/yt-scribe/transcripts/ai-intake-2026-04-28/`. **Highest-leverage finding:** colorado's reframe — the codebase isn't missing a token ritual, it has a distributed one. The corpus described practitioners *without* the codebase's architecture; the codebase solved this problem already, just didn't name it.

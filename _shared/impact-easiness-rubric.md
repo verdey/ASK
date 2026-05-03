@@ -10,7 +10,7 @@
 
 When the genius-mode shape lists alternatives, they must be ranked. This rubric defines that ranking. Two axes — Impact and Easiness — combine into a display badge that makes relative ranking legible at a glance.
 
-The wu-wei principle governs sorting: **smallest change, largest shift wins**. A move that costs one tap but shifts a kingdom-wide pattern outranks a multi-session project that shifts one cosmetic detail.
+The wu-wei principle governs sorting: **smallest change, largest shift wins**. A move that costs one tap but shifts a codebase-wide pattern outranks a multi-session project that shifts one cosmetic detail.
 
 ---
 
@@ -20,7 +20,7 @@ The wu-wei principle governs sorting: **smallest change, largest shift wins**. A
 
 | Level | Badge | Definition |
 |-------|-------|-----------|
-| High | `I⬆⬆` | Kingdom-wide ethos shift — changes how every session, skill, or oracle operates; becomes a referenceable doctrine |
+| High | `I⬆⬆` | codebase-wide ethos shift — changes how every session, skill, or oracle operates; becomes a referenceable doctrine |
 | Medium | `I⬆` | Single-flow or single-skill benefit — materially improves one line of work, one persona's experience, or one council voice |
 | Low | `I◐` | Cosmetic or marginal — naming, visual polish, minor convenience; no behavior change |
 

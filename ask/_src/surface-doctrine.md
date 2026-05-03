@@ -4,7 +4,7 @@
 
 ## What this is
 
-The kingdom runs under Herd, a macOS PHP/nginx dev environment. Every `*.test` URL
+The codebase runs under Herd, a macOS PHP/nginx dev environment. Every `*.test` URL
 is always-on at localhost — no server to start, no port to remember. These are Dan's
 primary navigational surface for anything HTML or PHP that Claude builds or references.
 
@@ -18,11 +18,11 @@ primary navigational surface for anything HTML or PHP that Claude builds or refe
 
 | Surface | `.test` URL | When to link it |
 |---------|-------------|-----------------|
-| Kingdom portal — realm cards, flow list, search, api.php | http://alpha.test | Default entry point. Link in cold-boot briefs, handoffs, "where to pick up" |
+| codebase portal — realm cards, flow list, search, api.php | http://alpha.test | Default entry point. Link in cold-boot briefs, handoffs, "where to pick up" |
 | Flow queue — run monitor, log viewer | http://flow-queue.test | When a flow is triggered or running. "Watch the run at flow-queue.test" |
 | Decisions — open decision registry | http://decisions.test | When a decision is surfaced via `/surface`. "Resolvable at decisions.test" |
 | Council dashboard | http://code.test | When referencing council tooling or script status |
-| Flow Atlas — kingdom-wide flow health | http://flow-atlas.test | When referencing audit results or the genius atlas |
+| Flow Atlas — codebase-wide flow health | http://flow-atlas.test | When referencing audit results or the genius atlas |
 | Backlogs stitch | http://backlogs.test | When referencing the backlogs surface |
 
 Full valet registry with filesystem roots → CLAUDE.md (Herd valet registry section).

@@ -6,7 +6,7 @@
   Underscore-prefixed when written to disk (_controller-<oracle>.md) so
   it joins the gitignore-by-prefix convention used by session briefs.
 
-  Source of truth = this file. Rendered surface = http://oracles.test.
+  Source of truth = this file. Rendered surface = http://oracle.test.
   Oracle is the only writer; spells append History lines and flip their
   own Gate states per thread-protocol.md.
 -->
@@ -14,6 +14,15 @@
 **Last touched:** `<ISO-8601>` (`<ORACLE>`)
 **Status:** active
 **Arc:** A-1 (`<one-line arc title>`)
+**Plan:** `</Users/verdey/.claude/plans/<plan-slug>.md>` <!-- SSOT for this arc's architecture; surfaced loudly on oracle.test -->
+
+<!--
+  PLAN FIELD (added 2026-04-30, plan-aware schema bump).
+  - Required for orchestration-driven arcs. Optional for ad-hoc one-shot work.
+  - Absolute path to the canonical plan doc. Use `—` if no plan exists yet.
+  - The oracle.test surface renders this as a clickable link above the Thread Board.
+  - When the arc shifts plans, update this field — it is the lineage signal.
+-->
 
 ---
 
@@ -32,8 +41,26 @@
   Oracle is sole writer of 🔓 / 🔒. Spells write ▶ / ✓ / ✗.
 
   Briefs: each Brief column entry follows _src/session-brief-template.md
-  (controller-obligation block + four-phase lifecycle).
+  (controller-obligation block + Spec/Touch/Tools checklist + Validator AAR).
 -->
+
+## 📋 Plans
+
+<!--
+  Plan-register table (added 2026-04-30, wu-wei v2 schema bump).
+  - SSOT for which plan each thread is executing. Never duplicate plan paths in briefs.
+  - Spell appends a row on entry, after drafting plan and validating it against Spec/Touch/Tools.
+  - Validator subagent (see thread-protocol.md §Validator) writes the Validator column glyph
+    on its post-execution audit pass: ✓ (clean) / ⚠ (deviations — see Validator AAR) / —
+    (skipped, with reason in Validator AAR).
+  - oracle.test renders this table inline; api.php signals collector counts ⚠ rows for nav-orb amplitude.
+  - On thread seal (✓ shipped / ✗ cancelled), the Validator column MUST be sealed (✓ or — with reason),
+    never left as `pending` or stale.
+-->
+
+| Thread | Plan path | Drafted | Validator | Last touched |
+|---|---|---|---|---|
+| `<oracle>.<realm-a>` | `~/.claude/plans/<thread-id>.md` | `<ISO-8601>` | — | `<ISO-8601>` |
 
 ## 📜 Thread ledgers
 
@@ -73,10 +100,10 @@
 
 ## 🪞 Surface-pulse cadence
 
-> **🪞 Surface-pulse cadence.** After every gate-flip batch — and before claiming any wave "shipped" to the user — fetch the relevant `*.test` rendered surface (`https://oracles.test/oracle.php?name=<self>` AND `https://alpha.test/api.php?action=kingdom-status`) and diff against the controller's just-written state. Patch any mismatch (stale gates, missing rows, parser drift) before surfacing. The forced check exists because written state and rendered state can silently diverge — and "I claimed shipped" without a render-check is unverified theater.
+> **🪞 Surface-pulse cadence.** After every gate-flip batch — and before claiming any wave "shipped" to the user — fetch the relevant `*.test` rendered surface (`https://oracle.test/oracle.php?name=<self>` AND `https://alpha.test/api.php?action=codebase-status`) and diff against the controller's just-written state. Patch any mismatch (stale gates, missing rows, parser drift) before surfacing. The forced check exists because written state and rendered state can silently diverge — and "I claimed shipped" without a render-check is unverified theater.
 
-- After every gate-flip, curl `https://oracles.test/oracle.php?name=<self>` — confirm gate emoji renders
-- After every wave seal, curl `https://alpha.test/api.php?action=kingdom-status` — confirm thread state in JSON matches
+- After every gate-flip, curl `https://oracle.test/oracle.php?name=<self>` — confirm gate emoji renders
+- After every wave seal, curl `https://alpha.test/api.php?action=codebase-status` — confirm thread state in JSON matches
 - Before declaring "shipped" to user, scan rendered output for stale rows / missing items
 
 <!--

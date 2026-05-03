@@ -24,7 +24,6 @@ Each entry carries:
 - **Example:** `~/Documents/Claude/Projects/Tooling/flow-runner-llm/bin/run-flow <flow-path> --dry-run` (smoke); `run-flow <flow-path> --ModelRequest mid --extraprompts 'focus on X'` (real).
 - **Use instead of an LLM-in-chat when…** the same flow will be walked >3 times, OR the flow has ≥4 stages (manual prompt-by-prompt becomes friction), OR you need an audit log per run. The runner appends one JSONL line per step to `<flow-root>/_audit/runs.jsonl` — `/flow audit`'s "step self-logging present?" check is satisfied automatically.
 - **Self-improvement seam:** the runner emits `_suggestions/YYYY-MM-DD-<slug>.md` for any structural gaps it finds during a walk. Honor `_core/` lockout: never edit `_core/system-prompt.md` or `_core/model-aliases.yaml` directly — the runner refuses, route through suggestions instead.
-- **Anti-pattern:** don't hand-walk a `_flow-blueprint`-shaped flow via repeated chat prompts. The runner builds every step's LLM call with `init.md` as a stable prefix (so providers that support prefix caching benefit automatically) and the current step's content as the variable suffix — dramatically cheaper than re-pasting context every step.
 - **Install:** `~/Documents/Claude/Projects/Tooling/flow-runner-llm/bin/run-flow` (already on disk; symlink to `~/bin/` planned at runner's stage 0800-package).
 
 ### Meta-flow over the runner: `Tooling/flow-runner-llm/_meta-flow/`
@@ -46,7 +45,6 @@ Each entry carries:
 - **Subcommands:** `compose` (renders mechanical HTML fragments from `walk.json` + `recipe.json`), `assemble` (combines template + Pico CSS + 5 fragments into final `index.html`).
 - **Runtime:** Python 3 stdlib only (no deps). ~210 LOC.
 - **Used by:** `Tooling/flow-omega-author/processes/0400-compose-mechanical/instructions.md` and `0420-assemble-omega/instructions.md`.
-- **When to reach for it:** any flow that needs to render its own omega `index.html` per the canonical 5-section contract (Process Map / Recent Activity / AI Insights / Blueprint Sync / Embedded init.md). Author the AI Insights section by hand or via LLM, then compose + assemble.
 - **Provenance:** authored by `aurora.andromeda` (S1-heal Wave 0, 2026-04-28) per `_flow-blueprint/processes/0600-render-index-html/instructions.md` Phase C prescription.
 
 ### `harvest-capture.py` — thin SCRIPT wrapper for MHTML page capture
@@ -190,7 +188,6 @@ Each entry carries:
 ### `pandoc` — universal document converter
 
 - **Trigger:** "convert this markdown to HTML/PDF/docx," "extract text from this docx."
-- **Example:** `pandoc init.md -o init.html --standalone --metadata title="LOB Init"`
 - **Use instead of an LLM when…** the conversion is structural; the LLM should only run for content judgments (e.g., simplifying wording).
 
 ### `markdown-it` (CLI) or hand-rolled inline renderer — for the `index.html` embedded-md viewer

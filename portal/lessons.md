@@ -3,7 +3,7 @@
 **Location:** `Council/ASK/portal/lessons.md`
 **Mutates only via:** `/portal` skill (curate path)
 
-Curated insights about the kingdom portal surface captured over time. Each entry is dated and flagged.
+Curated insights about the codebase portal surface captured over time. Each entry is dated and flagged.
 
 ---
 

@@ -1,0 +1,81 @@
+# WLM-AgValuation → Chance Roster Migration — 2026-04-29
+
+> **Sealed:** 2026-04-29 · **Cartographer:** Miguel · **Crew:** Catalyst (compressed 2-tab) · **Realm:** Finance/Income · **Wave:** miguel-mapped relocation
+
+## Coordinates
+
+- Source: `/Users/verdey/Documents/Claude/Projects/Finance/Income/Flows/LOBs/WLM-AgValuation/`
+- Destination: `/Users/verdey/Documents/Claude/Projects/Finance/Income/Flows/Roster/Chance/LOBs/WLM-AgValuation/`
+- Date: 2026-04-29
+- Scale: 1 LOB, ~62 files, ~30MB, single contained subtree
+- Session brief: `/Users/verdey/.claude/plans/review-chance-flows-on-snuggly-wadler.md`
+
+## Decomposition
+
+- Tabs used: **Catalyst only** (compressed 2-tab pattern → single agent execution; Alchemist absorbed into Keeper-equivalent sweep within Catalyst tab)
+- Rationale: Small migration. No git (no relocate commit possible). No `.zshrc`/`.mcp.json`/zoxide/memory-hash work. 5 active path-ref edits + 3 omega-output edits + 1 archive comment. Splitting into 3 tabs would have created empty buckets.
+
+## Source → Destination Map
+
+```
+Finance/Income/Flows/LOBs/WLM-AgValuation/  →  Finance/Income/Flows/Roster/Chance/LOBs/WLM-AgValuation/
+```
+
+Plain `mv`. All 62 files preserved relative structure (`_assets/`, `_audit/`, `_guidelines/`, `_inputs/`, `docs/`, `processes/`, `properties/`).
+
+## Verification surface
+
+| Surface | Count | Status |
+|---|---|---|
+| Physical move | 62 files | ✅ moved |
+| `.DS_Store` swept | 6 | ✅ deleted pre-move |
+| init.md frontmatter `live_surface` URL | 1 | ✅ swept |
+| init.md body Live surface link + Filesystem callout | 2 | ✅ swept |
+| moved CLAUDE.md `../../../` → `../../../../../` (5 levels) | 2 portfolio + blueprint refs | ✅ swept |
+| moved CLAUDE.md `../../Roster/Chance/` → `../../` Audience+voice | 2 | ✅ swept |
+| `Income/CLAUDE.md` §2 row | 1 | ✅ swept |
+| `Income/CLAUDE.md` change-log header | 1 prepended entry | ✅ swept |
+| `Roster/Chance/_composed.md` URL | 1 | ✅ swept |
+| `Roster/Chance/index.html` URL | 1 | ✅ swept |
+| moved `index.html` URL | 1 | ✅ swept |
+| HUD `chance-wlm-status · 2026-04-29.html` archive comment | 1 | ✅ inserted |
+| `roster.yaml` | 0 active edits | ✅ no path-keyed refs (uses bare LOB slug) |
+| `Roster/Chance/CLAUDE.md` | 0 active edits | ✅ already used `LOBs/<name>` relative-to-Chance convention; resolves correctly post-move |
+| `Roster/Chance/processes/0100-gather-lob-state/step.md` | 0 active edits | ✅ same convention |
+| Old path on disk | 0 | ✅ empty |
+| `grep` final sweep returns only immutable refs | 9 sessions + change-log + 1 dated fragment | ✅ as designed |
+
+## Gotchas encountered
+
+1. **`Roster/Chance/CLAUDE.md` and step.md already used Chance-relative `LOBs/<name>` convention** — no edits needed there. The convention was forward-compatible with the move (LOBs/ resolves under whichever directory holds the file). Removed those edits from the planned active-sweep list.
+2. **roster.yaml uses bare LOB slugs, not paths** — no path-key edits. The `lob_permissions` field has `{ lob: WLM-AgValuation, view_scope: full }` — slug-only.
+3. **Moved `CLAUDE.md` had two depth-relative links**: `../../../` (3 levels) → `../../../../../` (5 levels) for portfolio + blueprint, and `../../Roster/Chance/` (2 levels with name segment) → `../../` (2 levels alone). This is Hazard #5-adjacent (depth-shifting).
+4. **One Edit failed first attempt** — assumed markdown URL format `[text](url)` in the moved index.html, but the file uses HTML `<a href>` tags throughout. Re-verified there were zero remaining old-path refs in that file (the markdown form must have been transient or in a different render-cycle artifact). No corrective action needed.
+5. **The `20260429-1600/wlm-agval-fragment.md` fragment under `0100-gather-lob-state/`** was left untouched — dated snapshot, immutable per session-style historical doctrine. Future `0100-gather-lob-state/` runs will produce fresh fragments with correct URLs.
+
+## What worked
+
+- Compressed 2-tab pattern saved ceremony. Map → execute → seal in one continuous flow.
+- Pre-flight `.DS_Store` sweep prevented noise in the move.
+- Active-vs-immutable distinction (per codebase doctrine) kept session/ADR scope clean — no rewriting history.
+- Bumping `Income/CLAUDE.md` change-log header with a prepended dated entry preserved the full audit trail.
+- The grep-then-edit verification loop (grep → edit → re-grep) caught the depth-relative `../../../` link issue in the moved CLAUDE.md immediately.
+
+## What to do differently next time
+
+- Pre-stage the relative-path-depth analysis in the brief explicitly. Miguel called it out generically ("internal `../../../` paths shifting depth"); next time enumerate every relative link in source files at brief-write time so Catalyst doesn't have to discover them mid-sweep.
+- For omega-output sweeps in flows that produce both markdown (`_composed.md`) AND HTML (`index.html`), name the URL format per file in the brief (markdown vs HTML anchor) so Edit calls don't fail-then-retry.
+
+## Open items left for human (Dan)
+
+| Item | Status |
+|---|---|
+| Verify `http://alpha.test/Finance/Income/Flows/Roster/Chance/LOBs/WLM-AgValuation/index.html` returns 200 OK | ⬜ Dan to spot-check |
+| Verify Chance dashboard at `http://alpha.test/Finance/Income/Flows/Roster/Chance/index.html` shows updated WLM card link | ⬜ Dan to spot-check |
+| Property identity reconciliation — Hood vs Erath CAD lookup using resolved address `8224–8270 FM1189, Lipan TX 76462` | ⬜ blocks `0200-readiness-scan/` |
+| Decide whether to retire `chance-kite-hood-tract-01` slug if parcel proves Erath (would trigger second Miguel pass) | ⬜ |
+| Plan step 6 — scaffold Flow A (`processes/0350-fill-pdf-forms/` subflow) and Flow B (`Income/Flows/LOBs/PDF-Form-Fill-Research/` catalog flow) | ⬜ separate `/knock` |
+
+## Git state
+
+- **No git repo** at any ancestor of source. Plain `mv` used. No relocate commit possible. Hazard #7 active and documented. Future re-init of git at any portfolio level should treat the new path as canonical.

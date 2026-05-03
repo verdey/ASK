@@ -16,7 +16,7 @@ Any surface that adopts compass bindings must satisfy the invariants below. ARIA
 **Requirement:** The container element that hosts compass navigation must carry an ARIA landmark role and a descriptive label.
 
 ```html
-<nav aria-label="Kingdom compass navigation" role="navigation">
+<nav aria-label="codebase compass navigation" role="navigation">
   <!-- compass-navigable content here -->
 </nav>
 ```

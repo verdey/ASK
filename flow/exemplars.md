@@ -1,6 +1,6 @@
 # 🌊 Exemplars — Realm Pointers per Shape
 
-*For each of the 5 shapes (see [`shapes.md`](shapes.md)), the realm/file in the Kingdom that's most mature. When `/flow realize` reports a gap, it points here for the learning model.*
+*For each of the 5 shapes (see [`shapes.md`](shapes.md)), the realm/file in the codebase that's most mature. When `/flow realize` reports a gap, it points here for the learning model.*
 
 > **Filesystem-Truth axiom.** These pointers must resolve. If a path drifts, fix the pointer or fix the path — never both, never neither.
 

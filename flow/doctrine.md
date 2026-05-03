@@ -1,12 +1,11 @@
-# Flow doctrine — read the kingdom
+# Flow doctrine — read the codebase
 
-The doctrine of flows is **not held here**. It lives in the substrate it describes. This file is a thin pointer-index for the `/flow doctrine` modality and a holder for the skill-side taxonomy the kingdom doesn't carry.
+The doctrine of flows is **not held here**. It lives in the substrate it describes. This file is a thin pointer-index for the `/flow doctrine` modality and a holder for the skill-side taxonomy the codebase doesn't carry.
 
 ```
-   The kingdom IS the doctrine            This file is the chat-emit shim
+   The codebase IS the doctrine            This file is the chat-emit shim
    ┌────────────────────────────┐         ┌──────────────────────────────┐
    │ _flow-blueprint/           │  ───▶   │ ~/.claude/skills/flow/       │
-   │   init.md  (head + rules)  │         │   doctrine.md  (this file —  │
    │   processes/  (the work)   │         │     pointer + skill-side     │
    │   CHANGELOG.md  (events)   │         │     taxonomy only)           │
    │ Income/docs/flow.md        │         └──────────────────────────────┘
@@ -16,32 +15,28 @@ The doctrine of flows is **not held here**. It lives in the substrate it describ
 
 ## Where to read
 
-- **What a flow IS** → walk `/Users/verdey/Documents/Claude/Projects/_flow-blueprint/` (its own `init.md` + `processes/` + `CHANGELOG.md` ARE the doctrine; it eats its own dogfood).
 - **The motion in full prose** → `/Users/verdey/Documents/Claude/Projects/Finance/Income/docs/flow.md` (axioms, graduation ladder, cold-boot sequence, living-blueprint mechanic, skinny pattern).
 - **Where flow sits in the decet** → `/Users/verdey/Documents/Claude/Projects/Finance/Income/CLAUDE.md` §14.
-- **Composition rules (`parent_flows`, inheritance, vocabulary)** → `/Users/verdey/Documents/Claude/Projects/_flow-blueprint/init.md:4` (the frontmatter every clone inherits).
 - **The three axioms** (Acid Test, Filesystem-Truth, Runtime declaration) → `Income/docs/flow.md` §1.2.
 
-New flow doctrine is never authored here. It lands in `/Users/verdey/.claude/skills/flow/lessons.md`, gets promoted via `/flow promote` directly into the kingdom paths above, and this index updates its pointers.
+New flow doctrine is never authored here. It lands in `/Users/verdey/.claude/skills/flow/lessons.md`, gets promoted via `/flow promote` directly into the codebase paths above, and this index updates its pointers.
 
 ---
 
-## Skill-side taxonomy (not yet kingdom doctrine)
+## Skill-side taxonomy (not yet codebase doctrine)
 
-These three sections are skill curation that the kingdom hasn't formalized. They guide `/flow audit` and friends. Promote to the kingdom only when they earn it.
+These three sections are skill curation that the codebase hasn't formalized. They guide `/flow audit` and friends. Promote to the codebase only when they earn it.
 
 ### Flow archetypes
 
 A flow's archetype answers *what shape of work does it do?* — orthogonal to composition. Four are recognized:
 
-- **Workflow flow.** Pipeline pattern. Steps consume upstream inputs, produce downstream outputs, terminate in a deliverable. Variants: *main-pipeline-as-flowchart + SubFlow-sidecar* (when the main pipeline is operational doctrine living in init.md's Mermaid + `docs/sop/`, while `processes/` holds out-of-band SubFlows — example: `wholesaling/`); *workflow with co-creation write-back tail* (terminal `notify` step extends into a feedback loop where a `harvest-inbox` step reads decision stanzas and applies them across the portfolio — example: `_flow-navigator/`).
 - **Stitch flow.** Read-only over substrate; deliverable is one stable artifact at a known path that aggregates outputs from elsewhere. Contract: stable artifact path, dated snapshots beside it, self-refresh comment block at top of artifact, read-only over substrate, defang-don't-break for foreign content, declarative knobs separate from mechanical execution, live HTTP surface (Herd valet domain).
-- **Catalog flow.** Specialized workflow archetype for converting oversized prose into self-contained entries. Each entry is independent; selection-based access (no sequential dependencies). 2-digit numbering for fixed-count ≤50; init.md is a selection-flow with a metadata table, not a Mermaid pipeline.
 - **Living-blueprint flow.** Itself a flow AND the canonical reference other flows clone from. Maintains `CHANGELOG.md`. Source blueprint is `_flow-blueprint/`; derivative blueprints are scoped to a domain (e.g., `_short-sale-deal-blueprint/`).
 
 ### Audit corollaries
 
-Skill-internal rules `/flow audit` enforces beyond the kingdom's three axioms:
+Skill-internal rules `/flow audit` enforces beyond the codebase's three axioms:
 
 - **Documented intent over shape inference.** Before flagging a step as orphan/drift/misplaced, read its `step.md` / `README.md` / `_graduation.md` and any ADR in `docs/decisions/`. Documented intent beats archetype assumption. Precedent: 2026-04-27 audit of `_flow-navigator` would have deleted the Phase 3 co-creation harvest step as "orphan tail" without this rule.
 - **Runtime declaration vs. executor support.** When a step declares `Runtime: SCRIPT` or `composite`, audit verifies (1) `## Invocation` fenced bash block present (for SCRIPT) and (2) the runner version supports the declared runtime — check `Tooling/flow-runner-llm/CLAUDE.md` §Runtimes. If the runner lacks the executor, surface as `⚠️ runtime-not-implemented`. Dry-run green ≠ live-click green.
@@ -54,11 +49,11 @@ The folder convention is settled (Acid Test). The *shape inside each folder* is 
 
 ## Companion files (skill-side substrate)
 
-- `/Users/verdey/.claude/skills/flow/lessons.md` — append-only running log of captured insights (the upstream feeder of all promotions to the kingdom).
+- `/Users/verdey/.claude/skills/flow/lessons.md` — append-only running log of captured insights (the upstream feeder of all promotions to the codebase).
 - `/Users/verdey/.claude/skills/flow/tools-register.md` — bash/script recipes that offload long-form file munging from LLMs.
 - `/Users/verdey/.claude/skills/flow/showcase.md` — pointer-index of exemplar flows.
 - `/Users/verdey/.claude/skills/flow/shapes.md`, `exemplars.md`, `ladder.md` — `/flow realize` modality internals.
 
 ## How this file evolves
 
-Mutation-only-via-skill. `/flow curate` captures observations to `lessons.md`. `/flow promote` applies promotions — to the kingdom when the substrate is universal flow doctrine, to this file's taxonomy section when it's skill-curated. Pointer drift between this file and the kingdom is itself an audit signal.
+Mutation-only-via-skill. `/flow curate` captures observations to `lessons.md`. `/flow promote` applies promotions — to the codebase when the substrate is universal flow doctrine, to this file's taxonomy section when it's skill-curated. Pointer drift between this file and the codebase is itself an audit signal.

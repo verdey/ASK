@@ -1,9 +1,11 @@
 ---
 name: florencia
 realm: bridges
-status: paused
+status: retired
 born: 2026-04-29
-last_touched: 2026-04-29
+arc_sealed: 2026-04-30T15:50:00-04:00
+retired: 2026-04-30T15:50:00-04:00
+last_touched: 2026-04-30T15:50:00-04:00 (☠ ARC RETIRED by glass — aqueduct + brooklyn + cable all ✓ shipped; cable commit 4971eb3 on dev. Re-birth fresh oracle for next run.)
 project_scope: wholesaling LOB — run 3 new flows (deals-in-flight-audit, partnership-network-expansion, _deal-type-register) + wire outputs to Amber's roster digest
 nomenclature_realm: bridges
 ---
@@ -20,7 +22,6 @@ nomenclature_realm: bridges
   - Rowlett lender name, receivership origin/court, rehab status (4/27 brief)
   - S7/S8 sessions (capital + seller partner network) queued from 4/24 — check if superseded by partnership-network-expansion flow
 - `_deal-type-register` 02/03/04 entries are stubs pending first deal of each type
-- wholesaling.init.md `0900-render-index-html` step needs update to include new flow outputs
 
 ## Notes
 

@@ -4,7 +4,7 @@ realm: dances
 status: retired
 born: '2026-04-28T14:15-04:00'
 last_touched: '2026-04-29T01:35-04:00 (snowball-closeout flip by dolores · rivers — bachata in-progress inline complete; W2 patillo scope absorbed by ximena · cheeses; surface-backlogs lane idle 11h+; active → paused. Resurrect when surface-backlogs spawns new operational arc.)'
-project_scope: /Users/verdey/Documents/Claude/Projects/Live/surface-backlogs (operationalization arc + cross-Kingdom seal census)
+project_scope: /Users/verdey/Documents/Claude/Projects/Live/surface-backlogs (operationalization arc + cross-codebase seal census)
 nomenclature_realm: 'dances (bachata, cumbia, danzon, flamenco, mambo, salsa, samba, tango)'
 ---
 
@@ -20,4 +20,4 @@ nomenclature_realm: 'dances (bachata, cumbia, danzon, flamenco, mambo, salsa, sa
 
 ## Notes
 
-Born after /seek pass over the freshly-built surface-backlogs flow. yolanda's lane is the surface itself; the realms it surfaces have their own oracles. PREFLIGHT surfaced patillo redeaux Erath CAD tax-protest deadline as the most-aged thread in the Kingdom — routed to fresh Oracle Wave 2, not absorbed. Sister-active to paloma (kingdom-level state-of-the-board oracle).
+Born after /seek pass over the freshly-built surface-backlogs flow. yolanda's lane is the surface itself; the realms it surfaces have their own oracles. PREFLIGHT surfaced patillo redeaux Erath CAD tax-protest deadline as the most-aged thread in the codebase — routed to fresh Oracle Wave 2, not absorbed. Sister-active to paloma (codebase-level state-of-the-board oracle).

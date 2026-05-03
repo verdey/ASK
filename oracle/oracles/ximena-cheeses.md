@@ -14,7 +14,6 @@ nomenclature_realm: 'cheeses (brie, camembert, cheddar, edam, fontina, gouda, gr
   - `ximena.camembert` — Wave 1 / ⚡ Catalyst / Sonnet 4.6 — blind oracle dispatch (11 scenarios) — partial ✓: S01–S10 shipped 2026-04-28; S11+S12 missing
   - `ximena.cheddar` — Wave 2 / ⚡ Catalyst / Opus 4.7 — synthesis (score + rank + recommend) — pending (blocked on S11+S12)
   - `ximena.edam` — Wave 1 catch-up / ⚡ Catalyst / Sonnet 4.6 — S11 (MTR) + S12 (Creative uses) oracle dispatch — pending dispatch
-  - `ximena.fontina` — Flow build / ⚡ Catalyst / Sonnet 4.6 — scaffold patillo status flow (init.md + 0100 + 0200 + index.html) — pending dispatch
 
 ## Open threads
 

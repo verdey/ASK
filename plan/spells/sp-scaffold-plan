@@ -1,13 +1,26 @@
 #!/usr/bin/env bash
 # sp-scaffold-plan — copy the plan blueprint into a new Plans/<slug>/ dir,
-# substitute title placeholders, stamp today's date.
+# substitute title placeholders, stamp today's date, slug-hash accent,
+# and topic emoji glyph.
 #
 # The Plans/index.html registry is LIVE (fetches /api.php?action=plans which
 # walks Plans/<slug>/index.html on every load). Creating the directory IS
 # the registry act — no mutation needed. Drift is impossible by construction.
 #
 # Usage:
-#   sp-scaffold-plan <slug> "<title>"
+#   sp-scaffold-plan <slug> "<title>" [<glyph>]
+#
+# Examples:
+#   sp-scaffold-plan refactor-auth "Refactor auth middleware"
+#   sp-scaffold-plan refactor-auth "Refactor auth middleware" 🛡
+#
+# Visual signature (G3 = D + C hybrid per Plans/improve-plan-skill v04):
+#   - --plan-accent stamped from slug-hash hex (deterministic; tasteful HSL).
+#     Realm-color override (C layer) is a future hook — when parent-controller
+#     resolves to a known realm color, the spell would replace the slug-hash
+#     accent with the realm color. Not yet implemented; tracked as v2 pivot
+#     in feedback_plan_two_phase.md and improve-plan-skill plan §Approach.
+#   - <span class="hero-glyph"> stamped with the provided glyph (default 📋).
 #
 # Idempotent guard: refuses to overwrite an existing Plans/<slug>/.
 # Outputs (stdout, machine-readable last 2 lines):
@@ -21,12 +34,13 @@ PLANS="$CODEBASE/Plans"
 BLUEPRINT="$PLANS/_plan-blueprint"
 
 if [[ $# -lt 2 ]]; then
-  echo "usage: sp-scaffold-plan <slug> \"<title>\"" >&2
+  echo "usage: sp-scaffold-plan <slug> \"<title>\" [<glyph>]" >&2
   exit 64
 fi
 
 SLUG="$1"
 TITLE="$2"
+GLYPH="${3:-📋}"
 TODAY="$(date -u +%Y-%m-%d)"
 DEST="$PLANS/$SLUG"
 
@@ -46,25 +60,39 @@ if [[ ! -d "$BLUEPRINT" ]]; then
   exit 67
 fi
 
+# Compute deterministic slug-hash accent. md5 → 16-bit hue → HSL(hue, 55%, 45%) → hex.
+# python3 is the canonical tool here (Homebrew Python 3.14 on Dan's Mac).
+ACCENT="$(python3 -c "
+import hashlib, colorsys, sys
+slug = sys.argv[1]
+hue = int(hashlib.md5(slug.encode()).hexdigest()[:4], 16) % 360
+r, g, b = colorsys.hls_to_rgb(hue / 360, 0.45, 0.55)
+print('#{:02x}{:02x}{:02x}'.format(int(r * 255), int(g * 255), int(b * 255)))
+" "$SLUG")"
+
 # 1. Copy the blueprint.
 cp -R "$BLUEPRINT" "$DEST"
 
 INDEX="$DEST/index.html"
 
-# 2. Substitute title + dates. macOS sed uses -i ''.
-#    The blueprint's <title> and <h1> both contain "HTML Plan Standard".
+# 2. Substitute title + dates + accent + glyph. macOS sed uses -i ''.
+#    The blueprint's <title> and <h1> both contain "HTML Plan Standard"
+#    and the version regex tolerates v01..v04 (current blueprint is v04).
 sed -i '' \
-  -e "s|<title>Plan: HTML Plan Standard — v01</title>|<title>Plan: ${TITLE} — v01</title>|" \
+  -e "s|<title>Plan: HTML Plan Standard — v0[1-9]</title>|<title>Plan: ${TITLE} — v01</title>|" \
   -e "s|Plan: HTML Plan Standard|Plan: ${TITLE}|" \
   -e "s|>Plan Name<|>${TITLE}<|" \
   -e "s|Created: 2026-05-03|Created: ${TODAY}|" \
   -e "s|Updated: 2026-05-03|Updated: ${TODAY}|" \
+  -e "s|<meta name=\"blueprint-absorbed\" content=\"[^\"]*\"|<meta name=\"blueprint-absorbed\" content=\"${TODAY}\"|" \
   -e "s|Plans/_plan-blueprint/index.html|Plans/${SLUG}/index.html|g" \
+  -e "s|:root { --plan-accent: #6c757d; }|:root { --plan-accent: ${ACCENT}; }|" \
+  -e "s|<!-- TEMPLATE: topic emoji -->📋|<!-- TEMPLATE: topic emoji -->${GLYPH}|" \
   "$INDEX"
 
 # 3. Echo machine-readable surface.
 #    The registry at http://alpha.test/Plans/ picks up the new dir on next load
 #    via /api.php?action=plans (no mutation needed here — see header comment).
-echo "📋 Plan scaffolded: ${TITLE} (v01, draft)"
+echo "📋 Plan scaffolded: ${TITLE} (v01, draft) · accent ${ACCENT} · glyph ${GLYPH}"
 echo "PATH ${INDEX}"
 echo "URL  http://alpha.test/Plans/${SLUG}/"

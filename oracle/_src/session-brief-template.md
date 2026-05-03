@@ -1,77 +1,101 @@
-# `<thread-id>` — `<wave>` · `<one-line title>`
+# `<thread-id>` — `<one-line title>`
 
 <!--
-  SESSION BRIEF TEMPLATE — sibling of controller-template.md.
+  SESSION BRIEF TEMPLATE — wu-wei v2 (2026-04-30).
   Oracle copies this to <project-root>/docs/sessions/_briefs/<thread-id>.md
   when populating the Brief column of the Thread Board.
 
-  The brief is a thread's per-life document. It links back to its parent
-  oracle's controller in the obligation block, defers in operations to
-  the oracle's gates, and walks the four-phase lifecycle below.
+  Shape: thin, parseable, checklist-first. The top sections form a
+  machine-ingestible contract a subagent can act on cold without reading
+  the prose context. Plan path is registered ONLY in the controller's
+  ## 📋 Plans table, never duplicated here.
 
-  Override modes (/arriba, GSD, explicit "wu wei" instruction) collapse
-  Phases 1–3 into one continuous run. Phase 4 (AAR + controller update)
-  is non-negotiable in every mode.
+  Override modes (/arriba, GSD, "wu wei"): obligation block + Spec ticks +
+  AAR + Validator dispatch remain mandatory.
 -->
 
 > ⚠️ **Controller obligation — link back + defer to oracle gates**
 > **Parent oracle:** `<oracle.realm>` · **Controller:** `<ABS-PATH-TO-_controller-<oracle>.md>`
-> **Before any work:** read the controller, locate this thread's row, verify Gate is `🔓 ready`, flip Gate to `▶ running:<phase>`, append History line: `<ISO-8601> · <phase> · ▶ started · agent <thread-id>`.
+> **On entry:** read the controller, locate this thread's row, verify Gate is `🔓 ready`, draft a plan at `~/.claude/plans/<thread-id>.md`, validate plan against this brief's `## Spec` + `## Touch` + `## Tools` (surface conflicts as `✗ blocked`), append a row to the controller's `## 📋 Plans` table, then flip Gate to `▶ running:<phase>` and append History line: `<ISO-8601> · <phase> · ▶ started · agent <thread-id>`.
 > **After each phase:** update controller History; if subsequent phases depend on a sibling/parent gate, halt and await Oracle's flip.
-> **On completion:** flip Gate to `✓ done` (or `✓ shipped` if final phase), append History line, write the AAR section below.
+> **On completion:** dispatch the Validator subagent (see thread-protocol.md §Validator) as your final move BEFORE announcing `✓ done`. Once Validator has written its glyphs and Validator AAR, flip Gate to `✓ done` and append History line.
 
 **Recommended Model:** `<Haiku 4.5 | Sonnet 4.6 | Opus 4.7>` — `<one-line rationale>`
-**Soul thread:** `<one sentence — what flow / realm / oracle family this brief belongs to and what larger arc it advances>`
 
 ---
 
-## Lifecycle (default modus operandi)
+## Spec
 
-Default mode (no `/arriba`, no GSD): work proceeds through these four phases, each gated by the controller. The brief grows as it walks: Oracle writes Phase 1 as a stub; the implementer fills Phase 2; Phase 3 happens in code with this file open as the contract; Phase 4 closes the loop.
+<!--
+  Verifiable deliverables. Each bullet is a checkbox.
+  Executor ticks `- [x]` as items land.
+  Validator appends inline glyph: `- [x] ✓ <item>` (verified) or `- [x] ⚠ <item>` (claimed but unverified — see Validator AAR).
+  One list, two writers. No mirror status sheet.
+-->
 
-- **Phase 1 — Stub.** Oracle writes Intent + Scope + Acceptance + open questions only. Controller Gate `🔓 ready:phase-1`. No code yet. Hand off to implementer.
-- **Phase 2 — Elaborated tech spec.** Implementer reads the stub, fills the Tasks section with specifics (file paths, edge cases, exact ordering), confirms Acceptance is testable. Flip controller `🔓 ready:phase-1 → ▶ running:phase-1 → ✓ done` then await Oracle's `🔓 ready:phase-2`.
-- **Phase 3 — Implemented & checked.** Code lands per the spec. Verification steps run. If a sibling/parent gate is `🔒` (merge-gate, cross-oracle dependency), halt at the boundary and surface the block. Phase ends when all Acceptance items are demonstrably met.
-- **Phase 4 — AAR + controller update.** Fill the AAR below (What shipped / Deviations / Blockers / Next). Append the matching History line to the controller's `## 📜 Thread ledgers` for this thread. If the AAR's `Next:` points downstream, surface the next paste-string for Oracle's review.
+- [ ] `<verifiable change 1>`
+- [ ] `<verifiable change 2>`
+- [ ] `<verifiable change 3>`
 
-**Override modes** (`/arriba`, GSD, "wu wei", explicit user override): collapse Phases 1–3 into a single continuous execution. The obligation block above and the Phase 4 AAR + controller update remain mandatory in every mode.
+## Touch
+
+<!--
+  Permissioned scopes. Absolute paths.
+  `!` prefix = explicitly forbidden / out of scope.
+  Validator greps the diff against !Forbid lines; any hit → ⚠ on the spec items they affect.
+-->
+
+- **Read:** `<abs path>`, `<abs path>`
+- **Write:** `<abs path>`, `<abs path>`
+- **!Forbid:** `<abs path or operation>`
+
+## Tools
+
+<!--
+  Allowed shell commands and /skill invocations. One per bullet.
+  Anything not listed here is out of scope; the executor surfaces a `✗ blocked` if it needs more.
+-->
+
+- `<command or /skill>`
+- `<command or /skill>`
+
+## Context (optional)
+
+<!--
+  One paragraph of problem + direction. Reading is encouraged but not required —
+  the Spec + Touch + Tools above form the executable contract. Skip this section
+  for trivial / mechanical threads.
+-->
+
+`<problem statement + direction>`
 
 ---
 
-## Intent
+## Execution Notes
 
-`<one paragraph — what this thread accomplishes and why it matters>`
+<!-- Executor fills during run: decisions, deviations, blockers. -->
 
-## Scope
+## AAR
 
-**In:**
-- `<bullet>`
+<!-- Executor fills at completion. -->
 
-**Out (do NOT touch):**
-- `<bullet>`
+- **Outcome:** `<one-line result>`
+- **Files touched:** `<list>`
+- **Surface-pulse:** `<URL hit + diff confirmed at <ISO>; gate render verified>`
+- **Deviations:** `<any from scope / brief>`
 
-## Acceptance
+## Validator AAR
 
-`<bulleted — what "done" looks like, demonstrably testable>`
+<!--
+  Validator subagent fills this. Read-only across codebase; verifies each Spec
+  item via `git diff` + targeted disk reads — never trusts the executor's AAR prose.
+  Writes inline ✓/⚠ on Spec checkboxes above. Updates controller `## 📋 Plans` Validator column.
+-->
 
-- [ ] `<criterion>`
-
-## Tasks (filled at Phase 2)
-
-`<numbered list with absolute file paths — implementer fills>`
-
-1. `<task>`
-
-## Resolution (optional — sketch / design / research threads only)
-
-`<doctrine extracted, variants chosen, references for downstream consumers>`
-
-## AAR (filled at Phase 4)
-
-**What shipped:**
-**Deviations:**
-**Blockers:**
-**Next:**
+- **Verified:** `<count of ✓ items>` / `<total>`
+- **Flagged:** `<count of ⚠ items, with one-line reason each>`
+- **!Forbid breaches:** `<none | list of forbidden paths touched>`
+- **Glyph written to controller:** `✓ | ⚠ | —`
 
 <!--
   When this brief feeds a downstream wave, name the next thread-id and

@@ -17,8 +17,6 @@ Authoritative registry of every path triage reads when computing moves. Each sou
 |---|-------------|-------------|---------------|-------------|---------------|
 | 1 | `api.php?action=queue` | Stalled flows | Any entry with `state: stalled` or `state: running` + duration > 2× median | Move: "Unstick [flow]" | Skip Tier 1 |
 | 2 | `*/realm/_BACKLOG.md` | Overdue backlogs | `due: YYYY-MM-DD` lines at or past today; OR file mtime > 14d | Move: "Close [item] in [realm]" | Skip Tier 2 |
-| 3 | `Finance/Income/Flows/LOBs/*/init.md` | Blueprint drift | `Last synced` in `## Blueprint reference` > 30d ago | Move: "Re-sync [flow]" | Skip Tier 3 |
-| 4 | `Live/*/init.md` | Blueprint drift | Same freshness rule as #3 | Move: "Re-sync [realm]" | Skip Tier 3 (if no Income flows fire either) |
 | 5 | `~/.claude/projects/-Users-verdey-Documents-Claude-Projects/memory/_current-profile.md` | Roster focus | Any active focus bullet present | Move: "[focus item]" | Skip Tier 4 |
 | 6 | `Finance/Income/Flows/LOBs/*/` + `Live/*/` | Active flow | mtime of `index.html` or `runs.jsonl` < 48h | Move: "Continue [flow]" | Skip Tier 5 |
 
@@ -60,11 +58,9 @@ Authoritative registry of every path triage reads when computing moves. Each sou
 
 ### Source 3 — Income flow blueprints
 
-**Path pattern:** `~/Documents/Claude/Projects/Finance/Income/Flows/LOBs/*/init.md`
 
 **What to look for:** `## Blueprint reference` block containing `Last synced: YYYY-MM-DD`. If that date is > 30 days ago, or the block is missing entirely, signal fires.
 
-**Extract format:** Flow name (from `init.md` H1 or parent directory name) + days since last sync.
 
 **Null check:** All flows synced within 30 days → skip this part of Tier 3.
 
@@ -72,7 +68,6 @@ Authoritative registry of every path triage reads when computing moves. Each sou
 
 ### Source 4 — Live realm blueprints
 
-**Path pattern:** `~/Documents/Claude/Projects/Live/*/init.md`
 
 **Same logic as Source 3.** Separate entry because Live realms are a different tree with different velocity expectations — they may drift faster than Income LOBs.
 
@@ -114,7 +109,6 @@ Triage walks sources in the order listed (1 → 6). This order is not importance
 
 1. Network (queue) first — fails fast if unavailable
 2. Glob walk (backlogs) — single `find` pass
-3. Blueprint checks — targeted `grep` on found `init.md` files
 4. Memory read — single file
 5. Mtime checks — quick `stat` pass on known paths
 

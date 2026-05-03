@@ -4,7 +4,7 @@ realm: lighthouses
 status: retired
 born: '2026-04-28T20:30-04:00'
 last_touched: '2026-04-28T21:30-04:00 (arc sealed — all 3 waves ✓ shipped; /surface live in roster at 15 skills; status active→paused)'
-project_scope: '/Users/verdey/Documents/Claude/Projects (kingdom-level — `/surface` skill + decision-queue substrate co-design arc)'
+project_scope: '/Users/verdey/Documents/Claude/Projects (codebase-level — `/surface` skill + decision-queue substrate co-design arc)'
 nomenclature_realm: 'lighthouses (alexandria, bishop, cordouan, dover, eddystone, faro, godrevy, hook, montauk, ocracoke, pharos, smalls, trinity, ushant, yaquina)'
 ---
 
@@ -21,4 +21,4 @@ nomenclature_realm: 'lighthouses (alexandria, bishop, cordouan, dover, eddystone
 
 ## Notes
 
-Born 2026-04-28T20:30 from `/skillz audit` of Dan's "/surface" capability ask. Skillz verdict: hybrid CREATE+BUILD; cannot split — substrate and skill must co-design. Aurora is sister-active at kingdom scope on Arc-3 portal evolution; alexandria's brief is **strictly additive** (no `index.html` edits, no realm-directory edits) to avoid stomping aurora.taurus's pending 4-band restructure. Realm `lighthouses` chosen for thematic resonance with the skill's purpose (surfacing decision-points like coastal beacons). Aurora's `constellations` realm is fully consumed (17/17), reinforcing the choice to birth fresh rather than extend. **No git repo at kingdom root** — Wave 0 commits N/A. Council/ASK has its own repo — Wave 1 commits there.
+Born 2026-04-28T20:30 from `/skillz audit` of Dan's "/surface" capability ask. Skillz verdict: hybrid CREATE+BUILD; cannot split — substrate and skill must co-design. Aurora is sister-active at codebase scope on Arc-3 portal evolution; alexandria's brief is **strictly additive** (no `index.html` edits, no realm-directory edits) to avoid stomping aurora.taurus's pending 4-band restructure. Realm `lighthouses` chosen for thematic resonance with the skill's purpose (surfacing decision-points like coastal beacons). Aurora's `constellations` realm is fully consumed (17/17), reinforcing the choice to birth fresh rather than extend. **No git repo at codebase root** — Wave 0 commits N/A. Council/ASK has its own repo — Wave 1 commits there.

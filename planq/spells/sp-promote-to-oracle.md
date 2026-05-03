@@ -90,13 +90,13 @@ After:  `loose idea  #status:ripening  #oracle:<name> → oracle:<name>`
 ✓ Promoted to oracle: <name>
 
 Oracle shard: /Users/verdey/.claude/skills/oracle/oracles/<name>-<realm>.md
-Live surface:  http://oracles.test/oracle.php?name=<name>
+Live surface:  http://oracle.test/oracle.php?name=<name>
 
 planq.md line updated:
   <updated full line with → oracle:<name>>
 ```
 
-Surface both the absolute path and the `.test` URL — kingdom doctrine, never one without the other.
+Surface both the absolute path and the `.test` URL — codebase doctrine, never one without the other.
 
 ---
 
@@ -105,13 +105,13 @@ Surface both the absolute path and the `.test` URL — kingdom doctrine, never o
 - New shard exists at `~/.claude/skills/oracle/oracles/<name>-<realm>.md` with `planq_ref:` filled.
 - planq.md line carries `#oracle:<name> → oracle:<name>`.
 - No other files mutated.
-- Dan sees both filesystem path and `oracles.test` URL.
+- Dan sees both filesystem path and `oracle.test` URL.
 
 ---
 
 ## What this spell does NOT do
 
 - Does NOT create Herd valet symlinks (Wave 3, camila.nu).
-- Does NOT write `planq.md` to any path other than the canonical kingdom root path.
+- Does NOT write `planq.md` to any path other than the canonical codebase root path.
 - Does NOT register the oracle in any other registry — the shard file IS the registry entry.
 - Does NOT auto-populate `## Children` or `## Open threads` — Dan fills those through oracle sessions.

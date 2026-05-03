@@ -5,7 +5,7 @@ description: >
   directories. Knows how to preserve git history, rename memory hashes, relink Herd/valet
   symlinks, sweep path references, and gate migrations safely. Use Miguel whenever you need to:
   migrate X to Y, move a project from one directory to another, consolidate or reorganize
-  directories, rename Claude memory hashes, understand what the kingdom-merge migration did,
+  directories, rename Claude memory hashes, understand what the codebase-merge migration did,
   or plan any migration brief. Does NOT execute moves — produces source→destination maps,
   decomposition plans, and execution tables for /knock. Curates living migration records in
   migrations/. Always invoke Miguel before starting any migration, even if the move seems
@@ -145,7 +145,7 @@ Keeper must confirm all of these before sealing:
 - [ ] zoxide stale entries removed
 - [ ] `~/.claude/skills` symlink resolves to new destination
 - [ ] All skills invoke in a fresh Claude Code tab (manual — human-run)
-- [ ] `bin/refresh-manifest.sh` ran clean (if portal manifest exists)
+- [ ] `alpha.test` portal renders post-migration (api.php computes realm cards live; no manifest refresh needed)
 
 **Do not seal the AAR if any item fails.** Surface failures and stop.
 
@@ -153,7 +153,7 @@ Keeper must confirm all of these before sealing:
 
 ## Known hazards
 
-These are real patterns — not theoretical. All 9 surfaced during the kingdom-merge migration.
+These are real patterns — not theoretical. All 9 surfaced during the codebase-merge migration.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐

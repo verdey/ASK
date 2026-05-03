@@ -18,7 +18,7 @@ nomenclature_realm: 'fractals (barnsley, cantor, dragon, julia, koch, mandelbrot
 
 ## Open threads
 
-- **Future-phase 0107 propagation** (next /oracle session, selena scope): translate Doctrine 0107 into operational appdev assertions — author `kingdom_council_reflection_rubric.md`, wire reflection-check into /knock pre-execution gate, possibly draft Doctrine 0108 ("appdev recommendations carry council DNA").
+- **Future-phase 0107 propagation** (next /oracle session, selena scope): translate Doctrine 0107 into operational appdev assertions — author `codebase_council_reflection_rubric.md`, wire reflection-check into /knock pre-execution gate, possibly draft Doctrine 0108 ("appdev recommendations carry council DNA").
   - **Pre-existing untracked dirs/files at council root** (post-barnsley seal): `arriba/`, `sketch/`, `flow/exemplars.md`, `flow/ladder.md`, `flow/shapes.md` — still untracked.
   - **Pre-existing modified files NOT part of Sunset pass** (surfaced by barnsley AAR): `README.md`, `flow/doctrine.md`, `flow/lessons.md`, `flow/showcase.md`, `flow/tools-register.md`, `skillz/_src/council-map.md` — deserve their own scoped commit by their own oracle.
 

@@ -1,14 +1,14 @@
 ---
 name: portal
-description: "🏛️ Portal — Kingdom daily surface curator. Owns iOS PWA contract, portal card doctrine, and nav-metaphor for alpha.test. Invoke for: PWA audit, Today's Moves, realm card schema, navigation doctrine. Read-only over portal HTML/JS; mutates only its own knowledge base."
+description: "🏛️ Portal — codebase daily surface curator. Owns iOS PWA contract, portal card doctrine, and nav-metaphor for alpha.test. Invoke for: PWA audit, Today's Moves, realm card schema, navigation doctrine. Read-only over portal HTML/JS; mutates only its own knowledge base."
 argument-hint: "[doctrine | audit | prioritize | nav | pwa-check | new-card <slug>]"
 ---
 
-# 🏛️ portal — Kingdom Daily Surface Curator
+# 🏛️ portal — codebase Daily Surface Curator
 
-*The portal is where the veil between Dan and the kingdom is thinnest. This skill owns its doctrine.*
+*The portal is where the veil between Dan and the codebase is thinnest. This skill owns its doctrine.*
 
-> **Sits beside:** `alpha.test` (the kingdom portal at `/Users/verdey/Documents/Claude/Projects/index.html`) and `manifest.json`. This skill is the conversational surface for portal doctrine — Dan can ask "is the PWA contract intact?" or "what card should I add next?" without context-switching to the repo.
+> **Sits beside:** `alpha.test` (the codebase portal at `/Users/verdey/Documents/Claude/Projects/index.html`) and `/api.php?action=realms` (the live realm-cards endpoint that replaced the retired `api.php?action=realms`). This skill is the conversational surface for portal doctrine — Dan can ask "is the PWA contract intact?" or "what card should I add next?" without context-switching to the repo.
 
 ---
 
@@ -16,14 +16,14 @@ argument-hint: "[doctrine | audit | prioritize | nav | pwa-check | new-card <slu
 
 `/portal` is a **knowledge-curated skill** in the spirit of `/flow` and `/skillz`. It owns:
 
-1. The **portal doctrine** — three-layer kingdom architecture, card schema, invariants (`doctrine.md`)
+1. The **portal doctrine** — three-layer codebase architecture, card schema, invariants (`doctrine.md`)
 2. The **PWA contract** — iOS-first invariants the portal must maintain (`pwa-contract.md`)
 3. The **nav metaphor** — N/S/E/W/Z navigation doctrine, post-Wave-3 `/sketch` outcome (`nav-metaphor.md`)
 4. The **priority rubric** — how portal renders `/triage` output (`priority-rubric.md`)
 5. An **audit rubric** — drift checks for the `audit` modality (`_src/audit-rubric.md`)
 6. A curated **lessons** log captured over time (`lessons.md`)
 
-Read-only over the portal surface (`index.html`, `manifest.json`, `sw.js`, icons). The only files this skill mutates are its own knowledge files.
+Read-only over the portal surface (`index.html`, `api.php` realms endpoint, `sw.js`, icons). The only files this skill mutates are its own knowledge files.
 
 ---
 
@@ -34,11 +34,11 @@ Parse `$ARGUMENTS`. The first word is the modality. If `$ARGUMENTS` is empty, re
 | Modality | Invoke | What it does |
 |----------|--------|--------------|
 | Doctrine | `/portal doctrine` | Reads `doctrine.md` — three-layer architecture, invariants, card schema. |
-| Audit | `/portal audit` | Checks `index.html` + `manifest.json` against `_src/audit-rubric.md`. Returns punch list. |
+| Audit | `/portal audit` | Checks `index.html` + `api.php?action=realms` against `_src/audit-rubric.md`. Returns punch list. |
 | Prioritize | `/portal prioritize` | Reads `/triage`'s `_state/today.json` and renders a Today's Moves summary. |
 | Nav | `/portal nav` | Reads `nav-metaphor.md` — the N/S/E/W/Z navigation binding doctrine. |
 | PWA-check | `/portal pwa-check` | Runs `bin/check-pwa.sh` and surfaces the result. |
-| New card | `/portal new-card <slug>` | Guides Dan through adding a new realm card to `manifest.json`. |
+| New card | `/portal new-card <slug>` | Guides Dan through adding a new realm card to `api.php?action=realms`. |
 
 ### Bare invocation: Interactive menu
 
@@ -52,7 +52,7 @@ When `$ARGUMENTS` is empty, render this menu and wait for selection:
    3. Prioritize   — render Today's Moves from /triage output
    4. Nav          — N/S/E/W/Z navigation metaphor doctrine
    5. PWA-check    — run check-pwa.sh + surface results
-   6. New card     — add a realm card to manifest.json
+   6. New card     — add a realm card to api.php?action=realms
 
 Reply with a number, a name, or a sentence ("audit the portal").
 ```
@@ -69,7 +69,7 @@ Read `~/.claude/skills/portal/doctrine.md` and emit it. Do not paraphrase. If th
 
 ### 2. Audit
 
-Read `~/.claude/skills/portal/_src/audit-rubric.md`. For each check, verify actual file state (read `index.html`, `manifest.json`, `api.php` as needed). Return a two-column result:
+Read `~/.claude/skills/portal/_src/audit-rubric.md`. For each check, verify actual file state (read `index.html`, `api.php?action=realms`, `api.php` as needed). Return a two-column result:
 
 | Check | Status |
 |-------|--------|
@@ -101,7 +101,7 @@ Guided three-step flow:
 
 1. Ask Dan for `slug`, `title`, `blurb`, and `href` (use `AskUserQuestion`).
 2. Show the proposed JSON entry and confirm before writing.
-3. On greenlight: append entry to `manifest.json`, run `bin/refresh-manifest.sh`, confirm the card appears in portal.
+3. On greenlight: append entry to the `REALM_SEEDS` const in `api.php` (above `collect_realms()`), reload `alpha.test`, confirm the card appears in portal.
 
 ---
 
@@ -132,10 +132,11 @@ When at a non-informational crossroads, render per [`_shared/genius-mode-protoco
 - [`_src/audit-rubric.md`](_src/audit-rubric.md) — drift checks for `audit` modality
 - [`lessons.md`](lessons.md) — curated insights over time
 - [`bin/check-pwa.sh`](bin/check-pwa.sh) — PWA scaffolding auditor (authored Wave 2)
+- [`kind_rules.yaml`](kind_rules.yaml) — curated rules consumed by `api.php::classify_kind()` to derive each realm's `kind` field. Edit here to add/modify kinds; no `api.php` change needed.
 
 ## Source-of-truth references (external)
 
 - `/Users/verdey/Documents/Claude/Projects/index.html` — the portal
-- `/Users/verdey/Documents/Claude/Projects/manifest.json` — realm registry
+- `/Users/verdey/Documents/Claude/Projects/api.php?action=realms` — realm registry
 - `/Users/verdey/Documents/Claude/Projects/api.php` — flow surface grep server
 - `http://alpha.test` — live Herd URL

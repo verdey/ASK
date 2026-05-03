@@ -1,12 +1,12 @@
 ---
 name: triage
-description: "📋 Triage — Daily prioritization curator. Computes today's top moves from kingdom signals: stalled flows, overdue backlogs, blueprint drift, active roster. Owns the priority rubric and signal-source registry. Read-only over kingdom substrate; mutates only its own knowledge base."
+description: "📋 Triage — Daily prioritization curator. Computes today's top moves from codebase signals: stalled flows, overdue backlogs, blueprint drift, active roster. Owns the priority rubric and signal-source registry. Read-only over codebase substrate; mutates only its own knowledge base."
 argument-hint: "[today | rubric | sources | snapshot | review-yesterday]"
 ---
 
 # 📋 triage — Daily Prioritization Curator
 
-*The kingdom has signals. Triage reads them all and tells you what matters today.*
+*The codebase has signals. Triage reads them all and tells you what matters today.*
 
 > **Sits beside:** `portal/priority-rubric.md` (how the portal renders this output) and `_shared/impact-easiness-rubric.md` (the ranking system applied to selected moves). Triage computes; portal renders.
 
@@ -14,14 +14,14 @@ argument-hint: "[today | rubric | sources | snapshot | review-yesterday]"
 
 ## What this skill is
 
-`/triage` is a **knowledge-curated skill** that owns the kingdom's daily prioritization logic. It holds:
+`/triage` is a **knowledge-curated skill** that owns the codebase's daily prioritization logic. It holds:
 
 1. The **priority rubric** — weighted signal sources and how they combine into ranked moves (`rubric.md`)
 2. The **signal sources registry** — every path triage reads, its freshness rule, and null behavior (`sources.md`)
 3. A **state file** — today's computed moves, written each run, read by portal (`_state/today.json`)
 4. A curated **lessons** log — patterns from `review-yesterday` modality (`lessons.md`)
 
-Read-only over all kingdom substrate. The only files this skill mutates are its own knowledge files and `_state/today.json`.
+Read-only over all codebase substrate. The only files this skill mutates are its own knowledge files and `_state/today.json`.
 
 ---
 
@@ -44,7 +44,7 @@ When `$ARGUMENTS` is empty, render this menu and wait for selection:
 ```
 📋 /triage — pick a modality:
 
-   1. Today           — compute today's top moves from kingdom signals
+   1. Today           — compute today's top moves from codebase signals
    2. Rubric          — how priority is computed (the weight logic)
    3. Sources         — signal source registry + freshness rules
    4. Snapshot        — read today.json without recomputing
@@ -81,7 +81,7 @@ Write result to `~/.claude/skills/triage/_state/today.json`:
 }
 ```
 
-When move cards reference any web surface, read [`../ask/_src/surface-doctrine.md`](../ask/_src/surface-doctrine.md) — the `.test` surface map — to link the right URL as the live entry point (e.g. `http://alpha.test` for kingdom entry, `http://flow-queue.test` when a flow run is active).
+When move cards reference any web surface, read [`../ask/_src/surface-doctrine.md`](../ask/_src/surface-doctrine.md) — the `.test` surface map — to link the right URL as the live entry point (e.g. `http://alpha.test` for codebase entry, `http://flow-queue.test` when a flow run is active).
 
 Render moves in this format:
 
@@ -119,7 +119,7 @@ Read `~/.claude/skills/triage/_state/today.json` and render it in the same forma
 
 ## Operational rules
 
-- **Read-only over all kingdom substrate.** Never write to realm directories, LOBs, or flow state. The only write path is `_state/today.json` and `lessons.md`.
+- **Read-only over all codebase substrate.** Never write to realm directories, LOBs, or flow state. The only write path is `_state/today.json` and `lessons.md`.
 - **Freshness-first.** Never use a signal source if it hasn't been touched in > 30 days — flag as dormant in the output.
 - **Triage computes, portal renders.** Do not add display logic here; the portal contract lives in `portal/priority-rubric.md`.
 - **Impact-easiness is the ranking tiebreaker.** When two signals have equal weight, rank the higher `[I E]` badge first. Rubric in `_shared/impact-easiness-rubric.md`.

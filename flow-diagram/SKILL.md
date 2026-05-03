@@ -1,0 +1,155 @@
+---
+name: flow-diagram
+description: Render the steps of a directory under `Flows/` as a boxed-ascii flow diagram, with a three-state line vocabulary (solid = found on disk, dotted = canonical-in-blueprint-but-missing-here, dash-dot = recommended adjustment). Use whenever Dan says "diagram this flow", "render the flow", "show me the steps of <flow>", "what's missing from <flow> vs the blueprint", or otherwise asks to visualize the shape of a flow directory. Also fires when reconciling a flow against `_flow-blueprint`. Inline ascii only — no HTML surface yet.
+---
+
+# 🌊📐 flow-diagram
+
+Render a flow directory as a boxed-ascii diagram and reconcile it against the blueprint, in one pass.
+
+## Charter
+
+Dan keeps flows under `/Users/verdey/Documents/Claude/Projects/Flows/`. The canonical exemplar is `Flows/_flow-blueprint/`; everything else is a derivative. This skill takes a target dir, walks its `processes/`, and renders the shape as ascii — with line styling that encodes **state**, not just structure:
+
+| State | Line style | Meaning |
+|---|---|---|
+| **found** | solid (`─` `│` `┌┐└┘`) | step exists on disk in the target dir |
+| **blueprint-missing** | medium-dotted (`┄` `┆`) | step exists in `_flow-blueprint/processes/` but NOT in the target |
+| **recommended** | long-dash-dot (`┈` `┊` with `·` accents) | step Claude proposes adding based on topic+goal gap analysis |
+
+Corners stay solid (`┌ ┐ └ ┘`) regardless of edge state — corners anchor the eye; edges carry the signal.
+
+## The three-step process
+
+### Step 1 — Confirm and curate Topic
+
+Before walking anything, lock these three with Dan (one terse turn — don't ceremony it):
+
+- **Related Flows** — sibling dirs under `Flows/` that this flow references, depends on, or derives from. If target IS `_flow-blueprint`, mark it as such; the blueprint has no related flows above it.
+
+Format:
+```
+Topic: <Title>
+Goal:  <one line>
+Kin:   <flow-A>, <flow-B>   (or "— blueprint, no kin")
+```
+
+
+### Step 2 — Walk and render
+
+Walk `<target>/processes/` in lexical order (the `0100-`, `0200-` numeric prefix is the canonical sort).
+
+**Classify each entry:**
+- subdir contains `index.html` → **subflow** (subprocess) — render as a nested block hanging off the mainline
+- subdir contains `step.html` (no `index.html`) → **step** — solid box on the mainline
+- subdir with neither → **step** — solid box on the mainline (assumed step per Dan's rule)
+- non-dir files (`README.md`, etc.) → ignore
+
+**Diff against `_flow-blueprint/processes/`:**
+- Step in target but not blueprint → **found** (solid). Fine — derivatives can extend.
+- Step in blueprint but not target → **blueprint-missing** (medium-dotted). Render in its sorted position even though absent on disk.
+- Step in both → **found** (solid).
+- If target IS `_flow-blueprint`, skip the diff — every step is **found** by definition.
+
+**Recommended adjustments** are gap-analysis proposals. After classification, scan for:
+- topic/goal mentions a phase that has no corresponding step (e.g. goal says "deliver to client" but no `*-deliver` step exists)
+- kin flows have a step pattern this one is missing (e.g. all sibling deals-flows have `*-followup` and this one doesn't)
+- blueprint-missing steps that the topic+goal make especially load-bearing
+
+Render recommendations as **dash-dot** boxes inserted at their proposed sort position. Cap at **3 recommendations** — this is gap-flagging, not a wishlist.
+
+**Shape detection — pipeline vs fan-out:**
+
+- `<target>/processes/` exists → **pipeline** (sequential steps; the canonical case).
+- `<target>/processes/` absent AND children dirs each have `index.html` → **fan-out** container (e.g. `Roster/`). Render with the compact fan-out form below; skip blueprint diff (containers aren't blueprint derivatives — point at leaf flows for diffs).
+- Neither → ask Dan whether to treat children as steps or decline.
+
+**Fan-out render (compact tree form):**
+
+
+```
+Roster ─┬─▶ Amber     (wholesaling / full)
+        ├─▶ Barry     (land / investor)
+        ├─▶ Caroline  (wholesaling / pipeline-only)
+        ├─▶ Chance    (land + boats / full)
+        └─▶ Dan       (all / full)
+```
+
+Each child is its own flow — to reconcile a child against the blueprint, run `/flow-diagram` on `<target>/<child>/` directly.
+
+**Pipeline render — boxed-ascii grid (variant #6):**
+
+Mainline runs left-to-right, snake-wrapping at ~3 boxes per row. Subflows drop vertically off their parent step. Example shape:
+
+```
+┌────────────┐   ┌────────────┐   ┌╌╌╌╌╌╌╌╌╌╌╌╌┐
+│ 0100       │──▶│ 0200       │──▶┆ 0250       ┆──┐
+│ discover   │   │ stitch     │   ┆ validate   ┆  │   ← dotted = blueprint-missing
+└────────────┘   └────────────┘   └╌╌╌╌╌╌╌╌╌╌╌╌┘  │
+                                                  ▼
+                                  ┌────────────────┐
+                                  │ sub-A          │   ← subflow (has index.html)
+                                  │ • normalize    │
+                                  │ • dedupe       │
+                                  └────────┬───────┘
+                                           │
+┌────────────┐   ┌────────────┐   ┌────────▼───┐
+│ 0500       │◀──│ 0400       │◀──│ 0300       │
+│ deliver    │   │ verify     │   │ execute    │
+└────────────┘   └────────────┘   └────────────┘
+                       │
+                  ┌┈┈┈┈▼┈┈┈┈┈┈┈┐
+                  ┊ 0450        ┊                   ← dash-dot = recommended
+                  ┊ followup    ┊
+                  └┈┈┈┈┈┈┈┈┈┈┈┈┘
+```
+
+Snake-wrap turns alternate direction (▶ then ◀) — the connector at the row turn is a vertical drop on the right, then the next row reads right-to-left. Keep box width consistent within a render (12-14 chars inner is comfortable).
+
+After the diagram, append a **legend**:
+```
+─ found    ┄ blueprint-missing    ┈·┈ recommended
+```
+
+### Step 3 — Reconcile interactively
+
+Below the diagram, list **only** the dotted and dash-dot boxes as a numbered ledger:
+
+```
+Adjustments:
+  1. ┄ 0250 validate         (in blueprint, missing here)
+  2. ┄ 0600 render-index     (in blueprint, missing here)
+  3. ┈ 0450 followup         (recommended — kin flows all have it)
+
+Reply with numbers to promote (e.g. "1 3" or "all" or "none").
+```
+
+On Dan's reply:
+- **Promote** = create the dir under `<target>/processes/` with the canonical numbered name. For blueprint-missing, copy the structure from `_flow-blueprint/processes/<step>/` (README.md + step.html or index.html as found). For recommended, scaffold a minimal `README.md` stub with H1 = step title and a placeholder `## Goal:`.
+- After promotion, re-render the diagram with the promoted boxes now **solid**, and re-run Step 3 if any adjustments remain unaddressed.
+- "none" exits cleanly with no changes.
+
+Do NOT promote anything Dan didn't pick. Do NOT silently skip — if a promotion fails (path collision, permissions), surface it before continuing.
+
+## Rules
+
+- **Inline ascii only.** No HTML surface yet — Dan flagged that as later work.
+- **Corners are always solid.** Only horizontal/vertical edges carry the state signal. Mixed-state corners read as noise.
+- **3-recommendation cap.** More than that and the ledger becomes a wishlist instead of a focus list.
+- **Lexical sort by numeric prefix.** `0100-`, `0150-`, `0200-` — that's the canonical order. Don't editorialize.
+- **Target must live under `Flows/`.** If Dan points at something outside that root, ask before proceeding — the blueprint diff only makes sense for kin flows.
+- **Promotion is the only side effect.** Walking, diffing, and rendering touch nothing on disk. Only Step 3's "promote" verbs create dirs/files.
+
+## Why this skill exists
+
+Flows accumulate drift from the blueprint — derivatives evolve, blueprint evolves, and the gap is invisible until you grep both. Rendering the gap visually (dotted = canonical-but-missing, dash-dot = recommended) makes drift legible in one glance, and the interactive ledger closes the loop without ceremony. This is the codebase's "interfaces close their own loops" Surface Plane edict applied to the flow doctrine layer.
+
+Composes with [`/flow`](../flow/SKILL.md) (which curates blueprint doctrine) and [`/sketch`](../sketch/SKILL.md) (which produced the boxed-ascii style #6 this skill renders in). Sister to neither — flow-diagram is the **render+reconcile** vessel between them.
+
+## Files
+
+| File | Role |
+|------|------|
+| `SKILL.md` | This file. |
+
+(Lean by design. The walk is `ls`, the diff is set-comparison, the render is string assembly. No bundled scripts needed yet — if Step 2's walk grows expensive, lift it into a `scripts/walk.py` helper. Not before.)

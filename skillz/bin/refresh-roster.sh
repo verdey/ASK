@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # refresh-roster.sh — scan ~/.claude/skills/*/SKILL.md, write roster.md
-# Mirrors the kingdom's refresh-manifest.sh pattern, applied to skills.
+# Mirrors the codebase's refresh-manifest.sh pattern, applied to skills.
 # KISS: pure bash + python3 (stdlib only). No deps to install.
 
 set -euo pipefail

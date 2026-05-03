@@ -1,6 +1,6 @@
 # 🌊 The 5 Shapes — `realize` Taxonomy
 
-*Session-resumption documentation patterns observed across the Kingdom. Each shape names a recurring genre of prose that wants to graduate into living code.*
+*Session-resumption documentation patterns observed across the codebase. Each shape names a recurring genre of prose that wants to graduate into living code.*
 
 When `/flow realize <path>` walks a realm, it scans for `HANDOFF.md`, `_PAUSE_*.md`, `_BACKLOG.md`, `RESUME*.md`, `SESSION*.md`, oversized `CLAUDE.md`, and `_CONVENTIONS.md`. Each match is classified into one of these five shapes.
 

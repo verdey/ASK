@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# echo-log — persist a council override choice to the kingdom feedback ledger
+# echo-log — persist a council override choice to the codebase feedback ledger
 # Usage: echo-log --skill <name> --rec <id> --override <code> [--annotation <text>]
 # Schema: {ts, skill, recommendation, override_code, annotation, accepted_alternatives}
 # Output: one JSON line appended to Tooling/echo/_data/overrides.jsonl
 
 set -euo pipefail
 
-KINGDOM_ROOT="/Users/verdey/Documents/Claude/Projects"
-OUTPUT_DIR="${KINGDOM_ROOT}/Tooling/echo/_data"
+CODEBASE_ROOT="/Users/verdey/Documents/Claude/Projects"
+OUTPUT_DIR="${CODEBASE_ROOT}/Tooling/echo/_data"
 OUTPUT_FILE="${OUTPUT_DIR}/overrides.jsonl"
 
 skill=""

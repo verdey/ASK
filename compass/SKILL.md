@@ -14,7 +14,7 @@ argument-hint: "[doctrine | bind | gestures | aria | adopt <surface>]"
 
 ## What this skill is
 
-`/compass` is a **knowledge-curated skill** that owns the directional navigation primitive for the kingdom. It covers:
+`/compass` is a **knowledge-curated skill** that owns the directional navigation primitive for the codebase. It covers:
 
 1. The **doctrine** — the canonical N/S/E/W/Z spatial metaphor and its axis logic (`doctrine.md`)
 2. The **gesture matrix** — iOS Safari + macOS Chrome touch and keyboard event mappings (`gestures.md`)

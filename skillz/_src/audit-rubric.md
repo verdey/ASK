@@ -22,7 +22,7 @@ From the existing Oracle doctrine ("📚 Teacher sensing" — `/Users/verdey/.cl
 
 | Signal | Direction |
 |--------|-----------|
-| Pattern repeats across 3+ projects in the kingdom | CREATE skill |
+| Pattern repeats across 3+ projects in the codebase | CREATE skill |
 | Work is decision-framework, methodology, or orchestration template | CREATE skill |
 | User describes work as "a way I want to approach X going forward" | CREATE skill |
 | Proposed app is mostly prompts, rules, or routing logic | CREATE skill |

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Audits PWA scaffolding at kingdom root against pwa-contract.md invariants.
+# Audits PWA scaffolding at codebase root against pwa-contract.md invariants.
 # Exit 0 = all pass. Exit 1 = punch list printed.
 set -uo pipefail
 

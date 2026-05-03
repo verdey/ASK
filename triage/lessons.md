@@ -7,9 +7,8 @@ Patterns from `review-yesterday` cycles captured over time. Each entry is dated,
 
 ---
 
-## 2026-04-28 — Stalled flow runs outweigh blueprint drift in early kingdom (Arc-3 closeout)
+## 2026-04-28 — Stalled flow runs outweigh blueprint drift in early codebase (Arc-3 closeout)
 
-**Rule:** When ranking Today's Moves, `stalled flow run` (a flow that had a trigger click but exited non-zero or produced no omega) ranks above `blueprint drift` (a flow whose `init.md` footer shows a stale last-synced date). Runs are ground-truth signals; drift is structural.
 
 **Why:** Arc-3's lyra moment (2026-04-28T19:06) — a run click on `Income-Land-Deal-Search` failed at pre-flight and exposed the LLM-emits-80KB ceiling. That single failure spawned the entire S1-heal arc. Drift would have been a quieter signal that wouldn't have unblocked anything.
 

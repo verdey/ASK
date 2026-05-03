@@ -7,7 +7,7 @@
 
 ## Purpose
 
-Defines how `/triage today` converts kingdom signals into a ranked move list. Each signal source has a weight tier. Signals within a tier are ordered by their Impact-Easiness badge (see `_shared/impact-easiness-rubric.md`).
+Defines how `/triage today` converts codebase signals into a ranked move list. Each signal source has a weight tier. Signals within a tier are ordered by their Impact-Easiness badge (see `_shared/impact-easiness-rubric.md`).
 
 ---
 
@@ -25,7 +25,7 @@ Defines how `/triage today` converts kingdom signals into a ranked move list. Ea
 
 **Null behavior:** if no stalled flows, skip tier entirely.
 
-**Why this is Tier 1:** A stalled flow is actively blocking — it may be holding a lock, consuming memory, or blocking downstream steps. It cannot self-resolve. This is the kingdom's most concrete blocker.
+**Why this is Tier 1:** A stalled flow is actively blocking — it may be holding a lock, consuming memory, or blocking downstream steps. It cannot self-resolve. This is the codebase's most concrete blocker.
 
 ---
 
@@ -47,9 +47,7 @@ Defines how `/triage today` converts kingdom signals into a ranked move list. Ea
 
 ### Tier 3 — Blueprint drift `[I⬆ E⬆]` (weight: 60)
 
-**Definition:** A flow's `init.md` has a `## Blueprint reference` block with `Last synced` date > 30 days ago, OR `/flow audit` of the flow returns tier < Canonical.
 
-**Source:** Walk `Finance/Income/Flows/LOBs/*/init.md` and `Live/*/init.md` for `Last synced` dates. Compare against `_flow-blueprint/` CHANGELOG mtime.
 
 **Signal extract:** flow name + days since last sync + tier gap
 

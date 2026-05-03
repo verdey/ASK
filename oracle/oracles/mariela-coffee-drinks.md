@@ -19,7 +19,7 @@ nomenclature_realm: 'coffee-drinks (americano, cappuccino, cortado, doppio, espr
 
 - **Seven candidate lessons** pending `/flow curate-batch` (4 audit + 2 from Waves 1–2 + 1 from Wave 3 — *labeled exclusions surface their own omissions*).
   - **CLAUDE.md stack drift:** stack table still reads `html.parser`; should read `pup` + Python 3 + mention `excluded.html` companion artifact.
-  - **No git repo at realm** — kingdom-level git init is the unblocking move if Dan wants 4-wave commit history.
+  - **No git repo at realm** — codebase-level git init is the unblocking move if Dan wants 4-wave commit history.
   - **SC8 (live meta-kind override)** deferred as optional — grep parses cleanly (SC7 ✓); end-to-end live test needs a placed source HTML.
 
 ## Notes

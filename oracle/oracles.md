@@ -1,9 +1,9 @@
 # 🔮 Oracle Registry
 
-The kingdom-wide ledger of named Oracles. Each oracle is a markdown shard with
+The codebase-wide ledger of named Oracles. Each oracle is a markdown shard with
 YAML frontmatter, stored at `oracles/<name>.md`.
 
-**Surface:** <http://oracles.test/roster.php> (Roster tab).
+**Surface:** <http://oracle.test/roster.php> (Roster tab).
 
 **Schema:** see `_src/protocol.md` § Registry Format.
 

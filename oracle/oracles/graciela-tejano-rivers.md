@@ -1,10 +1,12 @@
 ---
 name: graciela
 realm: tejano-rivers
-status: active
+status: paused
 born: '2026-04-29T(now)-04:00'
-last_touched: '2026-04-29T23:30-04:00 (nueces dispatched: cascade-fill brief written for Sonnet 4.6 — pdftk→pymupdf→reportlab→companion ladder, every tier signable; reorients Flow A from extraction to fill-and-ship; brief at _session-graciela-nueces-cascade-fill.md; gate 🔓 ready post-WLM-relocation under Roster/Chance/LOBs/) Prior 2026-04-29T22:00: frio gate flipped 🔓 ready for tight resume — one missing artifact: _outputs/close-out-checklist.md; llano brief stale refs patched: guadalupe→frio, Jack→Hood. Prior 2026-04-29T12:30: MIGRATED TO CONTROLLER-MODE. Disk-verified all prior thread states; neches ✓ shipped 318KB. Prior 2026-04-29T11:50: deck mid-resolution — Card 2 + Card 3 ✓ resolved; Card 1 open. Prior 2026-04-29T10:50: brazos + colorado both ✓ shipped — Hood resolved, form-lineage reframed.'
+arc_sealed: '2026-04-30T15:50:00-04:00'
+last_touched: '2026-04-30T15:50:00-04:00 (⏸ ARC SEALED by glass — all 6 children ✓ shipped; WLM-AgValuation LOB built end-to-end; pymupdf adopted as codebase default; FOR-CHANCE PDFs delivered. Re-birth fresh oracle for next year cycle.)'
 project_scope: '/Users/verdey/Documents/Claude/Projects/Finance/Income/Flows/Roster/Chance/LOBs/WLM-AgValuation (Workflow LOB — Texas 1-D-1 Wildlife Management ag-valuation flow for Chance Kite, **Hood County**, Lipan tract on FM1189; relocated 2026-04-29 from Flows/LOBs/ to Roster/Chance/LOBs/ per miguel-mapped move)'
+parent_plan: /Users/verdey/.claude/plans/create-flow-for-chance-groovy-spark.md
 nomenclature_realm: 'tejano-rivers (brazos, colorado, frio, guadalupe, llano, neches, nueces, pecos, red, sabine, trinity)'
 ---
 

@@ -8,13 +8,13 @@
 
 ## Purpose
 
-The kingdom portal is an **iOS home-screen app**. Dan launches it from the iPhone home screen via the Apple Web Clip mechanism. Any drift from this contract breaks that entry point. The contract below is the authoritative list of invariants `bin/check-pwa.sh` enforces.
+The codebase portal is an **iOS home-screen app**. Dan launches it from the iPhone home screen via the Apple Web Clip mechanism. Any drift from this contract breaks that entry point. The contract below is the authoritative list of invariants `bin/check-pwa.sh` enforces.
 
 ---
 
 ## Invariant 1 — Web App Manifest
 
-**File:** `manifest.webmanifest` at kingdom root.
+**File:** `manifest.webmanifest` at codebase root.
 
 **Requirements:**
 - File exists and is valid JSON.
@@ -28,7 +28,7 @@ The kingdom portal is an **iOS home-screen app**. Dan launches it from the iPhon
 
 ## Invariant 2 — Service Worker
 
-**File:** `sw.js` at kingdom root.
+**File:** `sw.js` at codebase root.
 
 **Requirements:**
 - File exists and is valid JavaScript (no parse errors).
@@ -37,7 +37,7 @@ The kingdom portal is an **iOS home-screen app**. Dan launches it from the iPhon
   navigator.serviceWorker.register('/sw.js')
   ```
 - The service worker has an `install` handler that caches the offline fallback (`offline.html`).
-- `offline.html` exists at kingdom root.
+- `offline.html` exists at codebase root.
 
 **Why:** Without a registered service worker, the app cannot launch offline. iOS will show a blank screen if the network is unavailable and no service worker intercepts.
 
@@ -45,7 +45,7 @@ The kingdom portal is an **iOS home-screen app**. Dan launches it from the iPhon
 
 ## Invariant 3 — Icons
 
-**Required files** (all in `icons/` at kingdom root):
+**Required files** (all in `icons/` at codebase root):
 
 | File | Dimensions | Purpose |
 |------|-----------|---------|
@@ -67,7 +67,7 @@ The kingdom portal is an **iOS home-screen app**. Dan launches it from the iPhon
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Kingdom">
+<meta name="apple-mobile-web-app-title" content="codebase">
 <meta name="theme-color" content="#<hex>">
 ```
 

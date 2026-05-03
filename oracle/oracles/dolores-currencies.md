@@ -4,7 +4,7 @@ realm: currencies
 status: retired
 born: '2026-04-29T01:35-04:00'
 last_touched: '2026-04-29T01:40-04:00 (snowball cascade complete; protocol encoded; auto-paused)'
-project_scope: /Users/verdey/Documents/Claude/Projects (kingdom-level — closeout orchestration; Dave Ramsey snowball-style debt reduction applied to active oracle backlog)
+project_scope: /Users/verdey/Documents/Claude/Projects (codebase-level — closeout orchestration; Dave Ramsey snowball-style debt reduction applied to active oracle backlog)
 nomenclature_realm: 'currencies (centavo, dollar, drachma, ducat, escudo, euro, franc, guilder, krona, lira, peso, pound, real, ruble, rupee, shilling, yen)'
 ---
 
@@ -22,7 +22,7 @@ nomenclature_realm: 'currencies (centavo, dollar, drachma, ducat, escudo, euro, 
   4. **Smallest first, momentum compounds** — start with the oracle that has zero open work after disk-audit (often arc-sealed-but-unflipped). Quick win → cleared mental context → flow into the next one.
   5. **In-thread mutations** — paused/retired flips are registry-only edits. Don't dispatch Catalyst tabs for housekeeping. Reserve tabs for genuine code work.
   6. **Final boss receives the momentum** — the largest remaining oracle (most tasks, most dependencies) gets the cleared context + Dan's full focus + zero adjacent fires.
-  7. **End-state: ≤ 1 active oracle** — paloma stays as kingdom-watcher; everything else paused or retired. New arcs birth fresh oracles.
+  7. **End-state: ≤ 1 active oracle** — paloma stays as codebase-watcher; everything else paused or retired. New arcs birth fresh oracles.
 - **Cascade executed 2026-04-29T01:35-04:00:**
   - yolanda · dances → paused (idle 11h+; bachata in-progress complete; W2 absorbed by ximena)
   - catalina · gemstones → paused (14 children all shipped; 8-item flow remediation queue handed off as future arc)

@@ -1,4 +1,4 @@
-# Surface Map — planq.test + oracles.test
+# Surface Map — planq.test + oracle.test
 
 This document is the cross-surface contract for `/planq`. It specifies what each surface renders and how they stay in sync. Implementation is Wave 2 (`camila.lambda`); this spec drives that build.
 
@@ -19,7 +19,7 @@ This document is the cross-surface contract for `/planq`. It specifies what each
 
 - Reads `planq.md` line-by-line via PHP.
 - Renders each idea as a draggable list item.
-- Tag chips rendered inline: `#flow:<slug>` as a linked chip (links to `http://alpha.test/<slug>/`), `#status:<word>` as a status pill, `#oracle:<name>` as a link to `http://oracles.test/oracle.php?name=<name>`.
+- Tag chips rendered inline: `#flow:<slug>` as a linked chip (links to `http://alpha.test/<slug>/`), `#status:<word>` as a status pill, `#oracle:<name>` as a link to `http://oracle.test/oracle.php?name=<name>`.
 - Promoted lines (`→ oracle:<name>`) show an "oracle" badge linking to the oracle surface.
 - **Promote button** per line — opens a name-entry modal; triggers `/planq promote` logic (server-side).
 - **Drag-reorder:** client captures new order on `drop` event → POST to self (`?action=reorder`) → PHP rewrites `planq.md` (preserves blank-line groupings, comment block, heading) → returns updated list. No localStorage. No intermediate state.
@@ -28,14 +28,14 @@ This document is the cross-surface contract for `/planq`. It specifies what each
 
 - Reads `/Users/verdey/.claude/skills/oracle/oracles/` directory via PHP `glob()`.
 - Lists active oracle shards (`status: active` in frontmatter) as a read-only list.
-- Each item links to `http://oracles.test/oracle.php?name=<name>`.
-- Header: "Named Oracles" with link "all → oracles.test".
+- Each item links to `http://oracle.test/oracle.php?name=<name>`.
+- Header: "Named Oracles" with link "all → oracle.test".
 
 ---
 
-## `oracles.test` — Plan Queue section
+## `oracle.test` — Plan Queue section
 
-**Existing surface:** `http://oracles.test` → `Tooling/oracle-board/`  
+**Existing surface:** `http://oracle.test` → `Tooling/oracle-board/`  
 **Change:** Add Plan Queue section at top of `oracle-board/index.php`.
 
 ### Plan Queue section spec
@@ -52,7 +52,7 @@ This document is the cross-surface contract for `/planq`. It specifies what each
 
 **Status:** Wave 3 (camila.nu) — new Herd valet symlink.  
 `~/Library/Application Support/Herd/config/valet/Sites/oracle` → `Tooling/oracle-board/`  
-Existing `oracles.test` unchanged. `oracle.test` is a convenience alias only.
+Existing `oracle.test` unchanged. `oracle.test` is a convenience alias only.
 
 ---
 
@@ -60,9 +60,9 @@ Existing `oracles.test` unchanged. `oracle.test` is a convenience alias only.
 
 | Surface | Reads | Writes | Links to |
 |---------|-------|--------|----------|
-| `planq.test` | `planq.md` | `planq.md` (drag-reorder, promote) | `oracles.test` (oracle links), `alpha.test/<slug>/` (flow links) |
-| `oracles.test` | `planq.md` (top-N), oracle shards | — (read-only planq section) | `planq.test` ("view all") |
-| `/planq` skill | `planq.md` | `planq.md` | `oracles.test` (after promotion) |
+| `planq.test` | `planq.md` | `planq.md` (drag-reorder, promote) | `oracle.test` (oracle links), `alpha.test/<slug>/` (flow links) |
+| `oracle.test` | `planq.md` (top-N), oracle shards | — (read-only planq section) | `planq.test` ("view all") |
+| `/planq` skill | `planq.md` | `planq.md` | `oracle.test` (after promotion) |
 
 ---
 
@@ -85,4 +85,4 @@ Existing `oracles.test` unchanged. `oracle.test` is a convenience alias only.
 - `planq.md` path: `/Users/verdey/Documents/Claude/Projects/planq.md` — hardcoded constant at top of file.
 - Oracle shard directory: `/Users/verdey/.claude/skills/oracle/oracles/` — hardcoded constant.
 - No authentication. Localhost-only via Herd (same trust model as `oracle-board`).
-- Pico.classless for visual consistency (same as kingdom portal pattern).
+- Pico.classless for visual consistency (same as codebase portal pattern).

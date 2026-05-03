@@ -17,7 +17,7 @@ Skill description in frontmatter no longer matches what its `_src/` actually con
 
 ### 3. Staleness
 - `mtime ≥ 90 days` on the SKILL.md → tag as `💤 dormant` in roster.
-- If dormant AND no recent reference in any kingdom AAR (`~/code/**/docs/sessions/_*.md`) → flag for retirement review:
+- If dormant AND no recent reference in any codebase AAR (`~/code/**/docs/sessions/_*.md`) → flag for retirement review:
 > Stale: `/<skill>` last touched <X>mo ago, no recent invocations. Confirm still in use or retire.
 
 ### 4. Vessel orphans

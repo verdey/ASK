@@ -8,8 +8,8 @@
 
 When any council vessel (Oracle, Catalyst, Teacher) re-delivers a flow surface file (`index.html`, dashboard, HUD card, regenerated artifact) for Dan to look at, the message must surface **two paths**:
 
-1. **Herd `*.test` URL** — clickable. Kingdom portal `alpha.test` → `~/Documents/Claude/Projects/`, so any kingdom file is reachable as `http://alpha.test/<path-from-kingdom>/`. Per-realm valets may exist (`flows.test`, `backlogs.test`, `runner.test`, etc.) — check `~/Library/Application Support/Herd/config/valet/Sites/` first.
-2. **Absolute filesystem path** — `/Users/verdey/Documents/Claude/Projects/...`. Never relative. The kingdom is large; relative paths force navigation, absolute paths are copy-paste targets.
+1. **Herd `*.test` URL** — clickable. codebase portal `alpha.test` → `~/Documents/Claude/Projects/`, so any codebase file is reachable as `http://alpha.test/<path-from-codebase>/`. Per-realm valets may exist (`flows.test`, `backlogs.test`, `runner.test`, etc.) — check `~/Library/Application Support/Herd/config/valet/Sites/` first.
+2. **Absolute filesystem path** — `/Users/verdey/Documents/Claude/Projects/...`. Never relative. The codebase is large; relative paths force navigation, absolute paths are copy-paste targets.
 
 **For non-surface files** (markdown briefs, source code, configs): absolute path only — markdown doesn't render usefully in browser; surface URL is reserved for HTML/CSS/JS artifacts that have visual presence.
 
@@ -32,7 +32,6 @@ When auditing a flow, "step exists but doesn't fit my mental model of the archet
 
 1. Read the step's `step.md` for its declared purpose.
 2. Check `docs/decisions/` for an ADR that introduced or justifies the step.
-3. Cross-reference parent flow's archetype declaration in its own `init.md` / `CLAUDE.md` — flows can declare themselves as archetype-with-variant.
 
 **Source flow:** `Income/Flows/_flow-navigator/` — audit flagged steps `05-harvest-inbox` and `06-notify` as orphan tail imported from workflow archetype. They are intentional: 05 is the Phase 3 co-creation write-back surface (see `docs/decisions/0002-co-creation-write-back.md`); 06 honors the Workflow LOB convention's notify slot and reserves design space for future push channels. Both are documented in step.md.
 
@@ -46,13 +45,10 @@ When auditing a flow, "step exists but doesn't fit my mental model of the archet
 
 ## 2026-04-27 — Flows can validly choose "main-pipeline-as-flowchart + processes/-as-SubFlow-sidecar" (session-id: 2026-04-27-flows-audit)
 
-A workflow LOB does **not** have to materialize its main pipeline as numbered step folders. A blessed variant: declare the canonical operational flow as a Mermaid flowchart in `init.md` + SOPs that codify each stage, while reserving `processes/` for **out-of-band SubFlows** that read from / write to the LOB but don't gate it.
 
-**Source flow:** `Income/Flows/LOBs/wholesaling/` — main pipeline (lead-capture → qualify → walk → offer → close) lives in init.md flowchart + SOPs (`docs/sop/qualified-lead.md`). `processes/` holds `intake-funnel/` and `amber-top-of-mind/` SubFlows that emit fragments for roster digest pages (per documented convention `processes/<roster-user>-<purpose>/`).
 
 **Why:** The acid-test rule ("`ls processes/` IS the order of the Flow") presumes one shape. But for LOBs where the main pipeline is **operational doctrine** (humans-and-SOPs) rather than **automated chain** (Claude-walks-the-tree), folder-shaping the main pipeline adds ceremony without leverage. The SubFlow pattern (`processes/<roster-user>-<purpose>/`) is the Flow-mechanism that *does* benefit from folder-shape.
 
-**How to apply:** Audit should recognize this variant when it sees: (a) init.md flowchart for the canonical flow, (b) `processes/` containing only SubFlow-shaped directories (not 0NNN-numbered), (c) `docs/sop/` codifying each main-pipeline stage. When detected, classify as "Workflow LOB / SubFlow-sidecar variant," not as "main pipeline missing."
 
 **Status:** promoted-2026-04-27 → `doctrine.md` "Workflow flow" archetype now carries two variants: (a) main-pipeline-as-flowchart + SubFlow-sidecar (this lesson), and (b) workflow with co-creation write-back tail (drawn from the navigator audit course-correction in the lesson above). Audit modality update to detect these variants is a separate SKILL.md edit, captured here for follow-up.
 
@@ -113,18 +109,14 @@ When `/oracle` writes a session brief that cites `bin/run-flow:154-197` or any o
 
 ---
 
-## 2026-04-28 — `init.md` as stable cache anchor across multi-step flows (session-id: 2026-04-28-flow-runner-llm-recon)
 
-The runner builds every step's LLM call with `init.md` as a stable prefix and the current step's content as the variable suffix. This is *the* reason `/flow` doctrine insists on every flow having a loud `init.md` — it's not just walk-test legibility, it's also the cache anchor that makes multi-step LLM walks economical.
 
 The exact cache mechanism is provider-specific:
 - Anthropic SDK supports explicit `cache_control: ephemeral` markers
 - OpenAI / OpenRouter rely on implicit content-prefix caching where supported
 - Other providers may have no caching at all
 
-The runner currently uses `openai` SDK → OpenRouter (not the Anthropic SDK; corrected from prior version of this lesson). It does NOT use `cache_control` markers because that's an Anthropic-specific primitive. It still benefits from prefix caching where the provider supports it, because `init.md` is structurally stable across steps in a single run.
 
-**How to apply:** `/flow streamline` should preserve `init.md` as a stable prefix across all step prompts. Drift in `init.md` per-run is a streamlining target — extract volatile parts into per-step `step.md`, restore `init.md` to stable doctrine. The provider-specific cache mechanism is downstream; the upstream invariant is "init.md doesn't change between steps in a run."
 
 **Status:** corrected-2026-04-28 — Wave 1b carmen.double-fisherman replaced erroneous "Anthropic SDK + cache_control: ephemeral" claim with provider-agnostic stable-context reasoning. Source: Wave 0 alpine-butterfly stage 0100 SDK-drift finding.
 
@@ -153,11 +145,9 @@ This is the seam the new `_meta-flow/` attaches to: stage 0200 (judge-quality) e
 - Prose→prompt conversion kept the elegance thesis inline (not as a separate field), maintaining skimmability while staying faithful
 
 **What was awkward (frictions to document as shape-decisions):**
-- The blueprint's sequential pipeline model (stage 0100 → 0200 → graduation gates) assumes linear dependencies. Catalogs have none — any entry is entry. Deviation: no `_graduation.md` files; `init.md` documents the selection-flow variant explicitly
 - Numbering convention: 4-digit prefixes (`0100-`, `0200-`) are overkill for fixed-count catalogs; 2-digit is more natural. Named for doctrine to evaluate formalizing
 - Elegance thesis absorbed into concept paragraph, not as its own field; trade-off is that future grep-based filtering can't target it directly (minor, not blocker)
 
-**Doctrine implication:** two recognized flow shapes now exist — pipeline (sequential stages with graduation gates) and catalog (N independent entries, selection-based entry, no gates). The blueprint template needs a catalog init.md variant and explicit numbering guidance. New modality: absorption is the act of converting a static prose document (oversized, >500 lines, with internal structure) into one of these flows.
 
 **Absorption trigger conditions:** Source document exhibits (a) consistent repeated structure across sections, (b) content map-ability to flow sections, (c) independent unit-of-work that doesn't require reading the whole document first.
 
@@ -166,7 +156,6 @@ This is the seam the new `_meta-flow/` attaches to: stage 0200 (judge-quality) e
 2. Decide: pipeline or catalog? (ask: are units sequential/dependent?)
 3. Map source fields → step.md sections faithfully (don't sand off structure for aesthetics)
 4. Re-voice cold-start specs into imperative "Build This" (don't just paste)
-5. Write init.md with selection-flow or pipeline-flow variant as appropriate
 6. Leave a pointer stub at source location; archive the original
 7. Write the recipe — learnings → future waves
 
@@ -236,7 +225,6 @@ The audit invocation that produced this batch worked unusually well. The shape:
 1. **Plan-mode-first.** Single Explore agent with a structured per-flow brief (goal / steps / coherence / tier / lag → score + biggest-gap-to-close). Output written as a plan file in `~/.claude/plans/`.
 2. **Risk-class flagging.** Recommendations bucketed by risk: additive (autonomous-execute) / destructive (confirm) / structural (confirm) / doctrine-divergent (confirm).
 3. **Bundled confirmation.** All confirmation-required calls surfaced in **one** message with named options (A1/A2/A3, B1/B2/B3, C1/C2). No death-by-a-thousand-questions.
-4. **Course-correction headroom.** When Dan auto-accepted genius defaults, the assistant re-checked each recommendation against substrate (step.md, ADRs, init.md) and downgraded wrong calls before executing.
 
 **Source flow:** the audit thread itself (2026-04-27, six flows in `Income/Flows/`). Two of the audit's own recommendations (delete navigator 05/06; restructure wholesaling) were re-evaluated and reversed at execution time after reading the actual substrate.
 
@@ -257,9 +245,7 @@ The audit invocation that produced this batch worked unusually well. The shape:
 
 **Source:** `catalina.beryl` (Wave 2 dogfood regen, 2026-04-28) → `_flow-blueprint/processes/0600-render-index-html/_eval.md`.
 
-**Verbatim observation:** "Python build script approach (read Pico + init.md + template → substitute → write) avoids 71KB CSS in a single tool-call; worth retaining as the canonical regen method for Claude Code Hands sessions."
 
-When Phase C of the 0600-render step runs in a Claude Code Hands session (VS Code multi-file build context), reading the full Pico CSS inline and emitting it as a single LLM-authored tool-call competes with context limits and slows execution. The Python build script — a small `build.py` (or equivalent inline invocation) — reads `pico.classless.min.css` + `init.md` + `template.html` from disk, injects the LLM-authored `FLOW_REPORT_SECTIONS` and `EMBEDDED_MD`, substitutes all six `{{PLACEHOLDERS}}`, and writes `index.html` in one Python call. This avoids the 71KB CSS appearing in the LLM's output stream and produces the same result.
 
 **How to apply:** When executing 0600-render from a Claude Code Hands session, prefer the Python build script over pure LLM substitution. The LLM authors the variable sections (Phase B output + EMBEDDED_MD); Python handles the file I/O and string substitution. See `_flow-blueprint/processes/0600-render-index-html/instructions.md` Phase C for the recommended script note.
 
@@ -297,7 +283,6 @@ Both are inert — CSS string literals and comments, not real network fetches or
 - **Next 3 Moves hero** — above-the-fold priority surface with explicit next actions
 - **Brief from Claude voice block** — inline editorial section authored at render time
 - **7-day cadence heartbeat** — activity timeline rendered from `_audit/runs.jsonl`
-- **Bark conditions panel** — active conditions from `init.md` rendered as a visual checklist
 - **Holographic LOB grid** — N/S/E/W/Z spatial navigation across portfolio axes
 - **Decisions Queue** — surfacing `docs/decisions/` backlog items inline
 
@@ -341,9 +326,9 @@ ACTIVE entries surface loudly on `index.html` as the first section — yellow wa
 
 ---
 
-## 2026-04-28 — Kingdom-level trigger surface (alpha.test) as a flow's runtime door
+## 2026-04-28 — codebase-level trigger surface (alpha.test) as a flow's runtime door
 
-The kingdom portal at `https://alpha.test/` gained a live flow surface: search-as-you-type, saved-search chips, ▶ Run buttons that POST to `api.php?action=trigger&path=<flow>` and spawn `flow-runner-llm/bin/run-flow` detached. Discovery is a live `find` (no registry, no cache) — a directory IS a flow if it has `processes/`. An `index.html` (omega) is preferred but not required — no-omega flows surface a yellow chip (interlinkage doctrine signal).
+The codebase portal at `https://alpha.test/` gained a live flow surface: search-as-you-type, saved-search chips, ▶ Run buttons that POST to `api.php?action=trigger&path=<flow>` and spawn `flow-runner-llm/bin/run-flow` detached. Discovery is a live `find` (no registry, no cache) — a directory IS a flow if it has `processes/`. An `index.html` (omega) is preferred but not required — no-omega flows surface a yellow chip (interlinkage doctrine signal).
 
 Companion surfaces interlink mutually: `flow-queue.test` (batch queue manager, ⚠️ Stalled / 🚀 Running / ❌ Failed / ✅ Completed buckets, auto-refresh while runs active) and `flow-atlas.test` (heavy audit, footer cross-links to portal + queue). The trigger surface honors trust: localhost-only `REMOTE_ADDR` check, path-must-exist-in-fresh-discovery allowlist (no path arguments accepted that weren't just discovered).
 
@@ -351,7 +336,7 @@ The `no omega` chip is wired to `?action=generate-omega` which spawns `Tooling/f
 
 A ✏️ inline button next to ▶ Run accepts an `--extraprompts` string via browser `prompt()` and threads it through to the runner — same path, same allowlist, same toast/queue plumbing, just with per-run prompt-injection context.
 
-**Source flows:** kingdom root (`api.php`, `index.html`); `Tooling/flow-queue/`; `Tooling/flow-omega-author/`
+**Source flows:** codebase root (`api.php`, `index.html`); `Tooling/flow-queue/`; `Tooling/flow-omega-author/`
 **Pattern:** PHP grep-server (one file, action-routed) + log-filename-as-queue-record (no separate queue.jsonl) + discovery-as-allowlist (no allowlist file) + Pico.classless throughout
 **Status:** shipped
 **Session:** 2026-04-28-aurora-trigger-surface (oracle: aurora · constellations)
@@ -380,13 +365,10 @@ When a flow has a runtime declaration in its `instructions.md` (e.g. `**Runtime:
 
 ## 2026-04-28 — Sub-Flow doctrine drift caught: `README.md` at SubFlow root + missing `_audit/` (session-id: 2026-04-28-amber-3-deal-intake)
 
-Audit of `Finance/Income/Flows/LOBs/wholesaling/processes/intake-funnel/` surfaced a class of drift that the blueprint's clone checklist didn't prevent: the SubFlow used `README.md` as its loud entry point instead of `init.md`, had no `_audit/runs.jsonl`, and no `## Blueprint reference` footer. `flow.md` §1.7 already declares Sub-Flows nest naturally with the same scaffold — the gap was that the blueprint README's clone checklist didn't make this explicit, AND `cp -R _flow-blueprint/ <new>/` carries the blueprint's own audit log into clones unless explicitly truncated.
 
 **Fix applied:**
 
-1. `_flow-blueprint/README.md` — clone checklist now applies to "every Flow at every depth" (top-level OR Sub-Flow), `_audit/runs.jsonl` truncation made step #1 of post-clone, `init.md`-not-`README.md` rule made explicit, Sub-Flow render-step exception documented (Sub-Flows may use `0NN-summary` instead of `0NN-render-index-html` when the parent LOB already renders the LOB-level `index.html` consuming SubFlow outputs).
 2. `_flow-blueprint/CHANGELOG.md` — entry logged.
-3. Wholesaling intake-funnel migrated: `README.md` → `init.md` (content conformed to template + Blueprint reference footer added); `_audit/runs.jsonl` seeded by the run that named the gap.
 
 **Why:** doctrine drift in shared-substrate flows compounds — every new SubFlow cloning the wholesaling pattern would inherit the drift. Catching it at the blueprint level and propagating once is cheaper than catching it per-clone forever.
 
@@ -406,17 +388,12 @@ The "subflows nest" pattern lived in prose for months (`flow.md` §1.7, README's
 **Decision rationale:**
 
 1. **Composition is orthogonal to archetype.** Workflow / Stitch / Catalog / Living-blueprint answer *what shape of work?* Subflow / parent-blueprint / instance answer *what's the relationship to other flows?* These are independent dimensions. Composition belongs in its own doctrine section, not as a fifth archetype.
-2. **Frontmatter beats separate manifest file.** YAML at the top of `init.md` is diff-friendly, lives next to the prose it describes, and matches the existing `init.md`-as-loud-entry-point doctrine. A separate `flow-graph.yaml` would create two sources of truth.
-3. **Multi-level inheritance via `blueprint_lineage` denormalized chain.** The naive recursive walk (read `parent_flows[0]/init.md`, recurse) works but doubles cold-boot cost for every level. `blueprint_lineage` is the pre-walked chain root-first; cold-boot reads it once and scans every ancestor's CHANGELOG. The link IS reference-not-lock: re-sync-by-divergence still applies.
-4. **Subflow rule is testable, not aesthetic.** A step folder is a subflow iff it contains its own `init.md` + `processes/`. Anything else is a leaf step. This makes `/flow audit` mechanical at every level.
 
 **How to apply:**
 
-- New flows scaffold with frontmatter populated (the blueprint's `init.md` template carries the empty schema).
-- When ≥ 2 instance flows share a recognizable shape, introduce an intermediate Living-blueprint flow scoped to the LOB. Don't put deal-shape blueprints at the kingdom root unless they generalize across LOBs.
+- When ≥ 2 instance flows share a recognizable shape, introduce an intermediate Living-blueprint flow scoped to the LOB. Don't put deal-shape blueprints at the codebase root unless they generalize across LOBs.
 - Cold-boot walks `blueprint_lineage` root-first; surfaces deltas one-line-per-ancestor. Apply manually on greenlight. The render step (`0600-render-index-html`) was extended to do this.
 
 **Source flow:** `_flow-blueprint/` (doctrine landed); `Finance/Income/Flows/LOBs/wholesaling/_short-sale-deal-blueprint/` + 3 deals (first exercise of multi-level inheritance).
 **Sister lessons:** Sub-Flow doctrine drift caught (2026-04-28-amber-3-deal-intake) — that lesson named the gap; this one names the structural fix.
-**Status:** promoted-2026-04-28 (changes applied to `doctrine.md`, `showcase.md`, `_flow-blueprint/init.md`, `_flow-blueprint/README.md`, `_flow-blueprint/CHANGELOG.md`, `_flow-blueprint/processes/0600-render-index-html/instructions.md`).
 **Session:** 2026-04-28-parent-child-flows

@@ -1,5 +1,5 @@
 /**
- * compass/bindings.js — Directional navigation for the kingdom portal.
+ * compass/bindings.js — Directional navigation for the codebase portal.
  * Metaphor: Layered Bands (locked Wave 5, aurora.taurus, 2026-04-28)
  *   N/S = scroll between bands, E/W = navigate within a band, Z = drill/ascend
  *
@@ -280,7 +280,7 @@
       element.setAttribute('role', 'region');
     }
     if (!element.getAttribute('aria-label')) {
-      element.setAttribute('aria-label', 'Kingdom compass navigation');
+      element.setAttribute('aria-label', 'codebase compass navigation');
     }
 
     _state.set(element, s);

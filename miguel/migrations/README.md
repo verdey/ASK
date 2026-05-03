@@ -12,7 +12,8 @@ Each entry is a sealed record of a completed migration. New migrations: author t
 
 | Entry | Date | Source | Destination | Notes |
 |-------|------|--------|-------------|-------|
-| [kingdom-merge](_kingdom-merge-2026-04-27.md) | 2026-04-27 | `~/code/` | `~/Documents/Claude/Projects/` | 50+ projects, 6 families, 31 hashes |
+| [wlm-agvaluation-roster-relocation](_wlm-agvaluation-roster-relocation-2026-04-29.md) | 2026-04-29 | `Income/Flows/LOBs/WLM-AgValuation/` | `Income/Flows/Roster/Chance/LOBs/WLM-AgValuation/` | Single-LOB relocation under Chance roster surface; compressed 2-tab pattern; no git |
+| [codebase-merge](_codebase-merge-2026-04-27.md) | 2026-04-27 | `~/code/` | `~/Documents/Claude/Projects/` | 50+ projects, 6 families, 31 hashes |
 
 ---
 

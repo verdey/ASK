@@ -1,6 +1,6 @@
 ---
 name: nav-metaphor
-description: N/S/E/W/Z navigation doctrine for the kingdom portal — Layered Bands (locked Wave 5)
+description: N/S/E/W/Z navigation doctrine for the codebase portal — Layered Bands (locked Wave 5)
 status: locked
 wave: 5
 locked_by: aurora.taurus
@@ -9,7 +9,7 @@ locked_at: 2026-04-28
 
 # Nav Metaphor — Layered Bands
 
-**Metaphor:** The portal is a vertical stack of four priority bands. Each band is a discrete layer of kingdom signal, ordered by urgency:
+**Metaphor:** The portal is a vertical stack of four priority bands. Each band is a discrete layer of codebase signal, ordered by urgency:
 
 1. **Today's Moves** — triage output, highest signal
 2. **Insight Fragments** — harvested chart data
@@ -33,7 +33,7 @@ S → scroll to next band; announce "Moved down to {band name}"
 E → focus next item in current band (next card, next flow row)
 W → focus previous item in current band
 Z-in → activate focused item (realm: drill to scoped flows; flow: open omega URL)
-Z-out → exit drill-down state; scroll to kingdom root band
+Z-out → exit drill-down state; scroll to codebase root band
 ```
 
 Bands are identified by their `data-band` attribute: `moves`, `insights`, `realms`, `flows`.

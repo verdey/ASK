@@ -71,7 +71,7 @@ Then one line per relevant option, in priority order:
 | `/surface` | exactly one open decision in the decision queue | Crystallize the single open decision into a persistent, resolvable asset at decisions.test. |
 | `/pause seal` | effort appears complete despite dirty signals | Close the chapter cleanly; write a cold-boot brief that names the first move of the next phase. |
 | `/pause` | mid-effort, not chapter-complete | Suspend mid-effort with full context preserved; resume exactly here in a fresh tab. |
-| `/triage` | stalled flows OR unclear what matters most | Surface today's highest-signal kingdom move before committing to a direction. |
+| `/triage` | stalled flows OR unclear what matters most | Surface today's highest-signal codebase move before committing to a direction. |
 
 **Formatting rules:**
 - Prefix each option with its skill's native emoji (🔥 knock, 🗝️ pause, 🔮 oracle, 🌊📌 surface, 📋 triage, 🔥⚡ commit).
@@ -103,7 +103,7 @@ Your smartest next moves:
 
 ## Rules
 
-- **Never write files.** `/close` is read-only over the kingdom. It produces only terminal output.
+- **Never write files.** `/close` is read-only over the codebase. It produces only terminal output.
 - **Never invoke other skills.** Name them; the user invokes.
 - **Skip gracefully on errors.** A failed check is silence, not a dirty signal.
 - **One sentence per option.** No elaboration. If the user wants more, they invoke the skill.

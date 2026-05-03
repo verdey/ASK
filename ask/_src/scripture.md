@@ -40,7 +40,7 @@
 
 #### `#scripture #source` Annotation
 
-The `#scripture #source` tag is the kingdom-wide trigger for sacred handling of soul.md content. When a user tags text with `#scripture #source` in ANY project under `~/code`:
+The `#scripture #source` tag is the codebase-wide trigger for sacred handling of soul.md content. When a user tags text with `#scripture #source` in ANY project under `~/code`:
 
 - The text is a candidate for the local `soul.md` chronicle
 - Apply the same sacred handling rigor as for scripture itself: high fidelity transcription, no hasty edits

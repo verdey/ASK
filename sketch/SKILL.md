@@ -13,7 +13,7 @@ Sister vessel to [`/parallel`](../parallel/SKILL.md) (dispatch) and [`/flow`](..
 
 ## Charter
 
-When Claude is about to ask Dan a clarifying question whose answer is **visual, aesthetic, or structural-with-2-to-5-defensible-defaults** — and Dan's ethos and stack for the current realm are already established (Pico.classless, static HTML, kingdom conventions, no build step, etc.) — **suppress the question.** Generate 2–5 ranked variants in parallel via [`/parallel`](../parallel/SKILL.md), package each with a 1-line rationale + ephemeral preview link, surface them as a multiple-choice gallery rolled into Dan's active flow surface. Selection prunes the others.
+When Claude is about to ask Dan a clarifying question whose answer is **visual, aesthetic, or structural-with-2-to-5-defensible-defaults** — and Dan's ethos and stack for the current realm are already established (Pico.classless, static HTML, codebase conventions, no build step, etc.) — **suppress the question.** Generate 2–5 ranked variants in parallel via [`/parallel`](../parallel/SKILL.md), package each with a 1-line rationale + ephemeral preview link, surface them as a multiple-choice gallery rolled into Dan's active flow surface. Selection prunes the others.
 
 The reason this matters: Dan can pick visually in one click. Describing options costs both of us a paragraph each and produces a worse answer because the words don't render.
 
@@ -25,7 +25,7 @@ All three must hold before suppressing the question:
 
 1. **Next move is a clarifier to Dan.** You're about to ask "do you want X or Y?", "should this be A or B?", or any variant.
 2. **The answer space is visual / layout / interaction-shape.** Not architecture, not data model, not external contract, not scope.
-3. **Stack and ethos for the realm are established.** You can rank 2–5 defensible candidates without further input. Read the realm's `CLAUDE.md` if uncertain — the kingdom's conventions are usually right there.
+3. **Stack and ethos for the realm are established.** You can rank 2–5 defensible candidates without further input. Read the realm's `CLAUDE.md` if uncertain — the codebase's conventions are usually right there.
 
 If all three hold: don't ask. Sketch.
 
@@ -35,6 +35,7 @@ If all three hold: don't ask. Sketch.
 - **Choices with compounding downstream consequences.** Schema changes, API contracts, dependency swaps. Five variants of a database migration is not a gallery, it's chaos.
 - **Genuinely low confidence in ranking.** If you can't surface ~3 defensible candidates from current context, ask — sketching slop wastes both of you.
 - **Dan explicitly asked for a recommendation, not options.** "Just pick one" means pick one, not paint five.
+- **Planning context with brief authorship in flight.** If the active skill is [`/oracle`](../oracle/SKILL.md) *or* plan mode is active *and* the work product is a brief / controller / wave document, do NOT auto-fire. Skill names inside briefs are deferred tokens — Oracle bakes `/sketch` into the execution table as a named build-step (e.g., *"Wave 2.3: dispatch `/sketch` for filter-bar variants"*); the build session executes it when it reaches that step. Sketch-as-input (firing during planning) is reserved for cases where Oracle's own scoping is genuinely blocked on a visual decision. When ambiguous, route to [`/oracle`](../oracle/SKILL.md) which will ask *"sketch now to inform the brief, or name it as a build step?"*
 
 When in doubt about whether a question is sketchable, route to [`/oracle`](../oracle/SKILL.md) for a quick scoping read instead.
 
@@ -114,7 +115,7 @@ Until that lands, the fallback is fine: surface the variants inline as a markdow
 
 ## Why this skill exists
 
-Dan flagged on 2026-04-27 that the clarifying-question reflex slows creative briefs. When he hands sub-pieces like *"the filter bar, the diff page, the cron trigger,"* the fastest path is **parallel prototypes he can pick from visually**, not a back-and-forth essay. His ethos is established (kingdom conventions are tight and documented), so ranking 5 defensible variants is feasible from context alone — no clarifier needed.
+Dan flagged on 2026-04-27 that the clarifying-question reflex slows creative briefs. When he hands sub-pieces like *"the filter bar, the diff page, the cron trigger,"* the fastest path is **parallel prototypes he can pick from visually**, not a back-and-forth essay. His ethos is established (codebase conventions are tight and documented), so ranking 5 defensible variants is feasible from context alone — no clarifier needed.
 
 [Skillz](../skillz/SKILL.md) audited the request and verdict was **CREATE — composition-flavored**: the dispatch already exists (`/parallel`), the surface already exists (`/flow`), the scoping already exists (`/oracle`). The novel piece is the **sensing layer** that suppresses the unnecessary question. That's this skill.
 

@@ -1,0 +1,34 @@
+# Portal kind classifier rules
+#
+# Loaded by api.php classify_kind() at request time (parsed once, memoized
+# per request). Edit this file to add/modify kind rules — no api.php change
+# needed. The /portal skill is the curator of portal doctrine, and "what
+# counts as a kind" lives here alongside that doctrine.
+#
+# Schema:
+#   rules: ordered list — first match wins.
+#     kind:    string returned when the rule matches.
+#     match:   one of: regex | contains | basename_eq | dir_exists | file_exists
+#     pattern: the value tested (regex with delimiters; literal for the rest).
+#     target:  one of: rel | dir | basename_rel
+#              - rel          → the relative path from codebase root
+#              - dir          → the absolute filesystem dir
+#              - basename_rel → basename(rel)
+#   default: kind returned if no rule matches.
+#
+# Multiple rules MAY share the same kind (used in place of OR/any-conditions).
+# Keep one rule per line in the flat form below — the parser is intentionally
+# small (no YAML extension required on Herd PHP).
+
+rules:
+  - { kind: roster,    match: regex,       pattern: '#/Roster/[^/]+$#',                                  target: rel }
+  - { kind: dashboard, match: contains,    pattern: '_dashboard',                                        target: rel }
+  - { kind: atlas,     match: basename_eq, pattern: 'flow-atlas',                                        target: rel }
+  - { kind: atlas,     match: contains,    pattern: '/flow-atlas',                                       target: rel }
+  - { kind: meta-flow, match: regex,       pattern: '#(_meta-flow|_flow-blueprint|_flow-navigator|_flow-omega-author)$#', target: basename_rel }
+  - { kind: stitch,    match: basename_eq, pattern: 'surface-backlogs',                                  target: rel }
+  - { kind: stitch,    match: contains,    pattern: '/surface-backlogs',                                 target: rel }
+  - { kind: flow,      match: dir_exists,  pattern: 'processes',                                         target: dir }
+  - { kind: hud,       match: file_exists, pattern: 'index.html',                                        target: dir }
+
+default: unknown

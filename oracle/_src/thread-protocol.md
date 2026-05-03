@@ -37,12 +37,12 @@ Two compact gate forms fit inside the existing Gate column to express parallel w
 
 | Gate form | Meaning |
 |---|---|
-| `🔒 waiting-on:children=[a,b,c]` | This thread (typically a parent / merge thread) is blocked until every listed sibling thread under the same oracle shows `✓ shipped` (or `✓ done` for non-final phases). When all children clear, the kingdom surface flags this thread as **merge-ready** and Oracle flips it to `🔓 ready`. |
+| `🔒 waiting-on:children=[a,b,c]` | This thread (typically a parent / merge thread) is blocked until every listed sibling thread under the same oracle shows `✓ shipped` (or `✓ done` for non-final phases). When all children clear, the codebase surface flags this thread as **merge-ready** and Oracle flips it to `🔓 ready`. |
 | `🔒 waiting-on:oracle=<other-oracle>.<thread-id>` | Cross-oracle gate — this thread is blocked until the named thread on another oracle's controller reaches `✓ shipped`. Oracle is still the sole writer; the surface signals readiness. |
 
 These forms make explicit what was previously informal (e.g. `glass.focal` sealing `camila.alpha` after its children ship). The bracketed list of children may grow mid-flight as new sibling threads bud — self-budding waves are the same shape, just with the parent's children list extending alongside the Thread Board rows.
 
-Oracle never auto-flips a merge gate. The surface (`oracle.test`, `api.php?action=kingdom-status`) emits a `merge_ready` signal when conditions are satisfied; Oracle reads it, reviews the children's AARs, then flips deliberately.
+Oracle never auto-flips a merge gate. The surface (`oracle.test`, `api.php?action=codebase-status`) emits a `merge_ready` signal when conditions are satisfied; Oracle reads it, reviews the children's AARs, then flips deliberately.
 
 ## Brief lifecycle
 
@@ -72,19 +72,39 @@ On entry, the spell MUST:
 2. **Locate** its row in the Thread Board by `<thread-id>`.
 3. **Verify** Gate field is `🔓 ready`. If not, refuse to proceed and surface the actual gate state to Dan; do not mutate.
 4. **Read** the thread's `Phase`, `Brief` (linked file path), and `Phases:` list from its ledger.
-5. **Flip** Gate to `▶ running:<current-phase>` and append a History line: `<ISO-8601> · <phase> · ▶ started · agent <thread-id>`.
-6. **Execute** per the spell's own playbook, using the linked brief if present.
-7. **On completion**:
-   - Append History line: `<ISO-8601> · <phase> · ✓ done · <one-line summary>`.
-   - Flip Gate to `✓ done`.
-   - Write any AAR fields into the linked brief (unchanged from legacy).
-8. **On failure**:
-   - Append History line: `<ISO-8601> · <phase> · ✗ blocked · <reason>`.
-   - Flip Gate to `✗ blocked`.
-   - Stop. Do not retry; do not advance.
-9. **Stop.** Tab idles awaiting Oracle's next gate-flip.
+5. **Draft a plan** at `~/.claude/plans/<thread-id>.md` per existing plan-mode conventions. Validate the plan against the brief's `## Spec` checklist + `## Touch` permissioned scopes + `## Tools` allowlist. If the plan cannot be reconciled with the brief (e.g. the work needs to write to a `!Forbid` path or call an unlisted tool), surface as `✗ blocked` and stop — do not silently widen scope.
+6. **Register the plan** by appending a row to the controller's `## 📋 Plans` table: `| <thread-id> | <abs plan path> | <ISO-8601 drafted> | — | <ISO-8601 last touched> |`. The Validator column starts as `—` (filled by the Validator subagent on completion).
+7. **Flip** Gate to `▶ running:<current-phase>` and append a History line: `<ISO-8601> · <phase> · ▶ started · agent <thread-id>`.
+8. **Execute** per the spell's own playbook, using the linked brief and the registered plan as the contract. Tick `- [x]` on each `## Spec` item in the brief as it lands.
+9. **Dispatch the Validator** as the final move BEFORE announcing `✓ done` (see §Validator below). Wait for the Validator to write its glyphs and Validator AAR.
+10. **On completion**:
+    - Append History line: `<ISO-8601> · <phase> · ✓ done · <one-line summary>`.
+    - Flip Gate to `✓ done`.
+    - Update the controller's `## 📋 Plans` row `Last touched` timestamp.
+    - Write the AAR section into the linked brief.
+11. **On failure**:
+    - Append History line: `<ISO-8601> · <phase> · ✗ blocked · <reason>`.
+    - Flip Gate to `✗ blocked`.
+    - Stop. Do not retry; do not advance.
+12. **Stop.** Tab idles awaiting Oracle's next gate-flip.
 
-Backwards compatibility: legacy `Brief: <abs-path>` paste-string remains supported for one-shot, non-orchestrated invocations.
+Backwards compatibility: legacy `Brief: <abs-path>` paste-string remains supported for one-shot, non-orchestrated invocations (no plan-register, no Validator dispatch — those are controller-mode obligations).
+
+## Validator
+
+A separate read-only subagent dispatched by the executor as its final move before announcing `✓ done`. The Validator closes the self-reporting loop: it verifies what landed in the codebase against the brief's checklist, instead of trusting the executor's AAR prose.
+
+**Contract:**
+- **Identity:** different agent from the executor. Bias to **Haiku 4.5** (read-only diff work, cheap).
+- **Inputs:** brief absolute path, plan absolute path, executor's AAR draft, controller absolute path.
+- **Method:** for each `- [ ]` (or `- [x]`) item in the brief's `## Spec`, verify the change actually landed via `git diff` against the branch's merge-base + targeted disk reads. **Never** trust the AAR's prose. Grep the diff for paths matching the brief's `## Touch` `!Forbid` lines — any hit is a forbidden-scope breach.
+- **Writes (bounded):**
+  - Appends inline glyph to each Spec checkbox in the brief: `- [x] ✓ <item>` (verified) or `- [x] ⚠ <item>` (claimed but unverified — see Validator AAR for one-line reason).
+  - Writes the brief's `## Validator AAR` section: counts of verified / flagged / forbid-breaches, glyph written to controller.
+  - Updates the controller's `## 📋 Plans` row Validator column: `✓` (all spec verified, no forbid breach) / `⚠` (any flag or breach) / `—` (skipped — only Oracle/Dan may authorize a skip; the reason MUST be in Validator AAR).
+- **Bounded actions:** read-only across the codebase; write-only to the brief (Spec inline glyphs + Validator AAR section) and the controller (Plans column glyph + Last touched). May NOT flip thread gates, edit Spec text, or write outside the brief / controller.
+- **Failure semantics:** if Validator writes `⚠`, Oracle does NOT auto-advance the thread to the next phase. The surface-pulse loop (§Surface-pulse cadence) picks up the `⚠` glyph on its next read; nav-strip orb on `oracle.test` pulses; Dan reviews and decides re-spell / accept deviation / branch a remediation thread.
+- **Closure hygiene:** on `✓ shipped` / `✗ cancelled` thread seal, the Validator column MUST be in a sealed state (`✓` or `—` with reason). Stale `pending` or empty Validator columns on sealed threads corrupt future audits and must be filled in the same closure pass.
 
 ## Oracle's gate-flip loop
 
@@ -106,6 +126,7 @@ See `controller-template.md` for the renderable form. Required sections:
 - H1 title with oracle name + realm
 - `**Last touched:**`, `**Status:**`, `**Arc:**` metadata
 - `## 🚦 Thread Board` table (Thread · Phase · Gate · Spell · Brief · Notes)
+- `## 📋 Plans` table (Thread · Plan path · Drafted · Validator · Last touched) — one row per executing thread; SSOT for plan paths
 - `## 📜 Thread ledgers` — one H3 per thread with `Phases:` / `Current:` / `History:` / `Next spell to paste:`
 - `## 🗝 Decisions` — 7-part decision blocks, deck links
 - `## 📂 Open seals` — pause briefs Oracle is carrying
@@ -119,4 +140,4 @@ A controller arc ends when every thread is `✓ shipped` or sealed via `/pause`.
 
 ## Surface
 
-The kingdom-rendered view lives at `http://oracles.test`. It is read-only over the controller markdown. The filesystem is the substrate; the surface is the lens.
+The codebase-rendered view lives at `http://oracle.test`. It is read-only over the controller markdown. The filesystem is the substrate; the surface is the lens.

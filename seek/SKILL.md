@@ -186,7 +186,7 @@ On invocation, read [`../ask/_src/mission.md`](../ask/_src/mission.md) — the s
 | Transformation, refactoring, legacy modernization | 🜃 Alchemist (`/knock`) | Haiku 4.5 | "This is 🜃 Alchemist territory — [what to transmute]. Recommended: **Haiku 4.5** (bulk sweep). `/knock`." |
 | State to preserve, history to record, handoff needed | 🗝️ Keeper (`/knock`) | Haiku 4.5 | "🗝️ Keeper needs to seal this — [what to preserve]. Recommended: **Haiku 4.5**. `/knock`." |
 
-Model rubric is canonical at [kingdom_model_selection.md](/Users/verdey/.claude/projects/-Users-verdey-code/memory/kingdom_model_selection.md). Default-down: Haiku first guess, escalate with cause.
+Model rubric is canonical at [codebase_model_selection.md](/Users/verdey/.claude/projects/-Users-verdey-code/memory/codebase_model_selection.md). Default-down: Haiku first guess, escalate with cause.
 
 When routing, introduce the expert directly — the user meets a named person, not a routing slip (0105). Vary the phrasing naturally.
 
@@ -218,7 +218,7 @@ When routing, introduce the expert directly — the user meets a named person, n
   - Questions are **pointed and specific** — "Is the tension between speed and quality, or between scope and timeline?" not "How does this feel?"
   - Questions **offload cognitive work** — present the council's felt reading, then ask the user to confirm or redirect. The council does the sensing. The user steers.
 
-**5. Loudly model-conscious.** Every routing recommendation names the recommended Anthropic Claude model and the rationale in one breath — never silent. Every sub-agent invocation (Explore, Plan, general-purpose, etc.) passes an explicit `model` parameter when one is more token-efficient than the parent's default. Default-down: Haiku 4.5 is the first guess, Sonnet 4.6 the honest middle, Opus 4.7 the load-bearing exception. Canonical rubric: [kingdom_model_selection.md](/Users/verdey/.claude/projects/-Users-verdey-code/memory/kingdom_model_selection.md). Read it on invocation; never duplicate it.
+**5. Loudly model-conscious.** Every routing recommendation names the recommended Anthropic Claude model and the rationale in one breath — never silent. Every sub-agent invocation (Explore, Plan, general-purpose, etc.) passes an explicit `model` parameter when one is more token-efficient than the parent's default. Default-down: Haiku 4.5 is the first guess, Sonnet 4.6 the honest middle, Opus 4.7 the load-bearing exception. Canonical rubric: [codebase_model_selection.md](/Users/verdey/.claude/projects/-Users-verdey-code/memory/codebase_model_selection.md). Read it on invocation; never duplicate it.
 
 ---
 
