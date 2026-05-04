@@ -109,6 +109,7 @@ Then fill the rest:
 
 | Section | Content |
 |---------|---------|
+| **Abstract** (v08+) | One short paragraph + one `.abstract-kind` chip from the closed list (`problem · scenario · opportunity · issue · bug · topic · project · scope`). Plain-language. Answers "what is this artifact" — NOT why (§Context) or how (§Approach). Sits first under the meta-strip. Mandatory. |
 | **Context** | Why this plan exists. 3–5 sentences. The problem, the trigger, the intended outcome. Cite files/URLs that prompted it. |
 | **Critical Files** | Every file the plan reads/writes/creates. Use absolute `file://` hrefs. Role column: READ / WRITE / CREATE / DELETE / REFERENCE. |
 | **Gaps & Unknowns** | Real, current unknowns. Each clarifier from §Conceptual Map renders here as a `.choice-block` (Phase B — see step 4). Plus honest chips: OPEN (Dan must answer), ASSUMED (proceeding with named assumption), NEEDS-X (blocked until X). Do NOT pad with fake gaps. If there are no real gaps, write one resolved chip noting "no significant gaps; proceeding additively." |
@@ -261,6 +262,8 @@ The `/plan` skill and `api.php` are mutually aware. They split the work cleanly 
 | `bloat.filesNet` | `<meta name="bloat-files-net" content="<signed int>">` — projected net file delta across codebase |
 | `bloat.locNet` | `<meta name="bloat-loc-net" content="<signed int>">` — projected net LoC delta |
 | `bloat.tier` | `<meta name="bloat-tier" content="reductive\|neutral\|additive-minor\|additive-major">` |
+| `abstract` (v08+) | presence + first-paragraph text of `<section id="abstract">` — parsed only if the listing surface wants the cold-reader preview |
+| `abstractKind` (v08+) | first `class` token on `<span class="abstract-kind ...">` (one of `problem · scenario · opportunity · issue · bug · topic · project · scope`) |
 | `conceptualMap` | presence of `<section id="conceptual-map">` (Phase A landmark) |
 | `choiceBlockCount` | count of `<div class="choice-block" ...>` (Phase B clarifiers) |
 | `defaultsPickedCount` | count of those carrying `data-default-picked="true"` |
@@ -365,7 +368,8 @@ The Plans listing at [http://alpha.test/Plans/](http://alpha.test/Plans/) render
 - **Gaps route to the right surface** — when a gap is `OPEN` or `NEEDS-DECISION`, include the `.gap-routes` footer with the `/surface` button; for `NEEDS-VISUAL` include the `/sketch` button; for `NEEDS-RESEARCH` include the `/planq` button. The blueprint has worked examples to copy.
 - **Don't invent chip types** — if an existing chip doesn't fit, surface as a one-line process note rather than minting a new one in a single plan.
 - **Populate the Bloat Impact section on scaffold** — fill the scorecard (files / LoC, added / removed / net) with honest projections, set the `bloat-tier` meta + tier badge, and audit each of the five edicts (codebase minimalism, KISS, centralized assets, HTML&gt;markdown, no extraneous docs). Default each edict to `followed` with a one-clause note; flip to `partial` / `violated` / `na` only when truthful. The `<meta name="bloat-*">` tags are what the listing surface badges — don't leave them empty if numbers are projectable.
-- **§Conceptual Map is mandatory and goes FIRST.** Every plan opens with `<section id="conceptual-map">` populated *before* any other substantive section is filled. Diagram-first when domain is visual; well-structured prose otherwise. Always end the section with a "Decision points" enumeration listing the clarifiers Phase B will surface. Plans without §Conceptual Map fail the two-phase doctrine and feel single-pour to Dan.
+- **§Abstract is mandatory and sits first under the meta-strip (v08+).** Every plan opens with `<section id="abstract">` containing one short paragraph + one `.abstract-kind` chip from the closed list (`problem · scenario · opportunity · issue · bug · topic · project · scope`). Plain language. Answers "what is this artifact" — NOT "why now" (that's §Context) or "how" (that's §Approach). If no chip fits, surface a one-line process note rather than minting a new genre. Reading order from v08+: Abstract → Conceptual Map → Context → Approach → Critical Files → Run Order → Gaps & Choices → Bloat & Edicts → Verification → Changelog → (Agent Execution Protocol, optional appendix).
+- **§Conceptual Map is mandatory and is the first PHASE-A artifact.** Every plan populates `<section id="conceptual-map">` (sits second, directly after §Abstract) *before* any other substantive section is filled. Diagram-first when domain is visual; well-structured prose otherwise. Always end the section with a "Decision points" enumeration listing the clarifiers Phase B will surface. Plans without §Conceptual Map fail the two-phase doctrine and feel single-pour to Dan.
 - **Decision-Choices block is the clarifier primitive.** Any clarifier with 2–4 ranked alternatives renders as a `.choice-block` (comparison-table form per blueprint v04+) — option × dimensions matrix with score-dot glyphs (●●●), one row marked `class="cb-default"`, with `data-default-picked="true"` on the wrapping `<div>` when the default is the current pick. Skill proposes the comparison axes per decision. Pre-compute the smart default; don't punt to Dan unless genuinely beyond reach.
 - **/sketch fires on experiential answers, not on candidate count.** Trigger is qualitative: dispatch `/sketch` (parallel subagent) only when the meaningful answer is a gallery of single-file inline prototypes for experiential preference. If the decision is text-comparable (architecture, scope, schema), the Decision-Choices block alone is the right move. Sketch outputs land under `Plans/<slug>/sketches/<gN-slug>/` and link back from the choice-block option rows.
 - **Stamp accent + glyph at scaffold.** `sp-scaffold-plan` writes a deterministic slug-hash hex into `:root { --plan-accent }` and the topic emoji into `<span class="hero-glyph">`. Pick a glyph that captures the work topic (🛡 auth, 🗺 navigation, 📊 analytics, 🧬 templates) at ASSESS time. Default 📋 is fine when the topic doesn't have an obvious match. Don't override the accent by hand — let the deterministic value stand so two plans never look alike by accident.
@@ -383,3 +387,10 @@ The Plans listing at [http://alpha.test/Plans/](http://alpha.test/Plans/) render
 - Registry surface → [`/Users/verdey/Documents/Claude/Projects/Plans/index.html`](file:///Users/verdey/Documents/Claude/Projects/Plans/index.html) · <http://alpha.test/Plans/>
 - HTML plan standard memory → `feedback_html_plan_standard.md`
 - Plan-versioning convention memory → `feedback_plan_versioning_convention.md`
+
+
+---
+
+## 🔗 Linking files
+
+When emitting a clickable file reference, follow [doctrine §Linking files](http://alpha.test/doctrine.html#linking-files): use the file's documented `*.test` surface if one exists; else fall back to `http://lens.test/?lens=0&path=<urlencoded-abs>` (use `bin/lens-link <abs-path> [emoji] [label]`). Never bare paths or `file://`.
